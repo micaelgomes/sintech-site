@@ -1,11 +1,14 @@
 import React from "react";
-import { Button as ChakraButton } from "@chakra-ui/react";
+import {
+  Button as ChakraButton,
+  ButtonProps as ChakraButtonProps,
+} from "@chakra-ui/react";
 
-interface ButtonProps {
+interface ButtonProps extends ChakraButtonProps {
   variant: "primary" | "secondary";
 }
 
-const Button: React.FC<ButtonProps> = ({ variant, children }) => {
+const Button: React.FC<ButtonProps> = ({ variant, children, ...props }) => {
   return (
     <ChakraButton
       backgroundColor={variant}
@@ -16,6 +19,7 @@ const Button: React.FC<ButtonProps> = ({ variant, children }) => {
       fontSize="xl"
       shadow="sm"
       _hover={{ backgroundColor: variant, transform: "translateY(-5px)" }}
+      {...props}
     >
       {children}
     </ChakraButton>

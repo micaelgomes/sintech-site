@@ -15,6 +15,17 @@ function App({ Component, pageProps }: AppProps) {
           content="Sintech - Sua segurança digital na ponta dos dedos"
           key="title"
         />
+        <meta
+          name="description"
+          content="Com mais de sete anos no mercado, a Sintech apresenta um
+menu de soluções de Certificação Digital de forma confiável no
+meio eletrônicos e soluções em Gestão Empresarial para empre
+sas que atuam diretamente com a atividade de certificação"
+        />
+        <meta
+          name="keywords"
+          content="Segurança Digital, Certificado, Gestão Empresarial"
+        />
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <Component {...pageProps} />

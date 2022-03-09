@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, Text, useMediaQuery, Wrap } from "@chakra-ui/react";
-import Image from "next/image";
+import { Image } from "@chakra-ui/react";
 import Link from "next/link";
 
 const Navbar: React.FC = () => {
@@ -14,27 +14,35 @@ const Navbar: React.FC = () => {
         margin="auto"
         justifyContent="space-between"
         alignItems="center"
+        py="4"
       >
-        <Image src="/logo.svg" alt="Logo sintech" width="150" height="100%" />
+        <Link href="/">
+          <Image
+            src="/logo.svg"
+            alt="Logo sintech"
+            width="150px"
+            height="100%"
+          />
+        </Link>
 
         {isLargerThan990 ? (
           <Wrap>
-            <Text fontWeight="semibold" pl="6" fontSize="xl">
+            <Text fontWeight="semibold" pl="6" fontSize="lg">
               <Link href="/cart">Início</Link>
             </Text>
-            <Text fontWeight="semibold" pl="6" fontSize="xl">
+            <Text fontWeight="semibold" pl="6" fontSize="lg">
               <Link href="/cart">Produtos</Link>
             </Text>
-            <Text fontWeight="semibold" pl="6" fontSize="xl">
+            <Text fontWeight="semibold" pl="6" fontSize="lg">
               <Link href="/cart">Blog</Link>
             </Text>
-            <Text fontWeight="semibold" pl="6" fontSize="xl">
+            <Text fontWeight="semibold" pl="6" fontSize="lg">
               <Link href="/cart">Atendimento</Link>
             </Text>
-            <Text fontWeight="semibold" pl="6" fontSize="xl">
+            <Text fontWeight="semibold" pl="6" fontSize="lg">
               <Link href="/cart">Seja um parceiro</Link>
             </Text>
-            <Text fontWeight="semibold" pl="6" fontSize="xl">
+            <Text fontWeight="semibold" pl="6" fontSize="lg">
               <Link href="/cart">Fale conosco</Link>
             </Text>
           </Wrap>
