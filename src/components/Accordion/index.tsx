@@ -24,7 +24,6 @@ const Accordion: React.FC = () => {
         backgroundColor="#447186"
         minHeight={500}
         p="24"
-        mt="24"
         width="100%"
         zIndex={5}
         _before={{
@@ -32,8 +31,8 @@ const Accordion: React.FC = () => {
           position: "absolute",
           height: 400,
           top: -50,
-          left: -650,
-          right: -650,
+          left: -750,
+          right: -750,
           zIndex: -5,
           backgroundColor: "#447186",
           borderRadius: "100%",
@@ -42,8 +41,8 @@ const Accordion: React.FC = () => {
           content: '""',
           position: "absolute",
           height: 400,
-          left: -650,
-          right: -650,
+          left: -750,
+          right: -750,
           bottom: -50,
           zIndex: -5,
           backgroundColor: "#447186",
@@ -83,8 +82,8 @@ const Accordion: React.FC = () => {
           content: '""',
           position: "absolute",
           height: 400,
-          left: -650,
-          right: -650,
+          left: -750,
+          right: -750,
           bottom: -300,
           zIndex: 0,
           backgroundColor: "#FFF",
