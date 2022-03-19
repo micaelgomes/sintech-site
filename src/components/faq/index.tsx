@@ -24,7 +24,6 @@ const Faq: React.FC = () => {
         flexDirection="column"
         width="100%"
         maxWidth={1200}
-        mt="24"
         mb="48"
         mx="auto"
       >

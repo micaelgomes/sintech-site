@@ -2,7 +2,7 @@
   "name": "sintech",
   "private": true,
   "scripts": {
-    "dev": "next",
+    "dev": "next -H 192.168.0.35",
     "build": "next build",
     "start": "next start",
     "serve": "next serve"

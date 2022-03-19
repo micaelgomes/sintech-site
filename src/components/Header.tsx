@@ -12,7 +12,7 @@ const Header: React.FC = () => {
       alignItems="center"
       width="100%"
       maxWidth={1200}
-      minHeight="calc(100vh - 200px)"
+      minHeight="calc(100vh - 82px)"
       zIndex={0}
     >
       <Stack width="100%" maxWidth="container.md" spacing={8}>
@@ -32,14 +32,7 @@ const Header: React.FC = () => {
         top={100}
         zIndex={-5}
         display={["none", "none", "none", "none", "none", "block"]}
-      >
-        <Image
-          src="/header.png"
-          alt="Homem usando celular"
-          width="600px"
-          height="1000px"
-        />
-      </Box>
+      ></Box>
     </Flex>
   );
 };

@@ -28,7 +28,7 @@ const HeaderProduto: React.FC = () => {
       <Flex
         position="relative"
         px="4"
-        pb="20"
+        pb="36"
         flexDirection="column"
         justifyContent="center"
         width="100%"
@@ -54,7 +54,7 @@ const HeaderProduto: React.FC = () => {
           height: 400,
           left: -750,
           right: -750,
-          bottom: -350,
+          bottom: -250,
           zIndex: 0,
           backgroundColor: "#FFF",
           borderRadius: "100%",

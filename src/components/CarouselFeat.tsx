@@ -4,22 +4,7 @@ import React from "react";
 
 const CarouselFeat: React.FC = () => {
   return (
-    <Box
-      position="relative"
-      zIndex={0}
-      _after={{
-        content: '""',
-        position: "absolute",
-        height: 500,
-        left: -750,
-        right: -750,
-        bottom: -420,
-        zIndex: 0,
-        backgroundColor: "#FFF",
-        borderRadius: "100%",
-        transform: "rotateZ(-3deg)",
-      }}
-    >
+    <Box position="relative" zIndex={0} mb="20">
       <Box
         position="absolute"
         backgroundColor="white"
