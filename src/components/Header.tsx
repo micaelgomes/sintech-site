@@ -32,7 +32,14 @@ const Header: React.FC = () => {
         top={100}
         zIndex={-5}
         display={["none", "none", "none", "none", "none", "block"]}
-      ></Box>
+      >
+        <Image
+          src="/header.png"
+          alt="Homem usando celular"
+          width="600px"
+          height="1000px"
+        />
+      </Box>
     </Flex>
   );
 };

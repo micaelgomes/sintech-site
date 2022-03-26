@@ -10,6 +10,7 @@ import {
 import React from "react";
 import Button from "../Button";
 import Title from "../Title";
+import { questions } from "./questions";
 
 const Faq: React.FC = () => {
   return (
@@ -32,32 +33,31 @@ const Faq: React.FC = () => {
         </Title>
 
         <HStack spacing={8} width="100%">
-          {Array(3)
-            .fill(0)
-            .map((_, i) => (
-              <Stack
-                key={i}
-                spacing={4}
-                justifyContent="center"
-                alignItems="center"
+          {questions.map((question, i) => (
+            <Stack
+              key={i}
+              spacing={10}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Image
+                src={`/assets/${question.icon}`}
+                alt="ecnpj"
+                width="150px"
+                height="150px"
+                filter="grayscale(50%)"
+              />
+              <Text
+                align="center"
+                fontSize="xl"
+                fontWeight="bold"
+                color="secondary"
               >
-                <Image
-                  src={`/assets/ecnpj.svg`}
-                  alt="ecnpj"
-                  width="150px"
-                  height="150px"
-                />
-                <Text
-                  align="center"
-                  fontSize="2xl"
-                  fontWeight="bold"
-                  color="secondary"
-                >
-                  Perguntas frequentes sobre certificados para Pessoa Jurídica
-                </Text>
-                <Button variant="secondary">Ver perguntas frequentes</Button>
-              </Stack>
-            ))}
+                {question.question}
+              </Text>
+              <Button variant="secondary">Ver perguntas frequentes</Button>
+            </Stack>
+          ))}
         </HStack>
       </Flex>
     </Flex>
