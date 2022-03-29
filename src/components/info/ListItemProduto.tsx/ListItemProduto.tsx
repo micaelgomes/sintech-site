@@ -1,9 +1,30 @@
 import { Box, Button, HStack, Stack, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
-const ListItemProduto: React.FC = () => {
+type ListItemProdutoProps = {
+  index: number;
+  curr: number;
+  setCurr: (index: number) => void;
+};
+
+const ListItemProduto: React.FC<ListItemProdutoProps> = ({
+  curr,
+  setCurr,
+  index,
+}) => {
   const [opened, setOpened] = useState(false);
+
+  const toggleOpen = () => {
+    setOpened(!opened);
+    setCurr(index);
+  };
+
+  useEffect(() => {
+    if (curr !== index) {
+      setOpened(false);
+    }
+  }, [curr]);
 
   return (
     <Stack
@@ -12,7 +33,7 @@ const ListItemProduto: React.FC = () => {
       px="2"
       py="3"
       cursor="pointer"
-      onClick={() => setOpened(!opened)}
+      onClick={toggleOpen}
       transition="all .3s ease-out"
       _hover={{
         transform: "translateY(-5px)",
@@ -65,4 +86,4 @@ const ListItemProduto: React.FC = () => {
   );
 };
 
-export default ListItemProduto;
+export default memo(ListItemProduto);

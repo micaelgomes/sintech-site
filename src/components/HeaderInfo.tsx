@@ -1,13 +1,17 @@
-import { Box, Flex, HStack, Stack, Switch, Text } from "@chakra-ui/react";
+import { Box, Flex, HStack, Stack, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import React from "react";
+import React, { memo, useState } from "react";
 import Button from "./Button";
 import { BiChevronDown } from "react-icons/bi";
 
 import Title from "./Title";
 import ListItemProduto from "./info/ListItemProduto.tsx/ListItemProduto";
+import Switch from "react-input-switch";
 
 const HeaderInfo: React.FC = () => {
+  const [currShowed, setCurrShowed] = useState<number>();
+  const [toMe, setToMe] = useState(false);
+
   return (
     <Flex
       px="4"
@@ -33,19 +37,56 @@ const HeaderInfo: React.FC = () => {
               Pra quem é o Certificado?
             </Title>
 
-            <HStack pt="4" pb="6">
-              <Text fontWeight="medium">Para Mim</Text>
-              <Switch id="email-alerts" />
-              <Text fontWeight="medium">Para minha Empresa</Text>
+            <HStack pt="4" pb="10">
+              <Text fontWeight="bold" color="secondary">
+                Para Mim
+              </Text>
+              {/* <Switch id="email-alerts" /> */}
+              <Switch
+                value={toMe}
+                onChange={setToMe}
+                styles={{
+                  container: {
+                    width: 36,
+                    height: 20,
+                  },
+                  track: {
+                    borderRadius: 10,
+                    backgroundColor: "#194F69",
+                  },
+                  trackChecked: {
+                    backgroundColor: "#194F69",
+                  },
+                  button: {
+                    top: 3,
+                    bottom: 3,
+                    left: 3,
+                    right: 18,
+                    backgroundColor: "#F5F5F3",
+                  },
+                  buttonChecked: {
+                    top: 3,
+                    bottom: 3,
+                    left: 18,
+                    right: 3,
+                    backgroundColor: "#F5F5F3",
+                  },
+                }}
+              />
+              ;<Text fontWeight="medium">Para minha Empresa</Text>
             </HStack>
 
             <HStack spacing="30px" alignItems="stretch">
               <Stack spacing="20px" flex={1}>
-                <ListItemProduto />
-                <ListItemProduto />
-                <ListItemProduto />
-                <ListItemProduto />
-                <ListItemProduto />
+                {Array(5)
+                  .fill(0)
+                  .map((_, i) => (
+                    <ListItemProduto
+                      index={i}
+                      curr={currShowed}
+                      setCurr={setCurrShowed}
+                    />
+                  ))}
               </Stack>
 
               <Stack
@@ -75,4 +116,4 @@ const HeaderInfo: React.FC = () => {
   );
 };
 
-export default HeaderInfo;
+export default memo(HeaderInfo);

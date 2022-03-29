@@ -18,7 +18,7 @@ import SignUp from "./SignUp";
 import Title from "./Title";
 
 const DadosCliente: React.FC = () => {
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
 
   return (
     <Flex
