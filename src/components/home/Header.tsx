@@ -1,5 +1,6 @@
 import { Box, Flex, Stack } from "@chakra-ui/react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import Button from "../globals/Button";
 import Subtitle from "../globals/Subtitle";
@@ -21,8 +22,14 @@ const Header: React.FC = () => {
         <Subtitle>Já sabe o tipo de certificado que procura?</Subtitle>
 
         <Stack spacing={4} direction={["column", "row"]}>
-          <Button variant="secondary">já sei o que preciso</Button>
-          <Button variant="primary">me ajude a descobrir o que preciso</Button>
+          <Link href="/lista/id">
+            <Button variant="secondary">já sei o que preciso</Button>
+          </Link>
+          <Link href="/info/id">
+            <Button variant="primary">
+              me ajude a descobrir o que preciso
+            </Button>
+          </Link>
         </Stack>
       </Stack>
 

@@ -8,9 +8,9 @@ import Partners from "../../components/home/Partners";
 
 const Produto = () => {
   const router = useRouter();
-  const { slug } = router.query;
+  const { id } = router.query;
 
-  console.log("produto: ", slug);
+  console.log("produto: ", id);
 
   return (
     <Container

@@ -19,6 +19,7 @@ const Button: React.FC<ButtonProps> = ({ variant, children, ...props }) => {
       fontSize="xl"
       shadow="sm"
       _hover={{ backgroundColor: variant, transform: "translateY(-5px)" }}
+      _active={{}}
       {...props}
     >
       {children}

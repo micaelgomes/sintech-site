@@ -5,6 +5,8 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import AppProvider from "../context";
 
+import "typeface-open-sans";
+
 function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider resetCSS theme={theme}>

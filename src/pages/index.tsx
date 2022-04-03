@@ -6,7 +6,6 @@ import ListService from "../components/home/ListServices";
 import Faq from "../components/home/faq";
 import Accordion from "../components/home/Accordion";
 
-import "typeface-open-sans";
 import Partners from "../components/home/Partners";
 import CarouselFeat from "../components/home/CarouselFeat";
 import { Flex } from "@chakra-ui/react";
