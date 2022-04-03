@@ -1,6 +1,8 @@
-import { Box, Button, HStack, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Stack, Text } from "@chakra-ui/react";
 import React, { memo, useEffect, useState } from "react";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
+
+import { motion } from "framer-motion";
 
 type ListItemProdutoProps = {
   index: number;
@@ -13,11 +15,13 @@ const ListItemProduto: React.FC<ListItemProdutoProps> = ({
   setCurr,
   index,
 }) => {
-  const [opened, setOpened] = useState(false);
+  const [opened, setOpened] = useState(curr === index);
 
   const toggleOpen = () => {
-    setOpened(!opened);
-    setCurr(index);
+    if (curr !== index) {
+      setOpened(!opened);
+      setCurr(index);
+    }
   };
 
   useEffect(() => {
@@ -36,7 +40,7 @@ const ListItemProduto: React.FC<ListItemProdutoProps> = ({
       onClick={toggleOpen}
       transition="all .3s ease-out"
       _hover={{
-        transform: "translateY(-5px)",
+        transform: "translateY(-3px)",
       }}
     >
       <HStack justifyContent="space-between">
@@ -46,7 +50,7 @@ const ListItemProduto: React.FC<ListItemProdutoProps> = ({
           fontSize="lg"
           ml="2"
         >
-          e-CPF A1 | Arquivo
+          e-CPF A3 | Token
         </Text>
         <Button
           position="relative"
@@ -55,7 +59,9 @@ const ListItemProduto: React.FC<ListItemProdutoProps> = ({
           variant="primary"
           p="unset"
           zIndex={0}
-          _hover={{}}
+          _hover={{
+            background: "none",
+          }}
           _after={{
             content: '""',
             position: "absolute",
@@ -73,15 +79,48 @@ const ListItemProduto: React.FC<ListItemProdutoProps> = ({
           )}
         </Button>
       </HStack>
-      {opened && (
+
+      <motion.div
+        style={{ margin: 0 }}
+        animate={{
+          height: opened ? "auto" : 0,
+          display: opened ? "block" : "none",
+          visibility: opened ? "visible" : "hidden",
+        }}
+        transition={{ ease: "linear" }}
+      >
         <Box px="2">
-          <Text fontSize="14px" color={opened ? "white" : "secondary"}>
-            Aenean scelerisque mi massa, eget tempor magna congue sed. Integer
-            tristique varius quam, eu varius orci rhoncus ac. Sed elit tortor,
-            convallis in mauris nec, sollicitudin consectetur nisi.
-          </Text>
+          <motion.div
+            animate={{
+              opacity: opened ? 1 : 0,
+            }}
+            transition={{ duration: 1 }}
+          >
+            <Stack>
+              <Text fontSize="14px" color={opened ? "white" : "secondary"}>
+                Aenean scelerisque mi massa, eget tempor magna congue sed.
+                Integer tristique varius quam, eu varius orci rhoncus ac. Sed
+                elit tortor, convallis in mauris nec, sollicitudin consectetur
+                nisi.
+              </Text>
+
+              <Flex>
+                <Button
+                  backgroundColor="primary"
+                  color="white"
+                  borderRadius="xl"
+                  mt="2"
+                  ml="auto"
+                  _hover={{}}
+                  _active={{}}
+                >
+                  Selecionar
+                </Button>
+              </Flex>
+            </Stack>
+          </motion.div>
         </Box>
-      )}
+      </motion.div>
     </Stack>
   );
 };

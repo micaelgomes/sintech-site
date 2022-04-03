@@ -2,8 +2,8 @@ import { Box, Center, Flex, Text } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
-import Subtitle from "../Subtitle";
-import Title from "../Title";
+import Subtitle from "../../globals/Subtitle";
+import Title from "../../globals/Title";
 
 import { services } from "./services";
 

@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
-import Button from "../Button";
+import Button from "../../globals/Button";
 import AccordionItem from "./AccordionItem";
 import { questions } from "./questions";
 

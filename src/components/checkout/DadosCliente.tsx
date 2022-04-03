@@ -12,10 +12,10 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import React, { useState } from "react";
-import Button from "./Button";
+import Button from "../globals/Button";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-import Title from "./Title";
+import Title from "../globals/Title";
 
 const DadosCliente: React.FC = () => {
   const [isLogged, setIsLogged] = useState(false);

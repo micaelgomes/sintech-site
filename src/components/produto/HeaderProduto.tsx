@@ -8,8 +8,8 @@ import {
   Button as ButtonChakra,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import Button from "./Button";
-import Navbar from "./Navbar";
+import Button from "../globals/Button";
+import Navbar from "../globals/Navbar";
 
 const HeaderProduto: React.FC = () => {
   const [textContent, setTextContent] = useState(

@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
-import Container from "../../components/Container";
-import Faq from "../../components/faq";
-import Accordion from "../../components/Accordion";
-import Footer from "../../components/Footer";
-import HeaderProduto from "../../components/HeaderProduto";
-import Partners from "../../components/Partners";
+import Container from "../../components/globals/Container";
+import Faq from "../../components/home/faq";
+import Accordion from "../../components/home/Accordion";
+import Footer from "../../components/globals/Footer";
+import HeaderProduto from "../../components/produto/HeaderProduto";
+import Partners from "../../components/home/Partners";
 
 const Produto = () => {
   const router = useRouter();

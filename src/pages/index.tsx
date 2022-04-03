@@ -1,14 +1,14 @@
-import Navbar from "../components/Navbar";
-import Container from "../components/Container";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import ListService from "../components/ListServices";
-import Faq from "../components/faq";
-import Accordion from "../components/Accordion";
+import Navbar from "../components/globals/Navbar";
+import Container from "../components/globals/Container";
+import Header from "../components/home/Header";
+import Footer from "../components/globals/Footer";
+import ListService from "../components/home/ListServices";
+import Faq from "../components/home/faq";
+import Accordion from "../components/home/Accordion";
 
 import "typeface-open-sans";
-import Partners from "../components/Partners";
-import CarouselFeat from "../components/CarouselFeat";
+import Partners from "../components/home/Partners";
+import CarouselFeat from "../components/home/CarouselFeat";
 import { Flex } from "@chakra-ui/react";
 
 const Index = () => (

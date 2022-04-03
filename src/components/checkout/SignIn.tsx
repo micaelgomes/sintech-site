@@ -1,7 +1,7 @@
 import { FormControl, HStack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
-import Button from "./Button";
+import Button from "../globals/Button";
 import InputCheckout from "./inputCheckout";
 
 const SignIn: React.FC = () => {

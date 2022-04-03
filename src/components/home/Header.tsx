@@ -1,9 +1,9 @@
 import { Box, Flex, Stack } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
-import Button from "./Button";
-import Subtitle from "./Subtitle";
-import Title from "./Title";
+import Button from "../globals/Button";
+import Subtitle from "../globals/Subtitle";
+import Title from "../globals/Title";
 
 const Header: React.FC = () => {
   return (
@@ -35,9 +35,11 @@ const Header: React.FC = () => {
       >
         <Image
           src="/header.png"
+          blurDataURL="/header.png"
           alt="Homem usando celular"
-          width="600px"
-          height="1000px"
+          placeholder="blur"
+          width={600}
+          height={1000}
         />
       </Box>
     </Flex>

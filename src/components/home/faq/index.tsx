@@ -8,8 +8,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import Button from "../Button";
-import Title from "../Title";
+import Button from "../../globals/Button";
+import Title from "../../globals/Title";
 import { questions } from "./questions";
 
 const Faq: React.FC = () => {

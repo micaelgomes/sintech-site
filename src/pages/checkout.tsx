@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
-import DadosCliente from "../components/DadosCliente";
-import Navbar from "../components/Navbar";
-import Container from "../components/Container";
+import DadosCliente from "../components/checkout/DadosCliente";
+import Navbar from "../components/globals/Navbar";
+import Container from "../components/globals/Container";
 
 import "typeface-open-sans";
 

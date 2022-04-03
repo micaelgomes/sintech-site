@@ -14,6 +14,19 @@ const breakpoints = createBreakpoints({
 });
 
 const theme = extendTheme({
+  styles: {
+    global: {
+      button: {
+        _hover: {
+          backgroundColor: "primary",
+          opacity: 0.9,
+        },
+        _active: {
+          backgroundColor: "primary",
+        },
+      },
+    },
+  },
   colors: {
     black: "#020001",
     primary: "#47C192",
