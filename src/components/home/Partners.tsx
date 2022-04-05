@@ -1,15 +1,34 @@
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 
 const Partners: React.FC = () => {
   return (
-    <Flex width="100%" mb="16">
+    <Box
+      position="relative"
+      width="100%"
+      py="16"
+      backgroundColor="white"
+      _before={{
+        content: '""',
+        position: "absolute",
+        borderTopLeftRadius: "50% 100%",
+        borderTopRightRadius: "50% 100%",
+        background: "white",
+        top: "-60px",
+        left: -100,
+        right: -100,
+        zIndex: 1,
+        height: 85,
+      }}
+    >
       <Flex
+        position="relative"
         alignItems="center"
         justifyContent="center"
         maxWidth={1200}
         mx="auto"
+        zIndex={5}
       >
         <Image
           src="/receita.jpg"
@@ -46,7 +65,7 @@ const Partners: React.FC = () => {
           height={175}
         />
       </Flex>
-    </Flex>
+    </Box>
   );
 };
 

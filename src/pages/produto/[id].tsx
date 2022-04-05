@@ -20,12 +20,12 @@ const Produto = () => {
     >
       <HeaderProduto />
 
-      <Faq />
+      {/* <Faq />
 
       <Accordion />
       <Partners />
 
-      <Footer />
+      <Footer /> */}
     </Container>
   );
 };

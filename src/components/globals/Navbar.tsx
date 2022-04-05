@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
   const [isLargerThan990] = useMediaQuery("(min-width: 990px)");
 
   return (
-    <Flex width="100%" px="4">
+    <Flex width="100%" px="4" zIndex={1}>
       <Flex
         width="100%"
         maxWidth={1200}

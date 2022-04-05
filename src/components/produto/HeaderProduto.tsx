@@ -48,17 +48,17 @@ const HeaderProduto: React.FC = () => {
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
         }}
-        _after={{
-          content: '""',
-          position: "absolute",
-          height: 400,
-          left: -750,
-          right: -750,
-          bottom: -250,
-          zIndex: 0,
-          backgroundColor: "#FFF",
-          borderRadius: "100%",
-        }}
+        // _after={{
+        //   content: '""',
+        //   position: "absolute",
+        //   height: 400,
+        //   left: -750,
+        //   right: -750,
+        //   bottom: -250,
+        //   zIndex: 0,
+        //   backgroundColor: "#FFF",
+        //   borderRadius: "100%",
+        // }}
       >
         <Box backgroundColor="white" p="4" borderRadius="xl" mb="6" shadow="lg">
           <Text fontSize="3xl" fontWeight="semibold" color="secondary">

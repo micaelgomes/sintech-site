@@ -3,18 +3,19 @@ import {
   Center,
   Flex,
   FormControl,
-  FormHelperText,
-  FormLabel,
   Heading,
-  Input,
+  HStack,
   Stack,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 import Button from "../../globals/Button";
 import AccordionItem from "./AccordionItem";
+import InputPartner from "./inputPartner";
 import { questions } from "./questions";
+import { FiSend } from "react-icons/fi";
 
 const Accordion: React.FC = () => {
   return (
@@ -22,31 +23,34 @@ const Accordion: React.FC = () => {
       <Box
         position="relative"
         backgroundColor="#447186"
-        minHeight={500}
-        p="24"
         width="100%"
-        zIndex={5}
+        pt="8"
         _before={{
           content: '""',
           position: "absolute",
-          height: 400,
-          top: -50,
-          left: -750,
-          right: -750,
-          zIndex: -5,
-          backgroundColor: "#447186",
-          borderRadius: "100%",
+          backgroundImage: "url('/waves/faq_top.png')",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "100%",
+          backgroundPosition: "top",
+          width: "100%",
+          height: 100,
+          left: 0,
+          right: 0,
+          zIndex: 5,
+          top: -100,
         }}
         _after={{
           content: '""',
           position: "absolute",
-          height: 400,
-          left: -750,
-          right: -750,
-          bottom: -50,
-          zIndex: -5,
-          backgroundColor: "#447186",
-          borderRadius: "100%",
+          backgroundImage: "url('/waves/faq_bottom.png')",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "100%",
+          backgroundPosition: "bottom",
+          width: "100%",
+          height: 100,
+          left: 0,
+          right: 0,
+          zIndex: 5,
         }}
       >
         <Stack alignItems="center" spacing={4}>
@@ -73,27 +77,26 @@ const Accordion: React.FC = () => {
         </Center>
       </Box>
 
+      {/* Formulário */}
+
       <Flex
         position="relative"
         zIndex={0}
         backgroundColor="secondary"
         width="100%"
-        _after={{
-          content: '""',
-          position: "absolute",
-          height: 400,
-          left: -750,
-          right: -750,
-          bottom: -300,
-          zIndex: 0,
-          backgroundColor: "#FFF",
-          borderRadius: "100%",
-        }}
+        mt="4"
       >
-        <Box mr="4">
+        <Box
+          mr="4"
+          width="100%"
+          height="100%"
+          maxWidth={750}
+          display={["none", "none", "none", "none", "block", "block"]}
+        >
           <Image
-            src="/partner.png"
-            alt="mulher olhando o celular"
+            src="/partner_image_man.png"
+            alt="Homem empresário na foto"
+            layout="responsive"
             width={750}
             height={900}
           />
@@ -106,20 +109,52 @@ const Accordion: React.FC = () => {
           width="100%"
           m="4"
         >
-          <Heading
-            color="white"
-            fontSize="5xl"
-            fontWeight="bold"
-            maxWidth={700}
-          >
-            Seja um parceiro Sintech, Entre em contato conosco.
-          </Heading>
+          <Box maxWidth={700} mx="auto">
+            <Heading color="white" fontSize="5xl" fontWeight="bold" mb="4">
+              Seja um parceiro Sintech, Entre em contato conosco.
+            </Heading>
 
-          <FormControl>
-            <FormLabel htmlFor="email">Email address</FormLabel>
-            <Input id="email" type="email" />
-            <FormHelperText>We'll never share your email.</FormHelperText>
-          </FormControl>
+            <FormControl>
+              <HStack spacing="4">
+                <InputPartner id="name" name="name" placeholder="Nome:" />
+                <InputPartner
+                  id="surname"
+                  name="surname"
+                  placeholder="Sobrenome:"
+                />
+              </HStack>
+              <HStack spacing="4">
+                <InputPartner id="email" name="email" placeholder="E-mail:" />
+                <InputPartner id="phone" name="phone" placeholder="Telefone:" />
+              </HStack>
+
+              <Box my="2">
+                <Textarea
+                  placeholder="Nos deixe uma mensagem: "
+                  backgroundColor="white"
+                  size="lg"
+                  height={120}
+                  _placeholder={{ fontWeight: 700, color: "gray.400" }}
+                />
+              </Box>
+
+              <Box pt="1">
+                <Button
+                  variant="primary"
+                  backgroundColor="primary"
+                  color="white"
+                  borderRadius="xl"
+                  minWidth={200}
+                  mt="2"
+                  ml="auto"
+                  _active={{}}
+                >
+                  <Text mx="2">Enviar</Text>
+                  <FiSend color="#FFF" size={30} />
+                </Button>
+              </Box>
+            </FormControl>
+          </Box>
         </Flex>
       </Flex>
     </>
