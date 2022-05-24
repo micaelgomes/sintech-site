@@ -4,29 +4,35 @@ import React from "react";
 
 const CarouselFeat: React.FC = () => {
   return (
-    <Box position="relative" zIndex={0} mb="20">
+    <Box position="relative" zIndex={0} mb={["96", "96", "20", "20", "20"]}>
       <Box
         position="absolute"
-        backgroundColor="white"
-        opacity={0.75}
+        backgroundColor={[
+          "transparent",
+          "transparent",
+          "white",
+          "white",
+          "white",
+        ]}
+        opacity={[1, 1, 0.75, 0.75, 0.75]}
         borderRightRadius="3xl"
-        top="40%"
-        py="28"
-        px="24"
-        width="container.md"
-        textAlign="right"
+        top={["80%", "95%", "40%", "40%", "40%"]}
+        py={["28", "28", "28", "28", "28"]}
+        px={["0", "0", "24", "24", "24"]}
+        width={["100%", "100%", "container.md", "container.md", "container.md"]}
+        textAlign={["left", "left", "right", "right", "right"]}
         zIndex={5}
       >
         <Heading
           color="secondary"
-          fontSize="7xl"
-          textAlign="right"
+          fontSize={["4xl", "5xl", "7xl", "7xl", "7xl"]}
+          textAlign={["left", "left", "right", "right", "right"]}
           pl="4"
           lineHeight={0.95}
         >
           Video Chamada
         </Heading>
-        <Text fontSize="2xl" fontWeight="thin" mt="6">
+        <Text fontSize="2xl" fontWeight="thin" mt="6" pl="4">
           Pensando nisso, a Sintech oferece serviços para trazer comodidade,
           agilidade, segurança e garantia nas atividades de seus clientes pelo
           meio digital.
@@ -34,6 +40,7 @@ const CarouselFeat: React.FC = () => {
       </Box>
 
       <Box
+        display={["none", "none", "block", "block", "block"]}
         position="absolute"
         borderTopLeftRadius="3xl"
         borderBottomLeftRadius="3xl"
@@ -75,6 +82,7 @@ const CarouselFeat: React.FC = () => {
 
       <Image
         src="/woman.png"
+        blurDataURL="/woman.png"
         alt="mulher olhando o celular"
         width={1920}
         height={1560}

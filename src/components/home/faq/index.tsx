@@ -20,7 +20,6 @@ const Faq: React.FC = () => {
       bgGradient="linear(to-b, #FFFFFF, #A7D5ED)"
     >
       <Flex
-        px="4"
         alignItems="flex-start"
         flexDirection="column"
         width="100%"
@@ -28,18 +27,13 @@ const Faq: React.FC = () => {
         mb="48"
         mx="auto"
       >
-        <Title variant="h1" maxWidth={500} mb="28">
+        <Title variant="h1" maxWidth={500} px="4" mb="28">
           Perguntas Frequentes
         </Title>
 
-        <HStack spacing={8} width="100%">
+        <HStack spacing={8} width="100%" px="4" pb="4" overflowX={"auto"}>
           {questions.map((question, i) => (
-            <Stack
-              key={i}
-              spacing={10}
-              justifyContent="center"
-              alignItems="center"
-            >
+            <Stack key={i} spacing={10} height="100%" alignItems="center">
               <Image
                 src={`/assets/${question.icon}`}
                 alt="ecnpj"
@@ -52,10 +46,13 @@ const Faq: React.FC = () => {
                 fontSize="xl"
                 fontWeight="bold"
                 color="secondary"
+                height="100%"
               >
                 {question.question}
               </Text>
-              <Button variant="secondary">Ver perguntas frequentes</Button>
+              <Button variant="secondary" mt="auto">
+                Ver perguntas frequentes
+              </Button>
             </Stack>
           ))}
         </HStack>

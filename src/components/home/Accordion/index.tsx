@@ -8,6 +8,7 @@ import {
   Stack,
   Text,
   Textarea,
+  Button as ButtonChakra,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
@@ -15,7 +16,7 @@ import Button from "../../globals/Button";
 import AccordionItem from "./AccordionItem";
 import InputPartner from "./inputPartner";
 import { questions } from "./questions";
-import { FiSend } from "react-icons/fi";
+import { FiChevronUp, FiSend } from "react-icons/fi";
 
 const Accordion: React.FC = () => {
   return (
@@ -24,7 +25,7 @@ const Accordion: React.FC = () => {
         position="relative"
         backgroundColor="#447186"
         width="100%"
-        pt="8"
+        px={["4", "4", "0"]}
         _before={{
           content: '""',
           position: "absolute",
@@ -53,6 +54,41 @@ const Accordion: React.FC = () => {
           zIndex: 5,
         }}
       >
+        <Box
+          position="absolute"
+          width="100%"
+          height="10px"
+          backgroundColor="#447186"
+          left={0}
+          marginTop="-5px"
+          zIndex={0}
+        />
+
+        <Center mb="20" mt="0">
+          <ButtonChakra
+            background={"transparent"}
+            zIndex={1}
+            width="75px"
+            height="75px"
+            _before={{
+              content: '""',
+              position: "absolute",
+              backgroundColor: "#CEE4E2",
+              width: 75,
+              height: 75,
+              zIndex: -1,
+              borderRadius: "100%",
+            }}
+            _active={{}}
+            _pressed={{}}
+            _hover={{
+              backgroundColor: "transparent",
+            }}
+          >
+            <FiChevronUp size={48} />
+          </ButtonChakra>
+        </Center>
+
         <Stack alignItems="center" spacing={4}>
           {questions.map((question, i) => (
             <AccordionItem
@@ -63,18 +99,39 @@ const Accordion: React.FC = () => {
           ))}
         </Stack>
 
-        <Center flexDirection="column" mt="16">
-          <Heading color="white" fontSize="5xl" fontWeight="semibold">
+        <Center flexDirection="column" mt="16" px={["2", "2", "0"]}>
+          <Heading
+            color="white"
+            fontSize="5xl"
+            fontWeight="semibold"
+            textAlign={["left", "center", "center"]}
+          >
             Ainda precisa de ajuda?
           </Heading>
-          <Text color="white" mt="4" fontSize="2xl" fontWeight="semibold">
+          <Text
+            color="white"
+            mt="4"
+            fontSize="2xl"
+            fontWeight="semibold"
+            textAlign={["left", "center", "center"]}
+          >
             Entre em contato com a gente através dos nossos canais de
             atendimento.
           </Text>
-          <Button variant="primary" mt="8">
+          <Button variant="primary" mt="8" zIndex={10}>
             Ver todos os contatos
           </Button>
         </Center>
+
+        <Box
+          position="absolute"
+          width="100%"
+          height="10px"
+          backgroundColor="#447186"
+          left={0}
+          marginTop="-5px"
+          zIndex={0}
+        />
       </Box>
 
       {/* Formulário */}
@@ -101,16 +158,23 @@ const Accordion: React.FC = () => {
             height={900}
           />
         </Box>
+
         <Flex
           alignItems="center"
           justifyContent="center"
           flexDirection="column"
           maxWidth="container.lg"
           width="100%"
-          m="4"
+          mx="4"
+          my={["36", "48", "48", "16"]}
         >
           <Box maxWidth={700} mx="auto">
-            <Heading color="white" fontSize="5xl" fontWeight="bold" mb="4">
+            <Heading
+              color="white"
+              fontSize={["3xl", "4xl", "5xl", "5xl"]}
+              fontWeight="bold"
+              mb="6"
+            >
               Seja um parceiro Sintech, Entre em contato conosco.
             </Heading>
 

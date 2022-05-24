@@ -1,5 +1,13 @@
 import React from "react";
-import { Box, Flex, HStack, Text, useMediaQuery, Wrap } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Text,
+  useMediaQuery,
+  Wrap,
+} from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import Link from "next/link";
 import {
@@ -7,9 +15,10 @@ import {
   AiOutlineShoppingCart,
   AiOutlineUser,
 } from "react-icons/ai";
+import { FiMenu } from "react-icons/fi";
 
 const Navbar: React.FC = () => {
-  const [isLargerThan990] = useMediaQuery("(min-width: 990px)");
+  const [isLargerThan990] = useMediaQuery("(min-width: 1100px)");
 
   return (
     <Flex width="100%" px="4" zIndex={1}>
@@ -72,7 +81,9 @@ const Navbar: React.FC = () => {
             </HStack>
           </Wrap>
         ) : (
-          <button>menu</button>
+          <Button>
+            <FiMenu size={22} />
+          </Button>
         )}
       </Flex>
     </Flex>

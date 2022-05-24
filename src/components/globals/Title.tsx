@@ -13,7 +13,7 @@ const Title: React.FC<TitleProps> = ({
   return (
     <Heading
       as={variant}
-      fontSize={["5xl", "5xl", "6xl", "7xl"]}
+      fontSize={["5xl", "7xl"]}
       fontWeight="bold"
       color="secondary"
       lineHeight="shorter"

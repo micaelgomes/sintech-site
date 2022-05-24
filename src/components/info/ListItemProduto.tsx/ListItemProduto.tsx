@@ -8,12 +8,14 @@ type ListItemProdutoProps = {
   index: number;
   curr: number;
   setCurr: (index: number) => void;
+  rotulo: string;
 };
 
 const ListItemProduto: React.FC<ListItemProdutoProps> = ({
   curr,
   setCurr,
   index,
+  rotulo,
 }) => {
   const [opened, setOpened] = useState(curr === index);
 
@@ -47,10 +49,10 @@ const ListItemProduto: React.FC<ListItemProdutoProps> = ({
         <Text
           color={opened ? "white" : "secondary"}
           fontWeight="bold"
-          fontSize="lg"
+          fontSize="xl"
           ml="2"
         >
-          e-CPF A3 | Token
+          {rotulo}
         </Text>
         <Button
           position="relative"
@@ -97,19 +99,18 @@ const ListItemProduto: React.FC<ListItemProdutoProps> = ({
             transition={{ duration: 1 }}
           >
             <Stack>
-              <Text fontSize="14px" color={opened ? "white" : "secondary"}>
+              <Text fontSize="md" mb="2" color={opened ? "white" : "secondary"}>
                 Aenean scelerisque mi massa, eget tempor magna congue sed.
                 Integer tristique varius quam, eu varius orci rhoncus ac. Sed
                 elit tortor, convallis in mauris nec, sollicitudin consectetur
                 nisi.
               </Text>
 
-              <Flex>
+              <Flex display={["flex", "flex", "none"]}>
                 <Button
                   backgroundColor="primary"
                   color="white"
                   borderRadius="xl"
-                  mt="2"
                   ml="auto"
                   _hover={{}}
                   _active={{}}

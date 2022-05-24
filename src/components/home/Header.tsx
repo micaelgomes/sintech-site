@@ -13,13 +13,39 @@ const Header: React.FC = () => {
       alignItems="center"
       width="100%"
       maxWidth={1200}
-      minHeight="calc(100vh - 82px)"
+      minHeight={["calc(100vh - 200px)", "calc(100vh - 82px)"]}
       zIndex={0}
     >
-      <Stack width="100%" maxWidth="container.md" spacing={8}>
+      <Stack
+        position="relative"
+        width="100%"
+        maxWidth="container.md"
+        spacing={8}
+        _before={{
+          content: '""',
+          backgroundColor: [
+            "transparent",
+            "white",
+            "white",
+            "white",
+            "white",
+            "transparent",
+          ],
+          opacity: 0.85,
+          width: "calc(100% + 128px)",
+          height: "calc(100% + 256px)",
+          marginLeft: "-64px",
+          marginTop: "-128px",
+          position: "absolute",
+          zIndex: -1,
+          borderRadius: "2rem",
+        }}
+      >
         <Title variant="h1">Sua segurança digital na ponta dos dedos</Title>
 
-        <Subtitle>Já sabe o tipo de certificado que procura?</Subtitle>
+        <Subtitle fontSize={["xl", "4xl", "3xl", "3xl", "3xl"]}>
+          Já sabe o tipo de certificado que procura?
+        </Subtitle>
 
         <Stack spacing={4} direction={["column", "row"]}>
           <Link href="/lista/id">
@@ -38,7 +64,7 @@ const Header: React.FC = () => {
         right={0}
         top={100}
         zIndex={-5}
-        display={["none", "none", "none", "none", "none", "block"]}
+        display={["none", "block"]}
       >
         <Image
           src="/header.png"

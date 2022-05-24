@@ -17,7 +17,9 @@ type ButtonValidadeProps = {
   qtdMonths: number[];
 };
 
-const ButtonValidade: React.FC<ButtonValidadeProps> = ({ qtdMonths }) => {
+const ButtonTipoAtendimento: React.FC<ButtonValidadeProps> = ({
+  qtdMonths,
+}) => {
   const [opened, setOpened] = useState(false);
   const [selected, setSelected] = useState("12");
 
@@ -28,7 +30,7 @@ const ButtonValidade: React.FC<ButtonValidadeProps> = ({ qtdMonths }) => {
   return (
     <Stack
       position="absolute"
-      top="70px"
+      top="20px"
       w="100%"
       backgroundColor="white"
       borderRadius="2xl"
@@ -40,7 +42,7 @@ const ButtonValidade: React.FC<ButtonValidadeProps> = ({ qtdMonths }) => {
     >
       <HStack justifyContent="space-between" onClick={toggleOpen}>
         <Text color="secondary" fontWeight="bold" fontSize="lg" ml="2">
-          Validade do Certificado
+          Tipo de Atendimento
         </Text>
         <Button
           position="relative"
@@ -115,4 +117,4 @@ const ButtonValidade: React.FC<ButtonValidadeProps> = ({ qtdMonths }) => {
   );
 };
 
-export default memo(ButtonValidade);
+export default memo(ButtonTipoAtendimento);

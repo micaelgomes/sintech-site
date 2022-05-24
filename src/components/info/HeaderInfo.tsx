@@ -7,14 +7,15 @@ import { BiChevronDown } from "react-icons/bi";
 import Title from "../globals/Title";
 import ListItemProduto from "./ListItemProduto.tsx/ListItemProduto";
 import Switch from "react-input-switch";
-import { getListaProdutos } from "../../service/useCases/getListaProdutos";
+import { getListaProdutosPF } from "../../service/useCases/getListaProdutos";
 
 const HeaderInfo: React.FC = () => {
   const [currShowed, setCurrShowed] = useState<number>(0);
   const [toMe, setToMe] = useState(false);
 
   useEffect(() => {
-    getListaProdutos();
+    const produtos = getListaProdutosPF();
+    console.log(produtos);
   }, []);
 
   return (

@@ -63,8 +63,8 @@ const ListService: React.FC = () => {
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                width={100}
-                height={100}
+                width={[75, 100, 100, 100, 100]}
+                height={[75, 100, 100, 100, 100]}
                 p="4"
               >
                 <Image
@@ -77,7 +77,7 @@ const ListService: React.FC = () => {
               <Text
                 mt="4"
                 fontWeight="bold"
-                fontSize="2xl"
+                fontSize={["lg", "xl", "2xl", "2xl"]}
                 color="secondary"
                 maxWidth={100}
                 textAlign="center"

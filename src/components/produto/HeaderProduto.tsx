@@ -25,149 +25,182 @@ const HeaderProduto: React.FC = () => {
       bgGradient="linear(to-b, #A4D6ED, #E5EDF0)"
     >
       <Navbar />
-      <Flex
+
+      <Box
         position="relative"
-        px="4"
-        pb="36"
-        flexDirection="column"
-        justifyContent="center"
         width="100%"
-        maxWidth={1200}
-        minHeight="calc(100vh)"
         zIndex={0}
+        _after={{
+          content: '""',
+          position: "absolute",
+          borderTopLeftRadius: "50% 100%",
+          borderTopRightRadius: "50% 100%",
+          background: "white",
+          bottom: "0",
+          left: -100,
+          right: -100,
+          zIndex: 1,
+          height: 85,
+        }}
         _before={{
           content: '""',
           position: "absolute",
           height: 1000,
           width: "100%",
-          left: -300,
-          bottom: -150,
-          zIndex: -5,
+          zIndex: -1,
           opacity: 0.75,
           background: "url('/logo_sintech_body.png')",
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
         }}
-        // _after={{
-        //   content: '""',
-        //   position: "absolute",
-        //   height: 400,
-        //   left: -750,
-        //   right: -750,
-        //   bottom: -250,
-        //   zIndex: 0,
-        //   backgroundColor: "#FFF",
-        //   borderRadius: "100%",
-        // }}
       >
-        <Box backgroundColor="white" p="4" borderRadius="xl" mb="6" shadow="lg">
-          <Text fontSize="3xl" fontWeight="semibold" color="secondary">
-            e-CPF
-          </Text>
-        </Box>
-
-        <HStack alignItems="stretch" spacing={30}>
-          <Stack flex={1} flexBasis={500}>
-            <Flex mb="4" gap="15px">
-              <ButtonChakra
-                backgroundColor="secondary"
-                borderRadius="xl"
-                p="4"
-                height="60px"
-                width="100%"
-                _hover={{
-                  backgroundColor: "secondary",
-                }}
-                _pressed={{
-                  backgroundColor: "secondary",
-                }}
-              >
-                <Text color="white" fontWeight="semibold" whiteSpace="nowrap">
-                  O que é?
-                </Text>
-              </ButtonChakra>
-
-              <ButtonChakra
-                borderRadius="xl"
-                p="4"
-                height="60px"
-                width="100%"
-                minWidth="unset"
-                onClick={() =>
-                  setTextContent(
-                    "alisson.php é site com qualidade! (menos pro Gov)"
-                  )
-                }
-              >
-                <Text color="secondary" fontWeight="semibold">
-                  Quais são as Etapas?
-                </Text>
-              </ButtonChakra>
-
-              <ButtonChakra
-                borderRadius="xl"
-                p="4"
-                height="60px"
-                width="100%"
-                minWidth="unset"
-              >
-                <Text
-                  color="secondary"
-                  fontWeight="semibold"
-                  whiteSpace="nowrap"
-                >
-                  Documentos necessários
-                </Text>
-              </ButtonChakra>
-
-              <ButtonChakra borderRadius="xl" p="4" height="60px" width="100%">
-                <Text color="secondary" fontWeight="semibold">
-                  Normas
-                </Text>
-              </ButtonChakra>
-            </Flex>
-
-            <Box
-              backgroundColor="white"
-              p="8"
-              borderRadius="xl"
-              fontWeight="medium"
-              fontSize="xl"
-              color="secondary"
-            >
-              {textContent}
-            </Box>
-          </Stack>
-
-          <Flex
-            flex={1}
-            flexDirection="column"
-            flexGrow={0}
-            backgroundColor="secondary"
+        <Flex
+          position="relative"
+          px="4"
+          pb="24"
+          flexDirection="column"
+          justifyContent="center"
+          width="100%"
+          height="100%"
+          maxWidth={1200}
+          m="auto"
+          minHeight={[
+            "calc(100vh + 400px)",
+            "calc(100vh - 300px)",
+            "calc(100vh - 196px)",
+          ]}
+        >
+          <Box
+            backgroundColor="white"
+            p="4"
             borderRadius="xl"
-            p="5"
-            alignItems="center"
-            justifyContent="space-between"
+            mb="6"
+            shadow="lg"
           >
-            <Text color="white" fontSize="4xl" fontWeight="bold">
+            <Text fontSize="3xl" fontWeight="semibold" color="secondary">
               e-CPF
             </Text>
+          </Box>
 
-            <Image
+          <HStack alignItems="stretch" spacing={30} flexWrap="wrap">
+            <Stack flex={1} width="100%" flexBasis={500}>
+              <Flex mb="4" gap="15px" overflowX="auto">
+                <ButtonChakra
+                  backgroundColor="secondary"
+                  borderRadius="xl"
+                  p="4"
+                  height="60px"
+                  width="100%"
+                  minWidth="150px"
+                  _hover={{
+                    backgroundColor: "secondary",
+                  }}
+                  _pressed={{
+                    backgroundColor: "secondary",
+                  }}
+                >
+                  <Text color="white" fontWeight="semibold" whiteSpace="nowrap">
+                    O que é?
+                  </Text>
+                </ButtonChakra>
+
+                <ButtonChakra
+                  borderRadius="xl"
+                  p="4"
+                  height="60px"
+                  width="100%"
+                  minWidth="unset"
+                  onClick={() =>
+                    setTextContent(
+                      "alisson.php é site com qualidade! (menos pro Gov)"
+                    )
+                  }
+                >
+                  <Text color="secondary" fontWeight="semibold">
+                    Quais são as Etapas?
+                  </Text>
+                </ButtonChakra>
+
+                <ButtonChakra
+                  borderRadius="xl"
+                  p="4"
+                  height="60px"
+                  width="100%"
+                  minWidth="unset"
+                >
+                  <Text
+                    color="secondary"
+                    fontWeight="semibold"
+                    whiteSpace="nowrap"
+                  >
+                    Documentos necessários
+                  </Text>
+                </ButtonChakra>
+
+                <ButtonChakra
+                  borderRadius="xl"
+                  p="4"
+                  height="60px"
+                  width="100%"
+                  minWidth="150px"
+                >
+                  <Text color="secondary" fontWeight="semibold">
+                    Normas
+                  </Text>
+                </ButtonChakra>
+              </Flex>
+
+              <Box
+                backgroundColor="white"
+                p="8"
+                borderRadius="xl"
+                fontWeight="medium"
+                fontSize="xl"
+                color="secondary"
+                width="100%"
+                minHeight={["100vh", "350px"]}
+              >
+                {textContent}
+              </Box>
+            </Stack>
+
+            <Flex
+              display={["none", "none", "flex"]}
               flex={1}
-              src={`/assets/ecpf.svg`}
-              alt="e-CPF icon"
-              width="100%"
-              height="100%"
-              p="12"
-            />
+              flexDirection="column"
+              flexGrow={0}
+              backgroundColor="secondary"
+              borderRadius="xl"
+              p="5"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Text color="white" fontSize="4xl" fontWeight="bold">
+                e-CPF
+              </Text>
 
+              <Image
+                flex={1}
+                src={`/assets/ecpf.svg`}
+                alt="e-CPF icon"
+                width="100%"
+                height="100%"
+                p="12"
+              />
+
+              <Button variant="primary" width="100%" mx="1">
+                Comprar
+              </Button>
+            </Flex>
+          </HStack>
+
+          <Box display={["block", "block", "none"]} width="100%" pt="8">
             <Button variant="primary" width="100%" mx="1">
               Comprar
             </Button>
-          </Flex>
-        </HStack>
-      </Flex>
+          </Box>
+        </Flex>
+      </Box>
     </Flex>
   );
 };

@@ -1,9 +1,11 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://apisintech.com",
+  baseURL: "http://apisintech.com/api/v1",
 });
 
-api.defaults.headers["Authorization"] = "70e15c8b-4547-405d-9e91-7bda4548c46b";
+api.defaults.headers["Authorization"] = "48732fc7-5182-494a-8178-4af07167d334";
+api.defaults.headers.get["Access-Control-Allow-Origin"] = "*";
+// api.defaults.headers["Access-Control-Allow-Origin"] = "*";
 
 export default api;

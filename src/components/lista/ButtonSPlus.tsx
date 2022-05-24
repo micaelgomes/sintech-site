@@ -17,6 +17,9 @@ const ButtonSPlus: React.FC<ButtonSPlusProps> = ({ description }) => {
 
   return (
     <Stack
+      position="absolute"
+      top="220px"
+      w="100%"
       backgroundColor="white"
       borderRadius="2xl"
       px="2"
