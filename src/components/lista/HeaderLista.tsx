@@ -43,14 +43,18 @@ const HeaderLista: React.FC = () => {
   }, [valueSwitch]);
 
   useEffect(() => {
-    const tmpProdutosPF = getListaProdutosPF();
-    const tmpProdutosPJ = getListaProdutosPJ();
+    const getProdutosPorCategorias = async () => {
+      const tmpProdutosPF = await getListaProdutosPF();
+      const tmpProdutosPJ = await getListaProdutosPJ();
 
-    setProdutosPF(tmpProdutosPF);
-    setProdutosPJ(tmpProdutosPJ);
+      setProdutosPF(tmpProdutosPF);
+      setProdutosPJ(tmpProdutosPJ);
 
-    console.log(tmpProdutosPF);
-    console.log(tmpProdutosPJ);
+      console.log(tmpProdutosPF);
+      console.log(tmpProdutosPJ);
+    };
+
+    getProdutosPorCategorias();
   }, []);
 
   return (

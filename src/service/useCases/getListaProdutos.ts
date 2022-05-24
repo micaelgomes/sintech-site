@@ -10,9 +10,9 @@ export interface ProdutoType {
   normas: string;
 }
 
-export const getListaProdutosPF = (): ProdutoType[] => {
+export const getListaProdutosPF = async (): Promise<ProdutoType[]> => {
   try {
-    // const response = await api.get("/subcategorias/1/produtos");
+    const response = await api.get("/subcategorias/1/produtos");
 
     return [
       {
@@ -68,9 +68,9 @@ export const getListaProdutosPF = (): ProdutoType[] => {
   }
 };
 
-export const getListaProdutosPJ = (): ProdutoType[] => {
+export const getListaProdutosPJ = async (): Promise<ProdutoType[]> => {
   try {
-    // const response = await api.get("/subcategorias/2/produtos");
+    const response = await api.get("/subcategorias/2/produtos");
 
     return [
       {

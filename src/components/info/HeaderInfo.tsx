@@ -92,6 +92,7 @@ const HeaderInfo: React.FC = () => {
                       index={i}
                       curr={currShowed}
                       setCurr={setCurrShowed}
+                      rotulo={"ROTULO"}
                     />
                   ))}
               </Stack>
