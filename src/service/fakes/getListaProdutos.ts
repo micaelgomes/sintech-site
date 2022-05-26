@@ -1,6 +1,6 @@
-import { ProdutoType } from "../useCases/getListaProdutos";
+import { SubcategoriaType } from "../useCases/getListaProdutos";
 
-export const getListaProdutosPF = (): ProdutoType[] => {
+export const getListaProdutosPF = (): SubcategoriaType[] => {
   const data = [
     {
       id: 1,
@@ -52,7 +52,7 @@ export const getListaProdutosPF = (): ProdutoType[] => {
   return data;
 };
 
-export const getListaProdutosPJ = async (): Promise<ProdutoType[]> => {
+export const getListaProdutosPJ = (): SubcategoriaType[] => {
   const data = [
     {
       id: 6,
