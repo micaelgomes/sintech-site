@@ -1,6 +1,6 @@
 import api from "../api";
 
-export interface ProdutoType {
+export interface SubcategoriaType {
   id: number;
   categoria_id: number;
   rotulo: string;
@@ -10,91 +10,26 @@ export interface ProdutoType {
   normas: string;
 }
 
-export const getListaProdutosPF = async (): Promise<ProdutoType[]> => {
+export const getListaSubcategoriaPF = async (): Promise<SubcategoriaType[]> => {
   try {
-    const response = await api.get("/subcategorias/1/produtos");
+    const { data } = await api.get("/categorias/1/subcategorias");
 
-    return [
-      {
-        id: 1,
-        categoria_id: 1,
-        rotulo: "e-CPF",
-        descricao: null,
-        resumo: null,
-        etapas: null,
-        normas: null,
-      },
-      {
-        id: 2,
-        categoria_id: 1,
-        rotulo: "BIRD",
-        descricao: null,
-        resumo: null,
-        etapas: null,
-        normas: null,
-      },
-      {
-        id: 3,
-        categoria_id: 1,
-        rotulo: "OAB",
-        descricao: null,
-        resumo: null,
-        etapas: null,
-        normas: null,
-      },
-      {
-        id: 4,
-        categoria_id: 1,
-        rotulo: "CRM",
-        descricao: null,
-        resumo: null,
-        etapas: null,
-        normas: null,
-      },
-      {
-        id: 5,
-        categoria_id: 1,
-        rotulo: "CRC",
-        descricao: null,
-        resumo: null,
-        etapas: null,
-        normas: null,
-      },
-    ];
+    return data;
   } catch (error) {
     console.error(error);
 
-    // throw new Error("Erro na busca de produtos - PF");
+    throw new Error("Erro na busca de subcategorias - PF");
   }
 };
 
-export const getListaProdutosPJ = async (): Promise<ProdutoType[]> => {
+export const getListaSubcategoriaPJ = async (): Promise<SubcategoriaType[]> => {
   try {
-    const response = await api.get("/subcategorias/2/produtos");
+    const { data } = await api.get("/categorias/2/subcategorias");
 
-    return [
-      {
-        id: 6,
-        categoria_id: 2,
-        rotulo: "e-CNPJ",
-        descricao: null,
-        resumo: null,
-        etapas: null,
-        normas: null,
-      },
-      {
-        id: 7,
-        categoria_id: 2,
-        rotulo: "NFE",
-        descricao: null,
-        resumo: null,
-        etapas: null,
-        normas: null,
-      },
-    ];
+    return data;
   } catch (error) {
     console.error(error);
 
-    // throw new Error("Erro na busca de produtos - PJ");
+    throw new Error("Erro na busca de subcategorias - PJ");
   }
 };

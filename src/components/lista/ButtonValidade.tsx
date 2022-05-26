@@ -12,23 +12,49 @@ import React, { memo, useEffect, useRef, useState } from "react";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 import { motion } from "framer-motion";
+import { useProduto } from "./context/produto";
 
-type ButtonValidadeProps = {
-  qtdMonths: number[];
-};
-
-const ButtonValidade: React.FC<ButtonValidadeProps> = ({ qtdMonths }) => {
+const ButtonValidade: React.FC = () => {
   const [opened, setOpened] = useState(false);
-  const [selected, setSelected] = useState("12");
+
+  const {
+    produtos,
+    setProdutoSelecionado,
+    produtoSelecionado,
+    validades,
+    setValidades,
+  } = useProduto();
+
+  useEffect(() => {
+    if (produtoSelecionado.variacaoProduto) {
+      const idProdutoSelecionado = produtoSelecionado.variacaoProduto.id;
+
+      const produto = produtos.find(
+        (produto) => produto.id === idProdutoSelecionado
+      );
+
+      setValidades(produto?.validades || []);
+    }
+  }, [produtoSelecionado]);
 
   const toggleOpen = () => {
     setOpened(!opened);
   };
 
+  const selectValidade = (value: string) => {
+    const [id, rotulo] = value.split("@");
+
+    setProdutoSelecionado({
+      ...produtoSelecionado,
+      validade: {
+        id: Number(id),
+        rotulo,
+      },
+    });
+  };
+
   return (
     <Stack
-      position="absolute"
-      top="70px"
       w="100%"
       backgroundColor="white"
       borderRadius="2xl"
@@ -36,7 +62,7 @@ const ButtonValidade: React.FC<ButtonValidadeProps> = ({ qtdMonths }) => {
       py="3"
       cursor="pointer"
       transition="all .3s ease-out"
-      zIndex={opened ? 99 : 0}
+      shadow="base"
     >
       <HStack justifyContent="space-between" onClick={toggleOpen}>
         <Text color="secondary" fontWeight="bold" fontSize="lg" ml="2">
@@ -80,34 +106,44 @@ const ButtonValidade: React.FC<ButtonValidadeProps> = ({ qtdMonths }) => {
       >
         <Box px="2" mt="2" maxHeight={230} overflow="auto">
           <Stack>
-            <RadioGroup onChange={setSelected} value={selected}>
+            <RadioGroup onChange={selectValidade}>
               <Stack>
-                {qtdMonths.map((qtdMonth) => (
-                  <Radio
-                    value={String(qtdMonth)}
-                    borderColor="secondary"
-                    _checked={{
-                      backgroundColor: "primary",
-                    }}
-                  >{`${qtdMonth} meses`}</Radio>
-                ))}
+                {validades.length > 0 ? (
+                  validades.map((validade) => (
+                    <Radio
+                      value={`${validade.id}@${validade.rotulo}`}
+                      borderColor="secondary"
+                      _checked={{
+                        backgroundColor: "primary",
+                      }}
+                    >
+                      {validade.rotulo}
+                    </Radio>
+                  ))
+                ) : (
+                  <Text mb="4" fontWeight="medium">
+                    Escolha um Produto para continuar
+                  </Text>
+                )}
               </Stack>
             </RadioGroup>
 
-            <Flex>
-              <Button
-                backgroundColor="primary"
-                color="white"
-                borderRadius="xl"
-                mt="2"
-                ml="auto"
-                onClick={toggleOpen}
-                _hover={{}}
-                _active={{}}
-              >
-                Selecionar
-              </Button>
-            </Flex>
+            {validades.length > 0 && (
+              <Flex>
+                <Button
+                  backgroundColor="primary"
+                  color="white"
+                  borderRadius="xl"
+                  mt="2"
+                  ml="auto"
+                  onClick={toggleOpen}
+                  _hover={{}}
+                  _active={{}}
+                >
+                  Selecionar
+                </Button>
+              </Flex>
+            )}
           </Stack>
         </Box>
       </motion.div>

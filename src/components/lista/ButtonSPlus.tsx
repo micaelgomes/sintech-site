@@ -1,24 +1,35 @@
 import { Box, Button, HStack, Stack, Text, VStack } from "@chakra-ui/react";
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { FiCheck, FiHelpCircle } from "react-icons/fi";
 import Popup from "reactjs-popup";
+import { useProduto } from "./context/produto";
 
 type ButtonSPlusProps = {
   description: string;
 };
 
 const ButtonSPlus: React.FC<ButtonSPlusProps> = ({ description }) => {
-  const [opened, setOpened] = useState(false);
-  const [selected, setSelected] = useState("12");
+  const [checked, setChecked] = useState(false);
 
-  const toggleOpen = () => {
-    setOpened(!opened);
+  const { setProdutoSelecionado, produtoSelecionado } = useProduto();
+
+  const toggleCheck = () => {
+    setChecked(!checked);
   };
+
+  const selectSPlus = () => {
+    setProdutoSelecionado({
+      ...produtoSelecionado,
+      splus: checked,
+    });
+  };
+
+  useEffect(() => {
+    selectSPlus();
+  }, [checked]);
 
   return (
     <Stack
-      position="absolute"
-      top="220px"
       w="100%"
       backgroundColor="white"
       borderRadius="2xl"
@@ -26,6 +37,8 @@ const ButtonSPlus: React.FC<ButtonSPlusProps> = ({ description }) => {
       py="3"
       cursor="pointer"
       transition="all .3s ease-out"
+      shadow="base"
+      marginBottom="40px !important"
     >
       <HStack justifyContent="space-between">
         <Text color="secondary" fontWeight="bold" fontSize="lg" ml="2">
@@ -80,14 +93,14 @@ const ButtonSPlus: React.FC<ButtonSPlusProps> = ({ description }) => {
             variant="primary"
             p="0"
             zIndex={0}
-            onClick={toggleOpen}
+            onClick={toggleCheck}
             _hover={{
               background: "none",
             }}
             _after={{
               content: '""',
               position: "absolute",
-              backgroundColor: opened ? "#35B1A7" : "#FFF",
+              backgroundColor: checked ? "#35B1A7" : "#FFF",
               border: "3px solid #194F69",
               width: 29,
               height: 29,
@@ -95,7 +108,7 @@ const ButtonSPlus: React.FC<ButtonSPlusProps> = ({ description }) => {
               zIndex: -1,
             }}
           >
-            {opened && <FiCheck color="#FFF" size={21} />}
+            {checked && <FiCheck color="#FFF" size={21} />}
           </Button>
         </HStack>
       </HStack>

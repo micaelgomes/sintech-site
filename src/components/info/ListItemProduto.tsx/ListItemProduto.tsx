@@ -9,6 +9,7 @@ type ListItemProdutoProps = {
   curr: number;
   setCurr: (index: number) => void;
   rotulo: string;
+  onClick: () => void;
 };
 
 const ListItemProduto: React.FC<ListItemProdutoProps> = ({
@@ -16,6 +17,7 @@ const ListItemProduto: React.FC<ListItemProdutoProps> = ({
   setCurr,
   index,
   rotulo,
+  onClick,
 }) => {
   const [opened, setOpened] = useState(curr === index);
 
@@ -44,6 +46,7 @@ const ListItemProduto: React.FC<ListItemProdutoProps> = ({
       _hover={{
         transform: "translateY(-3px)",
       }}
+      onClickCapture={onClick}
     >
       <HStack justifyContent="space-between">
         <Text

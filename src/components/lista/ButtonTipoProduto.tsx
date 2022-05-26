@@ -14,39 +14,31 @@ import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { useProduto } from "./context/produto";
 
-const ButtonTipoAtendimento: React.FC = () => {
+const ButtonTipoProduto: React.FC = () => {
   const [opened, setOpened] = useState(false);
-  const { setProdutoSelecionado, produtoSelecionado } = useProduto();
-
-  const tiposAtendimento = [
-    {
-      slug: "link_presencial",
-      nome: "Presencial",
-    },
-    {
-      slug: "link_videoconferencia",
-      nome: "Vídeo Conferência",
-    },
-    {
-      slug: "link_renovacao_online",
-      nome: "Renovação Online",
-    },
-  ];
+  const {
+    produtos,
+    setProdutoSelecionado,
+    produtoSelecionado,
+    setResetCompra,
+  } = useProduto();
 
   const toggleOpen = () => {
     setOpened(!opened);
   };
 
-  const selectAtendimento = (value: string) => {
-    const [slug, nome] = value.split("@");
+  const selectProduto = (value: string) => {
+    const [id, nome] = value.split("@");
 
     setProdutoSelecionado({
       ...produtoSelecionado,
-      tipoAtendimento: {
-        slug,
+      variacaoProduto: {
+        id: Number(id),
         nome,
       },
     });
+
+    setResetCompra(true);
   };
 
   return (
@@ -62,7 +54,7 @@ const ButtonTipoAtendimento: React.FC = () => {
     >
       <HStack justifyContent="space-between" onClick={toggleOpen}>
         <Text color="secondary" fontWeight="bold" fontSize="lg" ml="2">
-          Tipo de Atendimento
+          Produto
         </Text>
         <Button
           position="relative"
@@ -102,18 +94,17 @@ const ButtonTipoAtendimento: React.FC = () => {
       >
         <Box px="2" mt="2" maxHeight={230} overflow="auto">
           <Stack>
-            <RadioGroup onChange={selectAtendimento}>
+            <RadioGroup onChange={selectProduto}>
               <Stack>
-                {tiposAtendimento.map((tipo) => (
+                {produtos?.map((product) => (
                   <Radio
-                    value={`${tipo.slug}@${tipo.nome}`}
+                    key={product.id}
+                    value={`${product.id}@${product.nome}`}
                     borderColor="secondary"
                     _checked={{
                       backgroundColor: "primary",
                     }}
-                  >
-                    {tipo.nome}
-                  </Radio>
+                  >{`Versão ${product.nome}`}</Radio>
                 ))}
               </Stack>
             </RadioGroup>
@@ -139,4 +130,4 @@ const ButtonTipoAtendimento: React.FC = () => {
   );
 };
 
-export default memo(ButtonTipoAtendimento);
+export default memo(ButtonTipoProduto);

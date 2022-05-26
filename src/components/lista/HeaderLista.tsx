@@ -1,3 +1,4 @@
+import React, { memo, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -8,50 +9,58 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import React, { memo, useEffect, useState } from "react";
 
 import Title from "../globals/Title";
 import ListItemProduto from "../info/ListItemProduto.tsx/ListItemProduto";
 import Switch from "react-input-switch";
-import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 import ButtonValidade from "./ButtonValidade";
 import ButtonSPlus from "./ButtonSPlus";
 
-import { motion } from "framer-motion";
 import {
-  getListaProdutosPF,
-  getListaProdutosPJ,
-  ProdutoType,
+  getListaSubcategoriaPF,
+  getListaSubcategoriaPJ,
+  SubcategoriaType,
 } from "../../service/useCases/getListaProdutos";
+
 import ButtonTipoAtendimento from "./ButtonTipoAtendimento";
 import ButtonMidia from "./ButtonMidia";
+import ButtonTipoProduto from "./ButtonTipoProduto";
+
+import { useProduto } from "./context/produto";
+import { currencyMask } from "../../utils/currencyMask";
+
+enum CategoriaType {
+  PF = 0,
+  PJ = 1,
+}
 
 const HeaderLista: React.FC = () => {
   const [currShowed, setCurrShowed] = useState<number>(0);
-  const [type, setType] = useState<"PF" | "PJ">("PF");
-  const [valueSwitch, setValueSwitch] = useState(false);
+  const [valueSwitch, setValueSwitch] = useState(0);
 
-  const [produtosPF, setProdutosPF] = useState<ProdutoType[]>([]);
-  const [produtosPJ, setProdutosPJ] = useState<ProdutoType[]>([]);
+  const [subcategoriaPF, setSubcategoriaPF] = useState<SubcategoriaType[]>([]);
+  const [subcategoriaPJ, setSubcategoriaPJ] = useState<SubcategoriaType[]>([]);
+
+  const {
+    label,
+    preco,
+    getInfosProduto,
+    statusPodeComprar,
+    getLinkParaComprar,
+  } = useProduto();
 
   useEffect(() => {
-    if (valueSwitch) {
-      setType("PJ");
-    } else {
-      setType("PF");
-    }
+    setCurrShowed(0);
+    console.log("set currShowed");
   }, [valueSwitch]);
 
   useEffect(() => {
     const getProdutosPorCategorias = async () => {
-      const tmpProdutosPF = await getListaProdutosPF();
-      const tmpProdutosPJ = await getListaProdutosPJ();
+      const tmpSubcategoriaPF = await getListaSubcategoriaPF();
+      const tmpSubcategoriaPJ = await getListaSubcategoriaPJ();
 
-      setProdutosPF(tmpProdutosPF);
-      setProdutosPJ(tmpProdutosPJ);
-
-      console.log(tmpProdutosPF);
-      console.log(tmpProdutosPJ);
+      setSubcategoriaPF(tmpSubcategoriaPF);
+      setSubcategoriaPJ(tmpSubcategoriaPJ);
     };
 
     getProdutosPorCategorias();
@@ -74,8 +83,8 @@ const HeaderLista: React.FC = () => {
 
           <HStack pt="2" pb="10">
             <Text
-              fontWeight={type === "PF" ? "bold" : "medium"}
-              color={type === "PF" ? "secondary" : "inherit"}
+              fontWeight={valueSwitch === CategoriaType.PF ? "bold" : "medium"}
+              color={valueSwitch === CategoriaType.PF ? "secondary" : "inherit"}
             >
               Para Mim
             </Text>
@@ -112,34 +121,38 @@ const HeaderLista: React.FC = () => {
               }}
             />
             <Text
-              fontWeight={type === "PJ" ? "bold" : "medium"}
-              color={type === "PJ" ? "secondary" : "inherit"}
+              fontWeight={valueSwitch === CategoriaType.PJ ? "bold" : "medium"}
+              color={valueSwitch === CategoriaType.PJ ? "secondary" : "inherit"}
             >
               Para minha Empresa
             </Text>
           </HStack>
 
-          <HStack spacing="30px" alignItems="stretch" flexWrap="wrap">
-            <Stack spacing="20px" flex={1}>
-              {type === "PF" ? (
+          <HStack spacing="30px" alignItems="stretch">
+            <Stack spacing="20px" flex={1} height="100%">
+              {valueSwitch === CategoriaType.PF ? (
                 <>
-                  {produtosPF.map((produto, i) => (
+                  {subcategoriaPF.map((subcategoria, i) => (
                     <ListItemProduto
+                      key={i}
                       index={i}
                       curr={currShowed}
                       setCurr={setCurrShowed}
-                      rotulo={produto.rotulo}
+                      rotulo={subcategoria.rotulo}
+                      onClick={() => getInfosProduto(subcategoria)}
                     />
                   ))}
                 </>
               ) : (
                 <>
-                  {produtosPJ.map((produto, i) => (
+                  {subcategoriaPJ.map((subcategoria, i) => (
                     <ListItemProduto
+                      key={i}
                       index={i}
                       curr={currShowed}
                       setCurr={setCurrShowed}
-                      rotulo={produto.rotulo}
+                      rotulo={subcategoria.rotulo}
+                      onClick={() => getInfosProduto(subcategoria)}
                     />
                   ))}
                 </>
@@ -151,16 +164,16 @@ const HeaderLista: React.FC = () => {
                 height={528}
                 justifyContent="space-between"
                 background="secondary"
-                p="6"
+                px="6"
                 borderRadius="2xl"
               >
-                <Center>
-                  <Text color="white" fontSize="3xl" fontWeight="bold">
-                    e-CPF A3 | Token
+                <Center mt="4">
+                  <Text color="white" fontSize="2xl" fontWeight="semibold">
+                    {`Faça a montagem para poder comprar ${label}`}
                   </Text>
                 </Center>
 
-                <HStack>
+                <HStack height="100%">
                   <Stack width={600}>
                     <Box flex={1}>
                       <Image
@@ -171,9 +184,12 @@ const HeaderLista: React.FC = () => {
                       />
                     </Box>
 
-                    <Center>
+                    <Center pb="4" flexDirection="column">
                       <Text color="white" fontSize="4xl" fontWeight="semibold">
-                        R$ 199,99
+                        {currencyMask(preco)}
+                      </Text>
+                      <Text color="white" fontSize="sm" fontWeight="semibold">
+                        Preço é ajustado de acordo com as opções
                       </Text>
                     </Center>
 
@@ -186,7 +202,8 @@ const HeaderLista: React.FC = () => {
                       fontSize="2xl"
                       fontWeight="bold"
                       p="8"
-                      // disabled
+                      disabled={!statusPodeComprar}
+                      onClick={getLinkParaComprar}
                       _hover={{}}
                       _active={{}}
                     >
@@ -194,12 +211,20 @@ const HeaderLista: React.FC = () => {
                     </Button>
                   </Stack>
 
-                  <Box width="100%" height="100%">
-                    <Stack position="relative" spacing={6} pb="4">
-                      <ButtonTipoAtendimento qtdMonths={[12, 24, 36]} />
-                      <ButtonValidade qtdMonths={[12, 24, 36]} />
-                      <ButtonMidia qtdMonths={[12, 24, 36]} />
+                  <Box width="100%" pt="4" pl="8" overflowY="auto">
+                    <Stack
+                      height={452}
+                      position="relative"
+                      spacing={3}
+                      pb="4"
+                      pr="2"
+                    >
+                      <ButtonTipoProduto />
+                      <ButtonTipoAtendimento />
+                      <ButtonValidade />
+                      <ButtonMidia />
                       <ButtonSPlus description="" />
+                      <Box py="4" />
                     </Stack>
                   </Box>
                 </HStack>
