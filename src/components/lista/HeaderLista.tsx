@@ -28,6 +28,8 @@ import ButtonTipoProduto from "./ButtonTipoProduto";
 
 import { useProduto } from "./context/produto";
 import { currencyMask } from "../../utils/currencyMask";
+import { useRouter } from "next/router";
+import { getSubcategoria } from "../../service/useCases/getSubcategoria";
 
 enum CategoriaType {
   PF = 0,
@@ -35,9 +37,10 @@ enum CategoriaType {
 }
 
 const HeaderLista: React.FC = () => {
-  const [currShowed, setCurrShowed] = useState<number>(0);
-  const [valueSwitch, setValueSwitch] = useState(0);
+  const router = useRouter();
+  const { rotulo, id, cid } = router.query;
 
+  const [valueSwitch, setValueSwitch] = useState(0);
   const [subcategoriaPF, setSubcategoriaPF] = useState<SubcategoriaType[]>([]);
   const [subcategoriaPJ, setSubcategoriaPJ] = useState<SubcategoriaType[]>([]);
 
@@ -47,12 +50,38 @@ const HeaderLista: React.FC = () => {
     getInfosProduto,
     statusPodeComprar,
     getLinkParaComprar,
+    setCurrShowed,
+    produtoSelecionado,
   } = useProduto();
 
+  const buscaSubcategoriaPorID = async (id: number) => {
+    const tmpSubcategoria = await getSubcategoria(id);
+
+    getInfosProduto(tmpSubcategoria);
+  };
+
   useEffect(() => {
-    setCurrShowed(0);
-    console.log("set currShowed");
+    if (valueSwitch === CategoriaType.PF) {
+      setCurrShowed(1);
+      buscaSubcategoriaPorID(1);
+    } else if (valueSwitch === CategoriaType.PJ) {
+      setCurrShowed(6);
+      buscaSubcategoriaPorID(6);
+    }
   }, [valueSwitch]);
+
+  useEffect(() => {
+    const categoriaID = Number(cid) - 1;
+    const subcategoriaID = Number(id);
+
+    if (rotulo) {
+      setValueSwitch(categoriaID);
+      setCurrShowed(subcategoriaID);
+      buscaSubcategoriaPorID(subcategoriaID);
+    } else {
+      buscaSubcategoriaPorID(1);
+    }
+  }, []);
 
   useEffect(() => {
     const getProdutosPorCategorias = async () => {
@@ -68,7 +97,7 @@ const HeaderLista: React.FC = () => {
 
   return (
     <Flex
-      pb="24"
+      pb="10"
       alignItems="center"
       width="100%"
       maxWidth={1200}
@@ -132,12 +161,10 @@ const HeaderLista: React.FC = () => {
             <Stack spacing="20px" flex={1} height="100%">
               {valueSwitch === CategoriaType.PF ? (
                 <>
-                  {subcategoriaPF.map((subcategoria, i) => (
+                  {subcategoriaPF.map((subcategoria) => (
                     <ListItemProduto
-                      key={i}
-                      index={i}
-                      curr={currShowed}
-                      setCurr={setCurrShowed}
+                      key={subcategoria.id}
+                      index={subcategoria.id}
                       rotulo={subcategoria.rotulo}
                       onClick={() => getInfosProduto(subcategoria)}
                     />
@@ -147,10 +174,8 @@ const HeaderLista: React.FC = () => {
                 <>
                   {subcategoriaPJ.map((subcategoria, i) => (
                     <ListItemProduto
-                      key={i}
-                      index={i}
-                      curr={currShowed}
-                      setCurr={setCurrShowed}
+                      key={subcategoria.id}
+                      index={subcategoria.id}
                       rotulo={subcategoria.rotulo}
                       onClick={() => getInfosProduto(subcategoria)}
                     />
@@ -167,9 +192,9 @@ const HeaderLista: React.FC = () => {
                 px="6"
                 borderRadius="2xl"
               >
-                <Center mt="4">
+                <Center mt="3">
                   <Text color="white" fontSize="2xl" fontWeight="semibold">
-                    {`Faça a montagem para poder comprar ${label}`}
+                    {`Escolha suas configurações para ${label}`}
                   </Text>
                 </Center>
 
@@ -213,7 +238,7 @@ const HeaderLista: React.FC = () => {
 
                   <Box width="100%" pt="4" pl="8" overflowY="auto">
                     <Stack
-                      height={452}
+                      height={455}
                       position="relative"
                       spacing={3}
                       pb="4"

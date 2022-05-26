@@ -36,8 +36,6 @@ interface ProdutoInfoMontado {
 
 interface ProdutoData {
   label: string;
-  currentSubcategoria: SubcategoriaType;
-  setCurrentSubcategoria: Dispatch<SetStateAction<SubcategoriaType>>;
   validades: any;
   setValidades: Dispatch<SetStateAction<any>>;
   midias: any;
@@ -51,13 +49,13 @@ interface ProdutoData {
   getLinkParaComprar: () => void;
   setResetCompra: Dispatch<SetStateAction<boolean>>;
   preco: number;
+  setCurrShowed: Dispatch<SetStateAction<number>>;
+  currShowed: number;
 }
 
 const ProdutoContext = createContext<ProdutoData>({} as ProdutoData);
 
 const ProdutoProvider: React.FC = ({ children }) => {
-  const [currentSubcategoria, setCurrentSubcategoria] =
-    useState<SubcategoriaType>({} as SubcategoriaType);
   const [produtoSelecionado, setProdutoSelecionado] =
     useState<ProdutoInfoMontado>({} as ProdutoInfoMontado);
 
@@ -65,15 +63,24 @@ const ProdutoProvider: React.FC = ({ children }) => {
   const [validades, setValidades] = useState([]);
   const [midias, setMidias] = useState([]);
   const [label, setLabel] = useState("");
-
   const [statusPodeComprar, setStatusPodeComprar] = useState(false);
+  const [currShowed, setCurrShowed] = useState(1);
+
+  /**
+   * DEPRECATED: resetCompra
+   */
   const [resetCompra, setResetCompra] = useState(false);
   const [preco, setPreco] = useState(0);
 
   const getInfosProduto = async (subcategoria: SubcategoriaType) => {
-    setLabel(subcategoria.rotulo);
+    setProdutos([]);
+    setValidades([]);
+    setMidias([]);
+    setProdutoSelecionado({} as ProdutoInfoMontado);
+
     const infos = await getProdutosPorID(subcategoria.id);
 
+    setLabel(subcategoria.rotulo);
     setProdutos(infos);
   };
 
@@ -91,16 +98,6 @@ const ProdutoProvider: React.FC = ({ children }) => {
 
     getPrecoProduto();
   }, [produtoSelecionado]);
-
-  // useEffect(() => {
-  //   if (resetCompra) {
-  //     setProdutoSelecionado({
-  //       ...produtoSelecionado,
-  //       midia: {} as any,
-  //       validade: {} as any,
-  //     });
-  //   }
-  // }, [resetCompra]);
 
   const getLinkParaComprar = () => {
     const hasSPlus = produtoSelecionado.splus || false;
@@ -139,8 +136,6 @@ const ProdutoProvider: React.FC = ({ children }) => {
   const valuesInContext = useMemo(
     () => ({
       label,
-      currentSubcategoria,
-      setCurrentSubcategoria,
       validades,
       setValidades,
       midias,
@@ -154,11 +149,11 @@ const ProdutoProvider: React.FC = ({ children }) => {
       getLinkParaComprar,
       setResetCompra,
       preco,
+      currShowed,
+      setCurrShowed,
     }),
     [
       label,
-      currentSubcategoria,
-      setCurrentSubcategoria,
       validades,
       setValidades,
       midias,
@@ -172,6 +167,8 @@ const ProdutoProvider: React.FC = ({ children }) => {
       getLinkParaComprar,
       setResetCompra,
       preco,
+      currShowed,
+      setCurrShowed,
     ]
   );
 

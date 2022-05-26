@@ -48,7 +48,7 @@ const Header: React.FC = () => {
         </Subtitle>
 
         <Stack spacing={4} direction={["column", "row"]}>
-          <Link href="/produtos">
+          <Link href="/comprar">
             <Button variant="secondary">já sei o que preciso</Button>
           </Link>
           <Link href="/info/id">

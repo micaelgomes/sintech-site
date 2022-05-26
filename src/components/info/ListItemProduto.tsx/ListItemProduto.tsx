@@ -3,36 +3,36 @@ import React, { memo, useEffect, useState } from "react";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 import { motion } from "framer-motion";
+import { useProduto } from "../../lista/context/produto";
 
 type ListItemProdutoProps = {
   index: number;
-  curr: number;
-  setCurr: (index: number) => void;
   rotulo: string;
   onClick: () => void;
 };
 
 const ListItemProduto: React.FC<ListItemProdutoProps> = ({
-  curr,
-  setCurr,
   index,
   rotulo,
   onClick,
 }) => {
-  const [opened, setOpened] = useState(curr === index);
+  const { currShowed, setCurrShowed } = useProduto();
+  const [opened, setOpened] = useState(currShowed === index);
 
   const toggleOpen = () => {
-    if (curr !== index) {
+    if (currShowed !== index) {
       setOpened(!opened);
-      setCurr(index);
+      setCurrShowed(index);
     }
   };
 
   useEffect(() => {
-    if (curr !== index) {
+    if (currShowed === index) {
+      setOpened(true);
+    } else {
       setOpened(false);
     }
-  }, [curr]);
+  }, [currShowed]);
 
   return (
     <Stack

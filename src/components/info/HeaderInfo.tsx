@@ -90,8 +90,6 @@ const HeaderInfo: React.FC = () => {
                   .map((_, i) => (
                     <ListItemProduto
                       index={i}
-                      curr={currShowed}
-                      setCurr={setCurrShowed}
                       rotulo={"ROTULO"}
                       onClick={() => undefined}
                     />

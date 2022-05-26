@@ -1,13 +1,29 @@
 import { Box, Center, Flex, Text } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {
+  getListaSubcategoriaPF,
+  getListaSubcategoriaPJ,
+  SubcategoriaType,
+} from "../../../service/useCases/getListaProdutos";
 import Subtitle from "../../globals/Subtitle";
 import Title from "../../globals/Title";
 
-import { services } from "./services";
-
 const ListService: React.FC = () => {
+  const [subcategorias, setSubcategorias] = useState<SubcategoriaType[]>([]);
+
+  useEffect(() => {
+    const getProdutosPorCategorias = async () => {
+      const tmpSubcategoriaPF = await getListaSubcategoriaPF();
+      const tmpSubcategoriaPJ = await getListaSubcategoriaPJ();
+
+      setSubcategorias([...tmpSubcategoriaPF, ...tmpSubcategoriaPJ]);
+    };
+
+    getProdutosPorCategorias();
+  }, []);
+
   return (
     <>
       <Flex px="4" zIndex={0}>
@@ -44,8 +60,11 @@ const ListService: React.FC = () => {
         overflowY="hidden"
         zIndex={0}
       >
-        {services.map((service, i) => (
-          <Link key={i} href={`/produto/${service.link}`}>
+        {subcategorias.map((service, i) => (
+          <Link
+            key={i}
+            href={`/produto/${service.id}?rotulo=${service.rotulo}`}
+          >
             <Flex
               flexDirection="column"
               justifyContent="center"
@@ -68,8 +87,8 @@ const ListService: React.FC = () => {
                 p="4"
               >
                 <Image
-                  src={`/assets/${service.icon}`}
-                  alt={service.name}
+                  src={`/assets/${service.rotulo.toLowerCase()}.svg`}
+                  alt={service.rotulo}
                   width="100%"
                   height="100%"
                 />
@@ -83,7 +102,7 @@ const ListService: React.FC = () => {
                 textAlign="center"
                 lineHeight="shorter"
               >
-                {service.name}
+                {service.rotulo}
               </Text>
             </Flex>
           </Link>

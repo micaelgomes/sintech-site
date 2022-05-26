@@ -16,7 +16,7 @@ import { useProduto } from "./context/produto";
 
 const ButtonTipoAtendimento: React.FC = () => {
   const [opened, setOpened] = useState(false);
-  const { setProdutoSelecionado, produtoSelecionado } = useProduto();
+  const { produtos, setProdutoSelecionado, produtoSelecionado } = useProduto();
 
   const tiposAtendimento = [
     {
@@ -104,17 +104,24 @@ const ButtonTipoAtendimento: React.FC = () => {
           <Stack>
             <RadioGroup onChange={selectAtendimento}>
               <Stack>
-                {tiposAtendimento.map((tipo) => (
-                  <Radio
-                    value={`${tipo.slug}@${tipo.nome}`}
-                    borderColor="secondary"
-                    _checked={{
-                      backgroundColor: "primary",
-                    }}
-                  >
-                    {tipo.nome}
-                  </Radio>
-                ))}
+                {produtos.length > 0 ? (
+                  tiposAtendimento.map((tipo) => (
+                    <Radio
+                      key={tipo.slug}
+                      value={`${tipo.slug}@${tipo.nome}`}
+                      borderColor="secondary"
+                      _checked={{
+                        backgroundColor: "primary",
+                      }}
+                    >
+                      {tipo.nome}
+                    </Radio>
+                  ))
+                ) : (
+                  <Text mb="4" fontWeight="medium">
+                    Escolha uma Validade para o certificado
+                  </Text>
+                )}
               </Stack>
             </RadioGroup>
 

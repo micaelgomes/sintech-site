@@ -10,15 +10,13 @@ const Produto = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  console.log("produto: ", id);
-
   return (
     <Container
       position="relative"
       overflow="hidden"
       bgGradient="linear(to-b, #A4D6ED, #E5EDF0)"
     >
-      <HeaderProduto />
+      <HeaderProduto id={id} />
 
       <Faq />
 

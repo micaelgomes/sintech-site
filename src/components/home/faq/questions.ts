@@ -1,7 +1,7 @@
 const questions = [
   {
     name: "e-CNPJ",
-    icon: "ecnpj.svg",
+    icon: "e-cnpj.svg",
     link: "e-cnp",
     question: "Perguntas frequentes sobre certificados para Pessoa Jurídica",
   },
@@ -13,7 +13,7 @@ const questions = [
   },
   {
     name: "Bird ID",
-    icon: "birdid.svg",
+    icon: "bird.svg",
     link: "bird-id",
     question: "Perguntas frequentes sobre Bird ID e Recarga",
   },

@@ -36,7 +36,7 @@ const Faq: React.FC = () => {
             <Stack key={i} spacing={10} height="100%" alignItems="center">
               <Image
                 src={`/assets/${question.icon}`}
-                alt="ecnpj"
+                alt={question.icon}
                 width="150px"
                 height="150px"
                 filter="grayscale(50%)"

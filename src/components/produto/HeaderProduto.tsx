@@ -7,14 +7,41 @@ import {
   Image,
   Button as ButtonChakra,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { SubcategoriaType } from "../../service/useCases/getListaProdutos";
+import { getSubcategoria } from "../../service/useCases/getSubcategoria";
 import Button from "../globals/Button";
 import Navbar from "../globals/Navbar";
 
-const HeaderProduto: React.FC = () => {
-  const [textContent, setTextContent] = useState(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit.Pellentesque et purus et orci mattis feugiat. Nam quis scelerisquetortor. Mauris odio nulla, tempor sit amet laoreet at, eleifend idneque. Donec vel nisl eget nisi congue consequat quis non enim.Duis bibendum in risus a commodo. Sed vel interdum sem. Inscelerisque mauris efficitur, tristique mi at, auctor lorem. Sedrisus ligula, facilisis sed nibh sit amet, luctus tincidunt nulla.Cras venenatis odio a nulla congue, nec consequat purus vehicula.Fusce ornare id arcu in semper. Nullam placerat dignissimsuscipit. Ut et sapien gravida ante tempor efficitur. Maurisultricies mauris enim, sit amet pretium ante hendrerit at. Crastincidunt felis eu sapien lacinia, sit amet tempus nullafermentum."
-  );
+import { faker } from "@faker-js/faker";
+import Link from "next/link";
+
+interface HeaderProdutoProps {
+  id: string | string[];
+}
+
+const HeaderProduto: React.FC<HeaderProdutoProps> = ({ id }) => {
+  const [subcategoria, setSubcategoria] = useState({} as SubcategoriaType);
+  const [textContent, setTextContent] = useState("");
+  const [currentTab, setCurrentTab] = useState("");
+
+  useEffect(() => {
+    const buscaSubcategoriaPorID = async () => {
+      const parser = Number(id);
+      const tmpSubcategoria = await getSubcategoria(parser);
+
+      setSubcategoria(tmpSubcategoria);
+      setTextContent(tmpSubcategoria.descricao || faker.lorem.paragraphs(6));
+      setCurrentTab("descricao");
+    };
+
+    buscaSubcategoriaPorID();
+  }, []);
+
+  const toogleText = (slug: string) => {
+    setCurrentTab(slug);
+    setTextContent(subcategoria[slug] || faker.lorem.paragraphs(6));
+  };
 
   return (
     <Flex
@@ -78,7 +105,7 @@ const HeaderProduto: React.FC = () => {
             shadow="lg"
           >
             <Text fontSize="3xl" fontWeight="semibold" color="secondary">
-              e-CPF
+              {subcategoria.rotulo}
             </Text>
           </Box>
 
@@ -86,50 +113,81 @@ const HeaderProduto: React.FC = () => {
             <Stack flex={1} width="100%" flexBasis={500}>
               <Flex mb="4" gap="15px" overflowX="auto">
                 <ButtonChakra
-                  backgroundColor="secondary"
+                  backgroundColor={
+                    currentTab === "descricao" ? "secondary" : "gray.100"
+                  }
                   borderRadius="xl"
                   p="4"
                   height="60px"
                   width="100%"
                   minWidth="150px"
                   _hover={{
-                    backgroundColor: "secondary",
+                    backgroundColor:
+                      currentTab === "descricao" ? "secondary" : "gray.100",
                   }}
                   _pressed={{
-                    backgroundColor: "secondary",
+                    backgroundColor:
+                      currentTab === "descricao" ? "secondary" : "gray.100",
                   }}
+                  onClick={() => toogleText("descricao")}
                 >
-                  <Text color="white" fontWeight="semibold" whiteSpace="nowrap">
+                  <Text
+                    color={currentTab === "descricao" ? "white" : "secondary"}
+                    fontWeight="semibold"
+                    whiteSpace="nowrap"
+                  >
                     O que é?
                   </Text>
                 </ButtonChakra>
 
                 <ButtonChakra
+                  backgroundColor={
+                    currentTab === "etapas" ? "secondary" : "gray.100"
+                  }
                   borderRadius="xl"
                   p="4"
                   height="60px"
                   width="100%"
                   minWidth="unset"
-                  onClick={() =>
-                    setTextContent(
-                      "alisson.php é site com qualidade! (menos pro Gov)"
-                    )
-                  }
+                  _hover={{
+                    backgroundColor:
+                      currentTab === "etapas" ? "secondary" : "gray.100",
+                  }}
+                  _pressed={{
+                    backgroundColor:
+                      currentTab === "etapas" ? "secondary" : "gray.100",
+                  }}
+                  onClick={() => toogleText("etapas")}
                 >
-                  <Text color="secondary" fontWeight="semibold">
+                  <Text
+                    color={currentTab === "etapas" ? "white" : "secondary"}
+                    fontWeight="semibold"
+                  >
                     Quais são as Etapas?
                   </Text>
                 </ButtonChakra>
 
                 <ButtonChakra
+                  backgroundColor={
+                    currentTab === "resumo" ? "secondary" : "gray.100"
+                  }
                   borderRadius="xl"
                   p="4"
                   height="60px"
                   width="100%"
                   minWidth="unset"
+                  _hover={{
+                    backgroundColor:
+                      currentTab === "resumo" ? "secondary" : "gray.100",
+                  }}
+                  _pressed={{
+                    backgroundColor:
+                      currentTab === "resumo" ? "secondary" : "gray.100",
+                  }}
+                  onClick={() => toogleText("resumo")}
                 >
                   <Text
-                    color="secondary"
+                    color={currentTab === "resumo" ? "white" : "secondary"}
                     fontWeight="semibold"
                     whiteSpace="nowrap"
                   >
@@ -138,13 +196,28 @@ const HeaderProduto: React.FC = () => {
                 </ButtonChakra>
 
                 <ButtonChakra
+                  backgroundColor={
+                    currentTab === "normas" ? "secondary" : "gray.100"
+                  }
                   borderRadius="xl"
                   p="4"
                   height="60px"
                   width="100%"
                   minWidth="150px"
+                  _hover={{
+                    backgroundColor:
+                      currentTab === "normas" ? "secondary" : "gray.100",
+                  }}
+                  _pressed={{
+                    backgroundColor:
+                      currentTab === "normas" ? "secondary" : "gray.100",
+                  }}
+                  onClick={() => toogleText("normas")}
                 >
-                  <Text color="secondary" fontWeight="semibold">
+                  <Text
+                    color={currentTab === "normas" ? "white" : "secondary"}
+                    fontWeight="semibold"
+                  >
                     Normas
                   </Text>
                 </ButtonChakra>
@@ -158,7 +231,8 @@ const HeaderProduto: React.FC = () => {
                 fontSize="xl"
                 color="secondary"
                 width="100%"
-                minHeight={["100vh", "350px"]}
+                height={400}
+                overflowY="auto"
               >
                 {textContent}
               </Box>
@@ -176,21 +250,25 @@ const HeaderProduto: React.FC = () => {
               justifyContent="space-between"
             >
               <Text color="white" fontSize="4xl" fontWeight="bold">
-                e-CPF
+                {subcategoria.rotulo}
               </Text>
 
               <Image
                 flex={1}
-                src={`/assets/ecpf.svg`}
-                alt="e-CPF icon"
+                src={`/assets/${subcategoria.rotulo?.toLowerCase()}.svg`}
+                alt={`${subcategoria.rotulo} icon`}
                 width="100%"
                 height="100%"
                 p="12"
               />
 
-              <Button variant="primary" width="100%" mx="1">
-                Comprar
-              </Button>
+              <Link
+                href={`/comprar?rotulo=${subcategoria.rotulo}&id=${subcategoria.id}&cid=${subcategoria.categoria_id}`}
+              >
+                <Button variant="primary" width="100%" mx="1">
+                  Comprar
+                </Button>
+              </Link>
             </Flex>
           </HStack>
 
