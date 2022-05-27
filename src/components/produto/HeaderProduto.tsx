@@ -12,9 +12,12 @@ import { SubcategoriaType } from "../../service/useCases/getListaProdutos";
 import { getSubcategoria } from "../../service/useCases/getSubcategoria";
 import Button from "../globals/Button";
 import Navbar from "../globals/Navbar";
+import Lottie from "react-lottie";
 
 import { faker } from "@faker-js/faker";
 import Link from "next/link";
+
+import animationLoad from "../../animation/load.json";
 
 interface HeaderProdutoProps {
   id: string | string[];
@@ -24,6 +27,15 @@ const HeaderProduto: React.FC<HeaderProdutoProps> = ({ id }) => {
   const [subcategoria, setSubcategoria] = useState({} as SubcategoriaType);
   const [textContent, setTextContent] = useState("");
   const [currentTab, setCurrentTab] = useState("");
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationLoad,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   useEffect(() => {
     const buscaSubcategoriaPorID = async () => {
@@ -81,203 +93,220 @@ const HeaderProduto: React.FC<HeaderProdutoProps> = ({ id }) => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <Flex
-          position="relative"
-          px="4"
-          pb="24"
-          flexDirection="column"
-          justifyContent="center"
-          width="100%"
-          height="100%"
-          maxWidth={1200}
-          m="auto"
-          minHeight={[
-            "calc(100vh + 400px)",
-            "calc(100vh - 300px)",
-            "calc(100vh - 196px)",
-          ]}
-        >
-          <Box
-            backgroundColor="white"
-            p="4"
-            borderRadius="xl"
-            mb="6"
-            shadow="lg"
+        {!subcategoria.id ? (
+          <Flex
+            minHeight={[
+              "calc(100vh + 400px)",
+              "calc(100vh - 300px)",
+              "calc(100vh - 196px)",
+            ]}
           >
-            <Text fontSize="3xl" fontWeight="semibold" color="secondary">
-              {subcategoria.rotulo}
-            </Text>
-          </Box>
-
-          <HStack alignItems="stretch" spacing={30} flexWrap="wrap">
-            <Stack flex={1} width="100%" flexBasis={500}>
-              <Flex mb="4" gap="15px" overflowX="auto">
-                <ButtonChakra
-                  backgroundColor={
-                    currentTab === "descricao" ? "secondary" : "gray.100"
-                  }
-                  borderRadius="xl"
-                  p="4"
-                  height="60px"
-                  width="100%"
-                  minWidth="150px"
-                  _hover={{
-                    backgroundColor:
-                      currentTab === "descricao" ? "secondary" : "gray.100",
-                  }}
-                  _pressed={{
-                    backgroundColor:
-                      currentTab === "descricao" ? "secondary" : "gray.100",
-                  }}
-                  onClick={() => toogleText("descricao")}
-                >
-                  <Text
-                    color={currentTab === "descricao" ? "white" : "secondary"}
-                    fontWeight="semibold"
-                    whiteSpace="nowrap"
-                  >
-                    O que é?
-                  </Text>
-                </ButtonChakra>
-
-                <ButtonChakra
-                  backgroundColor={
-                    currentTab === "etapas" ? "secondary" : "gray.100"
-                  }
-                  borderRadius="xl"
-                  p="4"
-                  height="60px"
-                  width="100%"
-                  minWidth="unset"
-                  _hover={{
-                    backgroundColor:
-                      currentTab === "etapas" ? "secondary" : "gray.100",
-                  }}
-                  _pressed={{
-                    backgroundColor:
-                      currentTab === "etapas" ? "secondary" : "gray.100",
-                  }}
-                  onClick={() => toogleText("etapas")}
-                >
-                  <Text
-                    color={currentTab === "etapas" ? "white" : "secondary"}
-                    fontWeight="semibold"
-                  >
-                    Quais são as Etapas?
-                  </Text>
-                </ButtonChakra>
-
-                <ButtonChakra
-                  backgroundColor={
-                    currentTab === "resumo" ? "secondary" : "gray.100"
-                  }
-                  borderRadius="xl"
-                  p="4"
-                  height="60px"
-                  width="100%"
-                  minWidth="unset"
-                  _hover={{
-                    backgroundColor:
-                      currentTab === "resumo" ? "secondary" : "gray.100",
-                  }}
-                  _pressed={{
-                    backgroundColor:
-                      currentTab === "resumo" ? "secondary" : "gray.100",
-                  }}
-                  onClick={() => toogleText("resumo")}
-                >
-                  <Text
-                    color={currentTab === "resumo" ? "white" : "secondary"}
-                    fontWeight="semibold"
-                    whiteSpace="nowrap"
-                  >
-                    Documentos necessários
-                  </Text>
-                </ButtonChakra>
-
-                <ButtonChakra
-                  backgroundColor={
-                    currentTab === "normas" ? "secondary" : "gray.100"
-                  }
-                  borderRadius="xl"
-                  p="4"
-                  height="60px"
-                  width="100%"
-                  minWidth="150px"
-                  _hover={{
-                    backgroundColor:
-                      currentTab === "normas" ? "secondary" : "gray.100",
-                  }}
-                  _pressed={{
-                    backgroundColor:
-                      currentTab === "normas" ? "secondary" : "gray.100",
-                  }}
-                  onClick={() => toogleText("normas")}
-                >
-                  <Text
-                    color={currentTab === "normas" ? "white" : "secondary"}
-                    fontWeight="semibold"
-                  >
-                    Normas
-                  </Text>
-                </ButtonChakra>
-              </Flex>
-
-              <Box
-                backgroundColor="white"
-                p="8"
-                borderRadius="xl"
-                fontWeight="medium"
-                fontSize="xl"
-                color="secondary"
-                width="100%"
-                height={400}
-                overflowY="auto"
-              >
-                {textContent}
-              </Box>
-            </Stack>
-
-            <Flex
-              display={["none", "none", "flex"]}
-              flex={1}
-              flexDirection="column"
-              flexGrow={0}
-              backgroundColor="secondary"
+            <Lottie
+              options={defaultOptions}
+              height={200}
+              width={200}
+              style={{ margin: "auto" }}
+            />
+          </Flex>
+        ) : (
+          <Flex
+            position="relative"
+            px="4"
+            pb="24"
+            flexDirection="column"
+            justifyContent="center"
+            width="100%"
+            height="100%"
+            maxWidth={1200}
+            m="auto"
+            minHeight={[
+              "calc(100vh + 400px)",
+              "calc(100vh - 300px)",
+              "calc(100vh - 196px)",
+            ]}
+          >
+            <Box
+              backgroundColor="white"
+              p="4"
               borderRadius="xl"
-              p="5"
-              alignItems="center"
-              justifyContent="space-between"
+              mb="6"
+              shadow="lg"
             >
-              <Text color="white" fontSize="4xl" fontWeight="bold">
+              <Text fontSize="3xl" fontWeight="semibold" color="secondary">
                 {subcategoria.rotulo}
               </Text>
+            </Box>
 
-              <Image
+            <HStack alignItems="stretch" spacing={30} flexWrap="wrap">
+              <Stack flex={1} width="100%" flexBasis={500}>
+                <Flex mb="4" gap="15px" overflowX="auto">
+                  <ButtonChakra
+                    backgroundColor={
+                      currentTab === "descricao" ? "secondary" : "gray.100"
+                    }
+                    borderRadius="xl"
+                    p="4"
+                    height="60px"
+                    width="100%"
+                    minWidth="150px"
+                    _hover={{
+                      backgroundColor:
+                        currentTab === "descricao" ? "secondary" : "gray.100",
+                    }}
+                    _pressed={{
+                      backgroundColor:
+                        currentTab === "descricao" ? "secondary" : "gray.100",
+                    }}
+                    onClick={() => toogleText("descricao")}
+                  >
+                    <Text
+                      color={currentTab === "descricao" ? "white" : "secondary"}
+                      fontWeight="semibold"
+                      whiteSpace="nowrap"
+                    >
+                      O que é?
+                    </Text>
+                  </ButtonChakra>
+
+                  <ButtonChakra
+                    backgroundColor={
+                      currentTab === "etapas" ? "secondary" : "gray.100"
+                    }
+                    borderRadius="xl"
+                    p="4"
+                    height="60px"
+                    width="100%"
+                    minWidth="unset"
+                    _hover={{
+                      backgroundColor:
+                        currentTab === "etapas" ? "secondary" : "gray.100",
+                    }}
+                    _pressed={{
+                      backgroundColor:
+                        currentTab === "etapas" ? "secondary" : "gray.100",
+                    }}
+                    onClick={() => toogleText("etapas")}
+                  >
+                    <Text
+                      color={currentTab === "etapas" ? "white" : "secondary"}
+                      fontWeight="semibold"
+                    >
+                      Quais são as Etapas?
+                    </Text>
+                  </ButtonChakra>
+
+                  <ButtonChakra
+                    backgroundColor={
+                      currentTab === "resumo" ? "secondary" : "gray.100"
+                    }
+                    borderRadius="xl"
+                    p="4"
+                    height="60px"
+                    width="100%"
+                    minWidth="unset"
+                    _hover={{
+                      backgroundColor:
+                        currentTab === "resumo" ? "secondary" : "gray.100",
+                    }}
+                    _pressed={{
+                      backgroundColor:
+                        currentTab === "resumo" ? "secondary" : "gray.100",
+                    }}
+                    onClick={() => toogleText("resumo")}
+                  >
+                    <Text
+                      color={currentTab === "resumo" ? "white" : "secondary"}
+                      fontWeight="semibold"
+                      whiteSpace="nowrap"
+                    >
+                      Documentos necessários
+                    </Text>
+                  </ButtonChakra>
+
+                  <ButtonChakra
+                    backgroundColor={
+                      currentTab === "normas" ? "secondary" : "gray.100"
+                    }
+                    borderRadius="xl"
+                    p="4"
+                    height="60px"
+                    width="100%"
+                    minWidth="150px"
+                    _hover={{
+                      backgroundColor:
+                        currentTab === "normas" ? "secondary" : "gray.100",
+                    }}
+                    _pressed={{
+                      backgroundColor:
+                        currentTab === "normas" ? "secondary" : "gray.100",
+                    }}
+                    onClick={() => toogleText("normas")}
+                  >
+                    <Text
+                      color={currentTab === "normas" ? "white" : "secondary"}
+                      fontWeight="semibold"
+                    >
+                      Normas
+                    </Text>
+                  </ButtonChakra>
+                </Flex>
+
+                <Box
+                  backgroundColor="white"
+                  p="8"
+                  borderRadius="xl"
+                  fontWeight="medium"
+                  fontSize="xl"
+                  color="secondary"
+                  width="100%"
+                  height={400}
+                  overflowY="auto"
+                >
+                  {textContent}
+                </Box>
+              </Stack>
+
+              <Flex
+                display={["none", "none", "flex"]}
                 flex={1}
-                src={`/assets/${subcategoria.rotulo?.toLowerCase()}.svg`}
-                alt={`${subcategoria.rotulo} icon`}
-                width="100%"
-                height="100%"
-                p="12"
-              />
-
-              <Link
-                href={`/comprar?rotulo=${subcategoria.rotulo}&id=${subcategoria.id}&cid=${subcategoria.categoria_id}`}
+                flexDirection="column"
+                flexGrow={0}
+                backgroundColor="secondary"
+                borderRadius="xl"
+                p="5"
+                alignItems="center"
+                justifyContent="space-between"
               >
-                <Button variant="primary" width="100%" mx="1">
-                  Comprar
-                </Button>
-              </Link>
-            </Flex>
-          </HStack>
+                <Text color="white" fontSize="4xl" fontWeight="bold">
+                  {subcategoria.rotulo}
+                </Text>
 
-          <Box display={["block", "block", "none"]} width="100%" pt="8">
-            <Button variant="primary" width="100%" mx="1">
-              Comprar
-            </Button>
-          </Box>
-        </Flex>
+                <Image
+                  flex={1}
+                  src={`/assets/${subcategoria.rotulo?.toLowerCase()}.svg`}
+                  alt={`${subcategoria.rotulo} icon`}
+                  width="100%"
+                  height="100%"
+                  p="12"
+                />
+
+                <Link
+                  href={`/comprar?rotulo=${subcategoria.rotulo}&id=${subcategoria.id}&cid=${subcategoria.categoria_id}`}
+                >
+                  <Button variant="primary" width="100%" mx="1">
+                    Comprar
+                  </Button>
+                </Link>
+              </Flex>
+            </HStack>
+
+            <Box display={["block", "block", "none"]} width="100%" pt="8">
+              <Button variant="primary" width="100%" mx="1">
+                Comprar
+              </Button>
+            </Box>
+          </Flex>
+        )}
       </Box>
     </Flex>
   );

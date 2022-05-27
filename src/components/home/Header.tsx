@@ -51,7 +51,7 @@ const Header: React.FC = () => {
           <Link href="/comprar">
             <Button variant="secondary">já sei o que preciso</Button>
           </Link>
-          <Link href="/info/id">
+          <Link href="/produto">
             <Button variant="primary">
               me ajude a descobrir o que preciso
             </Button>

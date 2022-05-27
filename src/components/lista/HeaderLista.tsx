@@ -15,6 +15,7 @@ import ListItemProduto from "../info/ListItemProduto.tsx/ListItemProduto";
 import Switch from "react-input-switch";
 import ButtonValidade from "./ButtonValidade";
 import ButtonSPlus from "./ButtonSPlus";
+import Lottie from "react-lottie";
 
 import {
   getListaSubcategoriaPF,
@@ -31,6 +32,8 @@ import { currencyMask } from "../../utils/currencyMask";
 import { useRouter } from "next/router";
 import { getSubcategoria } from "../../service/useCases/getSubcategoria";
 
+import animationLoad from "../../animation/load.json";
+
 enum CategoriaType {
   PF = 0,
   PJ = 1,
@@ -41,6 +44,7 @@ const HeaderLista: React.FC = () => {
   const { rotulo, id, cid } = router.query;
 
   const [valueSwitch, setValueSwitch] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [subcategoriaPF, setSubcategoriaPF] = useState<SubcategoriaType[]>([]);
   const [subcategoriaPJ, setSubcategoriaPJ] = useState<SubcategoriaType[]>([]);
 
@@ -61,12 +65,14 @@ const HeaderLista: React.FC = () => {
   };
 
   useEffect(() => {
-    if (valueSwitch === CategoriaType.PF) {
-      setCurrShowed(1);
-      buscaSubcategoriaPorID(1);
-    } else if (valueSwitch === CategoriaType.PJ) {
-      setCurrShowed(6);
-      buscaSubcategoriaPorID(6);
+    if (!rotulo) {
+      if (valueSwitch === CategoriaType.PF) {
+        setCurrShowed(1);
+        buscaSubcategoriaPorID(1);
+      } else if (valueSwitch === CategoriaType.PJ) {
+        setCurrShowed(6);
+        buscaSubcategoriaPorID(6);
+      }
     }
   }, [valueSwitch]);
 
@@ -90,10 +96,20 @@ const HeaderLista: React.FC = () => {
 
       setSubcategoriaPF(tmpSubcategoriaPF);
       setSubcategoriaPJ(tmpSubcategoriaPJ);
+      setLoading(false);
     };
 
     getProdutosPorCategorias();
   }, []);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationLoad,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   return (
     <Flex
@@ -106,7 +122,11 @@ const HeaderLista: React.FC = () => {
     >
       <Stack flex={1} flexBasis={400}>
         <Stack alignItems="center">
-          <Title variant="h3" fontSize={["2xl", "4xl", "4xl", "5xl"]}>
+          <Title
+            variant="h3"
+            mt={["10", "0"]}
+            fontSize={["2xl", "4xl", "4xl", "5xl"]}
+          >
             Pra quem é o Certificado?
           </Title>
 
@@ -157,122 +177,141 @@ const HeaderLista: React.FC = () => {
             </Text>
           </HStack>
 
-          <HStack spacing="30px" alignItems="stretch">
-            <Stack spacing="20px" flex={1} height="100%">
-              {valueSwitch === CategoriaType.PF ? (
-                <>
-                  {subcategoriaPF.map((subcategoria) => (
-                    <ListItemProduto
-                      key={subcategoria.id}
-                      index={subcategoria.id}
-                      rotulo={subcategoria.rotulo}
-                      onClick={() => getInfosProduto(subcategoria)}
-                    />
-                  ))}
-                </>
-              ) : (
-                <>
-                  {subcategoriaPJ.map((subcategoria, i) => (
-                    <ListItemProduto
-                      key={subcategoria.id}
-                      index={subcategoria.id}
-                      rotulo={subcategoria.rotulo}
-                      onClick={() => getInfosProduto(subcategoria)}
-                    />
-                  ))}
-                </>
-              )}
-            </Stack>
-
-            <Stack width="100%" maxWidth={780}>
-              <Stack
-                height={528}
-                justifyContent="space-between"
-                background="secondary"
-                px="6"
-                borderRadius="2xl"
-              >
-                <Center mt="3">
-                  <Text color="white" fontSize="2xl" fontWeight="semibold">
-                    {`Escolha suas configurações para ${label}`}
-                  </Text>
-                </Center>
-
-                <HStack height="100%">
-                  <Stack width={600}>
-                    <Box flex={1}>
-                      <Image
-                        src="/token.png"
-                        alt="Logo da Sintech"
-                        width={300}
-                        height={250}
+          {loading ? (
+            <Flex minHeight={528}>
+              <Lottie
+                options={defaultOptions}
+                height={200}
+                width={200}
+                style={{ margin: "auto" }}
+              />
+            </Flex>
+          ) : (
+            <HStack spacing="30px" alignItems="stretch" p={["4", "12", "0"]}>
+              <Stack spacing="20px" flex={1} minHeight={528} height="100%">
+                {valueSwitch === CategoriaType.PF ? (
+                  <>
+                    {subcategoriaPF.map((subcategoria) => (
+                      <ListItemProduto
+                        key={subcategoria.id}
+                        index={subcategoria.id}
+                        rotulo={subcategoria.rotulo}
+                        onClick={() => getInfosProduto(subcategoria)}
                       />
-                    </Box>
-
-                    <Center pb="4" flexDirection="column">
-                      <Text color="white" fontSize="4xl" fontWeight="semibold">
-                        {currencyMask(preco)}
-                      </Text>
-                      <Text color="white" fontSize="sm" fontWeight="semibold">
-                        Preço é ajustado de acordo com as opções
-                      </Text>
-                    </Center>
-
-                    <Button
-                      backgroundColor="primary"
-                      color="white"
-                      width="100%"
-                      borderRadius="xl"
-                      size="lg"
-                      fontSize="2xl"
-                      fontWeight="bold"
-                      p="8"
-                      disabled={!statusPodeComprar}
-                      onClick={getLinkParaComprar}
-                      _hover={{}}
-                      _active={{}}
-                    >
-                      Comprar
-                    </Button>
-                  </Stack>
-
-                  <Box width="100%" pt="4" pl="8" overflowY="auto">
-                    <Stack
-                      height={455}
-                      position="relative"
-                      spacing={3}
-                      pb="4"
-                      pr="2"
-                    >
-                      <ButtonTipoProduto />
-                      <ButtonTipoAtendimento />
-                      <ButtonValidade />
-                      <ButtonMidia />
-                      <ButtonSPlus description="" />
-                      <Box py="4" />
-                    </Stack>
-                  </Box>
-                </HStack>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    {subcategoriaPJ.map((subcategoria, i) => (
+                      <ListItemProduto
+                        key={subcategoria.id}
+                        index={subcategoria.id}
+                        rotulo={subcategoria.rotulo}
+                        onClick={() => getInfosProduto(subcategoria)}
+                      />
+                    ))}
+                  </>
+                )}
               </Stack>
 
               <Stack
-                display="none"
-                background="secondary"
-                px="6"
-                py="4"
-                borderRadius="2xl"
+                display={["none", "none", "flex"]}
+                width="100%"
+                maxWidth={780}
               >
-                <Text color="white" fontSize="xl" fontWeight="bold">
-                  O que é o Token?
-                </Text>
-                <Text color="white" my="4">
-                  Nunc id justo eget lacus pulvinar iaculis sit amet a felis.
-                  Vivamus vitae bibendum nibh, ac tristique urna. Quisque ac est
-                  vitae arcu interdum dapibus id nec justo.
-                </Text>
+                <Stack
+                  height={528}
+                  justifyContent="space-between"
+                  background="secondary"
+                  px="6"
+                  borderRadius="2xl"
+                >
+                  <Center mt="3">
+                    <Text color="white" fontSize="2xl" fontWeight="semibold">
+                      {`Escolha suas configurações para ${label}`}
+                    </Text>
+                  </Center>
+
+                  <HStack height="100%">
+                    <Stack width={600}>
+                      <Box flex={1}>
+                        <Image
+                          src="/token.png"
+                          alt="Logo da Sintech"
+                          width={300}
+                          height={250}
+                        />
+                      </Box>
+
+                      <Center pb="4" flexDirection="column">
+                        <Text
+                          color="white"
+                          fontSize="4xl"
+                          fontWeight="semibold"
+                        >
+                          {currencyMask(preco)}
+                        </Text>
+                        <Text color="white" fontSize="sm" fontWeight="semibold">
+                          Preço é ajustado de acordo com as opções
+                        </Text>
+                      </Center>
+
+                      <Button
+                        backgroundColor="primary"
+                        color="white"
+                        width="100%"
+                        borderRadius="xl"
+                        size="lg"
+                        fontSize="2xl"
+                        fontWeight="bold"
+                        p="8"
+                        disabled={!statusPodeComprar}
+                        onClick={getLinkParaComprar}
+                        _hover={{}}
+                        _active={{}}
+                      >
+                        Comprar
+                      </Button>
+                    </Stack>
+
+                    <Box width="100%" pt="4" pl="8" overflowY="auto">
+                      <Stack
+                        height={455}
+                        position="relative"
+                        spacing={3}
+                        pb="4"
+                        pr="2"
+                      >
+                        <ButtonTipoProduto />
+                        <ButtonTipoAtendimento />
+                        <ButtonValidade />
+                        <ButtonMidia />
+                        <ButtonSPlus description="" />
+                        <Box py="2" />
+                      </Stack>
+                    </Box>
+                  </HStack>
+                </Stack>
+
+                <Stack
+                  display="none"
+                  background="secondary"
+                  px="6"
+                  py="4"
+                  borderRadius="2xl"
+                >
+                  <Text color="white" fontSize="xl" fontWeight="bold">
+                    O que é o Token?
+                  </Text>
+                  <Text color="white" my="4">
+                    Nunc id justo eget lacus pulvinar iaculis sit amet a felis.
+                    Vivamus vitae bibendum nibh, ac tristique urna. Quisque ac
+                    est vitae arcu interdum dapibus id nec justo.
+                  </Text>
+                </Stack>
               </Stack>
-            </Stack>
-          </HStack>
+            </HStack>
+          )}
         </Stack>
       </Stack>
     </Flex>
