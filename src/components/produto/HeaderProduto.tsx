@@ -18,18 +18,15 @@ import { faker } from "@faker-js/faker";
 import Link from "next/link";
 
 import animationLoad from "../../animation/load.json";
-import { useRouter } from "next/router";
 
 interface HeaderProdutoProps {
   id: string | string[];
 }
 
-const HeaderProduto: React.FC<HeaderProdutoProps> = () => {
+const HeaderProduto: React.FC<HeaderProdutoProps> = ({ id }) => {
   const [subcategoria, setSubcategoria] = useState({} as SubcategoriaType);
   const [textContent, setTextContent] = useState("");
   const [currentTab, setCurrentTab] = useState("");
-
-  const router = useRouter();
 
   const defaultOptions = {
     loop: true,
@@ -42,18 +39,18 @@ const HeaderProduto: React.FC<HeaderProdutoProps> = () => {
 
   useEffect(() => {
     const buscaSubcategoriaPorID = async () => {
-      const { id } = router.query;
+      if (id) {
+        const parser = Number(id);
+        const tmpSubcategoria = await getSubcategoria(parser);
 
-      const parser = Number(id);
-      const tmpSubcategoria = await getSubcategoria(parser);
-
-      setSubcategoria(tmpSubcategoria);
-      setTextContent(tmpSubcategoria.descricao || faker.lorem.paragraphs(6));
-      setCurrentTab("descricao");
+        setSubcategoria(tmpSubcategoria);
+        setTextContent(tmpSubcategoria.descricao || faker.lorem.paragraphs(6));
+        setCurrentTab("descricao");
+      }
     };
 
     buscaSubcategoriaPorID();
-  }, []);
+  }, [id]);
 
   const toogleText = (slug: string) => {
     setCurrentTab(slug);

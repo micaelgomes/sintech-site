@@ -79,14 +79,14 @@ const HeaderLista: React.FC = () => {
     const categoriaID = Number(cid) - 1;
     const subcategoriaID = Number(id);
 
-    if (rotulo) {
+    if (rotulo && categoriaID && subcategoriaID) {
       setValueSwitch(categoriaID);
       setCurrShowed(subcategoriaID);
       buscaSubcategoriaPorID(subcategoriaID);
     } else {
       buscaSubcategoriaPorID(1);
     }
-  }, []);
+  }, [rotulo, id, cid]);
 
   useEffect(() => {
     const getProdutosPorCategorias = async () => {
