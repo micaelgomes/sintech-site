@@ -18,15 +18,18 @@ import { faker } from "@faker-js/faker";
 import Link from "next/link";
 
 import animationLoad from "../../animation/load.json";
+import { useRouter } from "next/router";
 
 interface HeaderProdutoProps {
   id: string | string[];
 }
 
-const HeaderProduto: React.FC<HeaderProdutoProps> = ({ id }) => {
+const HeaderProduto: React.FC<HeaderProdutoProps> = () => {
   const [subcategoria, setSubcategoria] = useState({} as SubcategoriaType);
   const [textContent, setTextContent] = useState("");
   const [currentTab, setCurrentTab] = useState("");
+
+  const router = useRouter();
 
   const defaultOptions = {
     loop: true,
@@ -39,6 +42,8 @@ const HeaderProduto: React.FC<HeaderProdutoProps> = ({ id }) => {
 
   useEffect(() => {
     const buscaSubcategoriaPorID = async () => {
+      const { id } = router.query;
+
       const parser = Number(id);
       const tmpSubcategoria = await getSubcategoria(parser);
 
@@ -111,7 +116,6 @@ const HeaderProduto: React.FC<HeaderProdutoProps> = ({ id }) => {
         ) : (
           <Flex
             position="relative"
-            px="4"
             pb="24"
             flexDirection="column"
             justifyContent="center"
@@ -119,18 +123,16 @@ const HeaderProduto: React.FC<HeaderProdutoProps> = ({ id }) => {
             height="100%"
             maxWidth={1200}
             m="auto"
-            minHeight={[
-              "calc(100vh + 400px)",
-              "calc(100vh - 300px)",
-              "calc(100vh - 196px)",
-            ]}
+            minHeight={["100%", "calc(100vh - 100px)", "calc(100vh - 196px)"]}
           >
             <Box
               backgroundColor="white"
               p="4"
               borderRadius="xl"
-              mb="6"
+              mt={["6", "0"]}
+              mb={["10", "6"]}
               shadow="lg"
+              mx={["4", "4", "0"]}
             >
               <Text fontSize="3xl" fontWeight="semibold" color="secondary">
                 {subcategoria.rotulo}
@@ -139,7 +141,14 @@ const HeaderProduto: React.FC<HeaderProdutoProps> = ({ id }) => {
 
             <HStack alignItems="stretch" spacing={30} flexWrap="wrap">
               <Stack flex={1} width="100%" flexBasis={500}>
-                <Flex mb="4" gap="15px" overflowX="auto">
+                <Flex
+                  mb="4"
+                  gap="15px"
+                  overflowX="auto"
+                  pt={["1", "1", "0"]}
+                  pb={["4", "4", "0"]}
+                  px={["4", "4", "0"]}
+                >
                   <ButtonChakra
                     backgroundColor={
                       currentTab === "descricao" ? "secondary" : "gray.100"
@@ -197,7 +206,7 @@ const HeaderProduto: React.FC<HeaderProdutoProps> = ({ id }) => {
 
                   <ButtonChakra
                     backgroundColor={
-                      currentTab === "resumo" ? "secondary" : "gray.100"
+                      currentTab === "docs" ? "secondary" : "gray.100"
                     }
                     borderRadius="xl"
                     p="4"
@@ -206,16 +215,16 @@ const HeaderProduto: React.FC<HeaderProdutoProps> = ({ id }) => {
                     minWidth="unset"
                     _hover={{
                       backgroundColor:
-                        currentTab === "resumo" ? "secondary" : "gray.100",
+                        currentTab === "docs" ? "secondary" : "gray.100",
                     }}
                     _pressed={{
                       backgroundColor:
-                        currentTab === "resumo" ? "secondary" : "gray.100",
+                        currentTab === "docs" ? "secondary" : "gray.100",
                     }}
-                    onClick={() => toogleText("resumo")}
+                    onClick={() => toogleText("docs")}
                   >
                     <Text
-                      color={currentTab === "resumo" ? "white" : "secondary"}
+                      color={currentTab === "docs" ? "white" : "secondary"}
                       fontWeight="semibold"
                       whiteSpace="nowrap"
                     >
@@ -251,18 +260,23 @@ const HeaderProduto: React.FC<HeaderProdutoProps> = ({ id }) => {
                   </ButtonChakra>
                 </Flex>
 
-                <Box
-                  backgroundColor="white"
-                  p="8"
-                  borderRadius="xl"
-                  fontWeight="medium"
-                  fontSize="xl"
-                  color="secondary"
-                  width="100%"
-                  height={400}
-                  overflowY="auto"
-                >
-                  {textContent}
+                <Box px={["4", "4", "0"]}>
+                  <Box
+                    backgroundColor="white"
+                    borderRadius="xl"
+                    fontWeight="medium"
+                    fontSize="xl"
+                    color="secondary"
+                    width="100%"
+                    height={["100%", "400px"]}
+                    overflowY="auto"
+                    p={["4", "4", "8"]}
+                  >
+                    <Text
+                      fontWeight="medium"
+                      dangerouslySetInnerHTML={{ __html: textContent }}
+                    />
+                  </Box>
                 </Box>
               </Stack>
 
@@ -300,10 +314,19 @@ const HeaderProduto: React.FC<HeaderProdutoProps> = ({ id }) => {
               </Flex>
             </HStack>
 
-            <Box display={["block", "block", "none"]} width="100%" pt="8">
-              <Button variant="primary" width="100%" mx="1">
-                Comprar
-              </Button>
+            <Box
+              display={["block", "block", "none"]}
+              width="100%"
+              px={["4", "4", "0"]}
+              py="8"
+            >
+              <Link
+                href={`/comprar?rotulo=${subcategoria.rotulo}&id=${subcategoria.id}&cid=${subcategoria.categoria_id}`}
+              >
+                <Button variant="primary" width="100%">
+                  Comprar
+                </Button>
+              </Link>
             </Box>
           </Flex>
         )}

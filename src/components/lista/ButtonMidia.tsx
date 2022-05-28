@@ -107,7 +107,7 @@ const ButtonMidia: React.FC = () => {
           <Stack>
             <RadioGroup onChange={selectMidia}>
               <Stack>
-                {midias.length > 0 ? (
+                {midias?.length > 0 ? (
                   midias.map((midia) => (
                     <Radio
                       value={`${midia.id}@${midia.rotulo}`}
@@ -127,7 +127,7 @@ const ButtonMidia: React.FC = () => {
               </Stack>
             </RadioGroup>
 
-            {midias.length > 0 && (
+            {midias?.length > 0 && (
               <Flex>
                 <Button
                   backgroundColor="primary"

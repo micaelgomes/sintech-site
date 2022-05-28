@@ -104,7 +104,7 @@ const ButtonTipoAtendimento: React.FC = () => {
           <Stack>
             <RadioGroup onChange={selectAtendimento}>
               <Stack>
-                {produtos.length > 0 ? (
+                {produtos?.length > 0 ? (
                   tiposAtendimento.map((tipo) => (
                     <Radio
                       key={tipo.slug}

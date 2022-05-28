@@ -108,7 +108,7 @@ const ButtonValidade: React.FC = () => {
           <Stack>
             <RadioGroup onChange={selectValidade}>
               <Stack>
-                {validades.length > 0 ? (
+                {validades?.length > 0 ? (
                   validades.map((validade) => (
                     <Radio
                       value={`${validade.id}@${validade.rotulo}`}
@@ -128,7 +128,7 @@ const ButtonValidade: React.FC = () => {
               </Stack>
             </RadioGroup>
 
-            {validades.length > 0 && (
+            {validades?.length > 0 && (
               <Flex>
                 <Button
                   backgroundColor="primary"

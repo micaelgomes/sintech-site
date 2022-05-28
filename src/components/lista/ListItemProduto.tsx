@@ -3,20 +3,24 @@ import React, { memo, useEffect, useState } from "react";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 import { motion } from "framer-motion";
-import { useProduto } from "../../lista/context/produto";
+import { useDrawerBottom } from "../../context/drawerBottom";
+import { useProduto } from "./context/produto";
 
 type ListItemProdutoProps = {
   index: number;
   rotulo: string;
+  resumo: string;
   onClick: () => void;
 };
 
 const ListItemProduto: React.FC<ListItemProdutoProps> = ({
   index,
   rotulo,
+  resumo,
   onClick,
 }) => {
   const { currShowed, setCurrShowed } = useProduto();
+  const { toggleDrawerBottom } = useDrawerBottom();
   const [opened, setOpened] = useState(currShowed === index);
 
   const toggleOpen = () => {
@@ -103,10 +107,7 @@ const ListItemProduto: React.FC<ListItemProdutoProps> = ({
           >
             <Stack>
               <Text fontSize="md" mb="2" color={opened ? "white" : "secondary"}>
-                Aenean scelerisque mi massa, eget tempor magna congue sed.
-                Integer tristique varius quam, eu varius orci rhoncus ac. Sed
-                elit tortor, convallis in mauris nec, sollicitudin consectetur
-                nisi.
+                {resumo || "Resumo não cadastrado"}
               </Text>
 
               <Flex display={["flex", "flex", "none"]}>
@@ -117,6 +118,7 @@ const ListItemProduto: React.FC<ListItemProdutoProps> = ({
                   ml="auto"
                   _hover={{}}
                   _active={{}}
+                  onClick={toggleDrawerBottom}
                 >
                   Selecionar
                 </Button>

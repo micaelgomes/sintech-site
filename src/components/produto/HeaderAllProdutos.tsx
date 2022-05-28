@@ -112,7 +112,7 @@ const HeaderAllProdutos: React.FC = () => {
             maxWidth={1200}
             m="auto"
             minHeight={[
-              "calc(100vh + 400px)",
+              "calc(100vh)",
               "calc(100vh - 300px)",
               "calc(100vh - 196px)",
             ]}
@@ -123,7 +123,7 @@ const HeaderAllProdutos: React.FC = () => {
               </Text>
             </Center>
 
-            <Flex mx="auto" width="100%" maxWidth="700px" flexWrap="wrap">
+            <Flex mx="auto" width="100%" maxWidth="600px" flexWrap="wrap">
               {subcategorias.map((service, i) => (
                 <Link
                   key={i}
@@ -138,37 +138,39 @@ const HeaderAllProdutos: React.FC = () => {
                       cursor: "pointer",
                       transition: "all 0.2s ease-in-out",
                     }}
-                    mx="8"
+                    mx="auto"
                     my="4"
                   >
-                    <Box
-                      backgroundColor="secondary"
-                      borderRadius="2xl"
-                      display="flex"
-                      justifyContent="center"
-                      alignItems="center"
-                      width={[75, 100, 100, 100, 100]}
-                      height={[75, 100, 100, 100, 100]}
-                      p="4"
-                    >
-                      <Image
-                        src={`/assets/${service.rotulo.toLowerCase()}.svg`}
-                        alt={service.rotulo}
-                        width="100%"
-                        height="100%"
-                      />
+                    <Box p="4">
+                      <Box
+                        backgroundColor="secondary"
+                        borderRadius="2xl"
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        width={[75, 100, 100, 100, 100]}
+                        height={[75, 100, 100, 100, 100]}
+                        p="4"
+                      >
+                        <Image
+                          src={`/assets/${service.rotulo.toLowerCase()}.svg`}
+                          alt={service.rotulo}
+                          width="100%"
+                          height="100%"
+                        />
+                      </Box>
+                      <Text
+                        mt="4"
+                        fontWeight="bold"
+                        fontSize={["lg", "xl", "2xl", "2xl"]}
+                        color="secondary"
+                        maxWidth={100}
+                        textAlign="center"
+                        lineHeight="shorter"
+                      >
+                        {service.rotulo}
+                      </Text>
                     </Box>
-                    <Text
-                      mt="4"
-                      fontWeight="bold"
-                      fontSize={["lg", "xl", "2xl", "2xl"]}
-                      color="secondary"
-                      maxWidth={100}
-                      textAlign="center"
-                      lineHeight="shorter"
-                    >
-                      {service.rotulo}
-                    </Text>
                   </Flex>
                 </Link>
               ))}

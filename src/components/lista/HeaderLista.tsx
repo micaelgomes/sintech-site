@@ -11,7 +11,6 @@ import {
 import Image from "next/image";
 
 import Title from "../globals/Title";
-import ListItemProduto from "../info/ListItemProduto.tsx/ListItemProduto";
 import Switch from "react-input-switch";
 import ButtonValidade from "./ButtonValidade";
 import ButtonSPlus from "./ButtonSPlus";
@@ -33,6 +32,7 @@ import { useRouter } from "next/router";
 import { getSubcategoria } from "../../service/useCases/getSubcategoria";
 
 import animationLoad from "../../animation/load.json";
+import ListItemProduto from "./ListItemProduto";
 
 enum CategoriaType {
   PF = 0,
@@ -55,7 +55,6 @@ const HeaderLista: React.FC = () => {
     statusPodeComprar,
     getLinkParaComprar,
     setCurrShowed,
-    produtoSelecionado,
   } = useProduto();
 
   const buscaSubcategoriaPorID = async (id: number) => {
@@ -187,7 +186,12 @@ const HeaderLista: React.FC = () => {
               />
             </Flex>
           ) : (
-            <HStack spacing="30px" alignItems="stretch" p={["4", "12", "0"]}>
+            <HStack
+              spacing="30px"
+              alignItems="stretch"
+              p={["4", "12", "0"]}
+              width="100%"
+            >
               <Stack spacing="20px" flex={1} minHeight={528} height="100%">
                 {valueSwitch === CategoriaType.PF ? (
                   <>
@@ -196,6 +200,7 @@ const HeaderLista: React.FC = () => {
                         key={subcategoria.id}
                         index={subcategoria.id}
                         rotulo={subcategoria.rotulo}
+                        resumo={subcategoria.resumo}
                         onClick={() => getInfosProduto(subcategoria)}
                       />
                     ))}
@@ -207,6 +212,7 @@ const HeaderLista: React.FC = () => {
                         key={subcategoria.id}
                         index={subcategoria.id}
                         rotulo={subcategoria.rotulo}
+                        resumo={subcategoria.resumo}
                         onClick={() => getInfosProduto(subcategoria)}
                       />
                     ))}

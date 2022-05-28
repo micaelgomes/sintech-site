@@ -16,9 +16,12 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
+import { useDrawer } from "../../context/drawer";
 
 const Navbar: React.FC = () => {
   const [isLargerThan990] = useMediaQuery("(min-width: 1100px)");
+
+  const { toggleDrawer } = useDrawer();
 
   return (
     <Flex width="100%" px="4" zIndex={1}>
@@ -81,7 +84,7 @@ const Navbar: React.FC = () => {
             </HStack>
           </Wrap>
         ) : (
-          <Button>
+          <Button onClick={toggleDrawer}>
             <FiMenu size={22} />
           </Button>
         )}
