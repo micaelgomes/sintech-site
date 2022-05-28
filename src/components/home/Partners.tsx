@@ -35,6 +35,7 @@ const Partners: React.FC = () => {
         >
           <Image
             src="/receita.jpg"
+            blurDataURL="/receita.jpg"
             alt="Logo da Receita Federal"
             width={450}
             height={200}
@@ -42,6 +43,7 @@ const Partners: React.FC = () => {
 
           <Image
             src="/gti.jpg"
+            blurDataURL="/gti.jpg"
             alt="Logo da Receita Federal"
             width={200}
             height={175}
@@ -49,6 +51,7 @@ const Partners: React.FC = () => {
 
           <Image
             src="/soluti.jpg"
+            blurDataURL="/soluti.jpg"
             alt="Logo da Receita Federal"
             width={350}
             height={175}
@@ -56,6 +59,7 @@ const Partners: React.FC = () => {
 
           <Image
             src="/criativos.jpg"
+            blurDataURL="/criativos.jpg"
             alt="Logo da Receita Federal"
             width={400}
             height={200}
@@ -63,6 +67,7 @@ const Partners: React.FC = () => {
 
           <Image
             src="/iti.jpg"
+            blurDataURL="/iti.jpg"
             alt="Logo da Receita Federal"
             width={400}
             height={175}

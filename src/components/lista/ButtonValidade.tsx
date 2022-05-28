@@ -16,6 +16,7 @@ import { useProduto } from "./context/produto";
 
 const ButtonValidade: React.FC = () => {
   const [opened, setOpened] = useState(false);
+  const [selected, setSelected] = useState("");
 
   const {
     produtos,
@@ -30,8 +31,15 @@ const ButtonValidade: React.FC = () => {
       const idProdutoSelecionado = produtoSelecionado.variacaoProduto.id;
 
       const produto = produtos.find(
-        (produto) => produto.id === idProdutoSelecionado
+        (tmpProduto) => tmpProduto.id === idProdutoSelecionado
       );
+
+      if (produto?.validades?.length === 1) {
+        const uniqueValidade = produto?.validades[0];
+        const presetSelected = `${uniqueValidade.id}@${uniqueValidade.rotulo}`;
+
+        setSelected(presetSelected);
+      }
 
       setValidades(produto?.validades || []);
     }
@@ -42,16 +50,20 @@ const ButtonValidade: React.FC = () => {
   };
 
   const selectValidade = (value: string) => {
-    const [id, rotulo] = value.split("@");
+    setSelected(value);
+  };
+
+  useEffect(() => {
+    const [id, rotulo] = selected.split("@");
 
     setProdutoSelecionado({
       ...produtoSelecionado,
       validade: {
         id: Number(id),
-        rotulo,
+        rotulo: rotulo,
       },
     });
-  };
+  }, [selected]);
 
   return (
     <Stack
@@ -106,7 +118,7 @@ const ButtonValidade: React.FC = () => {
       >
         <Box px="2" mt="2" maxHeight={230} overflow="auto">
           <Stack>
-            <RadioGroup onChange={selectValidade}>
+            <RadioGroup onChange={selectValidade} value={selected}>
               <Stack>
                 {validades?.length > 0 ? (
                   validades.map((validade) => (

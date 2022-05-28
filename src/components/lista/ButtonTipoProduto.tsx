@@ -38,7 +38,7 @@ const ButtonTipoProduto: React.FC = () => {
       },
     });
 
-    setResetCompra(true);
+    // setResetCompra(true);
   };
 
   return (

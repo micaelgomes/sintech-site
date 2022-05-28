@@ -16,12 +16,15 @@ import { useProduto } from "./context/produto";
 
 const ButtonMidia: React.FC = () => {
   const [opened, setOpened] = useState(false);
+  const [selected, setSelected] = useState("");
+
   const {
     setProdutoSelecionado,
     produtoSelecionado,
     validades,
     midias,
     setMidias,
+    resetCompra,
   } = useProduto();
 
   useEffect(() => {
@@ -29,8 +32,15 @@ const ButtonMidia: React.FC = () => {
       const idValidadeSelecionado = produtoSelecionado.validade.id;
 
       const validade = validades.find(
-        (validade) => validade.id === idValidadeSelecionado
+        (tmpValidade) => tmpValidade.id === idValidadeSelecionado
       );
+
+      if (validade?.midias?.length === 1) {
+        const uniqueMidia = validade?.midias[0];
+        const presetSelected = `${uniqueMidia.id}@${uniqueMidia.rotulo}`;
+
+        setSelected(presetSelected);
+      }
 
       setMidias(validade?.midias || []);
     }
@@ -41,16 +51,29 @@ const ButtonMidia: React.FC = () => {
   };
 
   const selectMidia = (value: string) => {
-    const [id, rotulo] = value.split("@");
-
-    setProdutoSelecionado({
-      ...produtoSelecionado,
-      midia: {
-        id: Number(id),
-        rotulo,
-      },
-    });
+    setSelected(value);
   };
+
+  useEffect(() => {
+    if (selected) {
+      const [id, rotulo] = selected.split("@");
+
+      setProdutoSelecionado({
+        ...produtoSelecionado,
+        midia: {
+          id: Number(id),
+          rotulo: rotulo,
+        },
+      });
+    }
+  }, [selected]);
+
+  useEffect(() => {
+    if (resetCompra) {
+      setMidias([]);
+      setSelected(null);
+    }
+  }, [resetCompra]);
 
   return (
     <Stack
@@ -105,7 +128,7 @@ const ButtonMidia: React.FC = () => {
       >
         <Box px="2" mt="2" maxHeight={230} overflow="auto">
           <Stack>
-            <RadioGroup onChange={selectMidia}>
+            <RadioGroup onChange={selectMidia} value={selected}>
               <Stack>
                 {midias?.length > 0 ? (
                   midias.map((midia) => (

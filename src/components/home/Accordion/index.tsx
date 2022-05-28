@@ -152,6 +152,7 @@ const Accordion: React.FC = () => {
         >
           <Image
             src="/partner_image_man.png"
+            blurDataURL="/partner_image_man.png"
             alt="Homem empresário na foto"
             layout="responsive"
             width={750}
@@ -166,7 +167,7 @@ const Accordion: React.FC = () => {
           maxWidth="container.lg"
           width="100%"
           mx="4"
-          my={["36", "48", "48", "16"]}
+          my={["36", "48", "48", "48", "16"]}
         >
           <Box maxWidth={700} mx="auto">
             <Heading

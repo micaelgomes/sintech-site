@@ -76,11 +76,11 @@ const HeaderLista: React.FC = () => {
   }, [valueSwitch]);
 
   useEffect(() => {
-    const categoriaID = Number(cid) - 1;
+    const categoriaID = Number(cid);
     const subcategoriaID = Number(id);
 
     if (rotulo && categoriaID && subcategoriaID) {
-      setValueSwitch(categoriaID);
+      setValueSwitch(categoriaID - 1);
       setCurrShowed(subcategoriaID);
       buscaSubcategoriaPorID(subcategoriaID);
     } else {

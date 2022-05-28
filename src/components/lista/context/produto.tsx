@@ -7,6 +7,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { useToast } from "../../../context/toast";
 
 import { SubcategoriaType } from "../../../service/useCases/getListaProdutos";
 import {
@@ -47,6 +48,7 @@ interface ProdutoData {
   getInfosProduto: (subcategoria: SubcategoriaType) => Promise<void>;
   statusPodeComprar: boolean;
   getLinkParaComprar: () => void;
+  resetCompra: boolean;
   setResetCompra: Dispatch<SetStateAction<boolean>>;
   preco: number;
   setCurrShowed: Dispatch<SetStateAction<number>>;
@@ -65,12 +67,10 @@ const ProdutoProvider: React.FC = ({ children }) => {
   const [label, setLabel] = useState("");
   const [statusPodeComprar, setStatusPodeComprar] = useState(false);
   const [currShowed, setCurrShowed] = useState(1);
-
-  /**
-   * DEPRECATED: resetCompra
-   */
   const [resetCompra, setResetCompra] = useState(false);
   const [preco, setPreco] = useState(0);
+
+  const { addToast } = useToast();
 
   const getInfosProduto = async (subcategoria: SubcategoriaType) => {
     setProdutos([]);
@@ -112,6 +112,8 @@ const ProdutoProvider: React.FC = ({ children }) => {
 
       window.open(linkToRedirect, "_blank");
     } catch (err) {
+      addToast("error", "Produto sem Link para compra");
+
       throw new Error("Não foi possível recuperar o link");
     }
   };
@@ -147,6 +149,7 @@ const ProdutoProvider: React.FC = ({ children }) => {
       getInfosProduto,
       statusPodeComprar,
       getLinkParaComprar,
+      resetCompra,
       setResetCompra,
       preco,
       currShowed,
@@ -165,6 +168,7 @@ const ProdutoProvider: React.FC = ({ children }) => {
       getInfosProduto,
       statusPodeComprar,
       getLinkParaComprar,
+      resetCompra,
       setResetCompra,
       preco,
       currShowed,

@@ -25,7 +25,7 @@ import { useProduto } from "../lista/context/produto";
 import { FiX } from "react-icons/fi";
 
 const DrawerBottom = () => {
-  const [isLargerThan40em] = useMediaQuery("(min-width: 40em)");
+  const [isLargerThan40em] = useMediaQuery("(min-width: 712px)");
   const { isOpen, toggleDrawerBottom } = useDrawerBottom();
 
   const { label, preco, statusPodeComprar, getLinkParaComprar } = useProduto();
@@ -36,12 +36,12 @@ const DrawerBottom = () => {
       onClose={toggleDrawerBottom}
       direction="bottom"
       style={{
-        height: isLargerThan40em ? "auto" : "100vh",
+        height: "auto",
         backgroundColor: "#194F69",
         overflowY: "auto",
       }}
     >
-      <Stack width="100%" p="4">
+      <Stack width="100%" height={["100vh", "auto"]} p="4">
         <Stack
           height={["100%", "528px"]}
           justifyContent="space-between"
@@ -94,7 +94,7 @@ const DrawerBottom = () => {
             </Stack>
 
             <Box width="100%" pt={["16", "4"]} pl={["0", "8"]} overflowY="auto">
-              <Box display={["block", "none"]}>
+              <Box display={["block", "none"]} pt="32">
                 <Button
                   backgroundColor="transparent"
                   float="right"

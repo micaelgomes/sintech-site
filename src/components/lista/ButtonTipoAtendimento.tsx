@@ -25,7 +25,7 @@ const ButtonTipoAtendimento: React.FC = () => {
     },
     {
       slug: "link_videoconferencia",
-      nome: "Vídeo Conferência",
+      nome: "Videoconferência",
     },
     {
       slug: "link_renovacao_online",
