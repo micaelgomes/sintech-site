@@ -7,7 +7,7 @@ const Partners: React.FC = () => {
     <Box
       position="relative"
       width="100%"
-      py={["4", "6", "16"]}
+      py={["4", "6", "10"]}
       backgroundColor="white"
       _before={{
         content: '""',
@@ -32,35 +32,36 @@ const Partners: React.FC = () => {
           mx="auto"
           pb="4"
           zIndex={5}
+          gap="25px"
         >
           <Image
-            src="/receita.jpg"
-            blurDataURL="/receita.jpg"
-            alt="Logo da Receita Federal"
-            width={450}
-            height={200}
+            src="/global.jpg"
+            blurDataURL="/global.jpg"
+            alt="Logo da Global Sign"
+            width={400}
+            height={125}
           />
 
           <Image
-            src="/gti.jpg"
-            blurDataURL="/gti.jpg"
-            alt="Logo da Receita Federal"
-            width={200}
-            height={175}
+            src="/fiema.jpg"
+            blurDataURL="/fiema.jpg"
+            alt="Logo da FIEMA"
+            width={320}
+            height={110}
           />
 
           <Image
             src="/soluti.jpg"
             blurDataURL="/soluti.jpg"
-            alt="Logo da Receita Federal"
-            width={350}
-            height={175}
+            alt="Logo da Soluti"
+            width={300}
+            height={250}
           />
 
           <Image
-            src="/criativos.jpg"
-            blurDataURL="/criativos.jpg"
-            alt="Logo da Receita Federal"
+            src="/acm.jpg"
+            blurDataURL="/acm.jpg"
+            alt="Logo da Associação Comercial do Maranhão"
             width={400}
             height={200}
           />
@@ -68,9 +69,9 @@ const Partners: React.FC = () => {
           <Image
             src="/iti.jpg"
             blurDataURL="/iti.jpg"
-            alt="Logo da Receita Federal"
+            alt="Logo do Instituto Nacional de Tecnologia da Informação"
             width={400}
-            height={175}
+            height={150}
           />
         </Flex>
       </Box>
