@@ -33,6 +33,7 @@ import { getSubcategoria } from "../../service/useCases/getSubcategoria";
 
 import animationLoad from "../../animation/load.json";
 import ListItemProduto from "./ListItemProduto";
+import ButtonAssinatura from "./ButtonAssinatura";
 
 enum CategoriaType {
   PF = 0,
@@ -47,6 +48,9 @@ const HeaderLista: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [subcategoriaPF, setSubcategoriaPF] = useState<SubcategoriaType[]>([]);
   const [subcategoriaPJ, setSubcategoriaPJ] = useState<SubcategoriaType[]>([]);
+
+  const dontShowSPlus = ["BIRD"];
+  const showAssinaturaButton = ["BIRD"];
 
   const {
     label,
@@ -292,7 +296,12 @@ const HeaderLista: React.FC = () => {
                         <ButtonTipoAtendimento />
                         <ButtonValidade />
                         <ButtonMidia />
-                        <ButtonSPlus description="" />
+                        {!dontShowSPlus.includes(label) && (
+                          <ButtonSPlus description="" />
+                        )}
+                        {showAssinaturaButton.includes(label) && (
+                          <ButtonAssinatura />
+                        )}
                         <Box py="2" />
                       </Stack>
                     </Box>

@@ -32,7 +32,11 @@ interface ProdutoInfoMontado {
     id: number;
     rotulo: string;
   };
-  splus: boolean;
+  assinatura?: {
+    id: number;
+    rotulo: string;
+  };
+  splus?: boolean;
 }
 
 interface ProdutoData {
@@ -41,6 +45,8 @@ interface ProdutoData {
   setValidades: Dispatch<SetStateAction<any>>;
   midias: any;
   setMidias: Dispatch<SetStateAction<any>>;
+  assinaturas: any;
+  setAssinaturas: Dispatch<SetStateAction<any>>;
   produtoSelecionado: ProdutoInfoMontado;
   setProdutoSelecionado: Dispatch<SetStateAction<ProdutoInfoMontado>>;
   produtos: ProdutoType[];
@@ -64,6 +70,7 @@ const ProdutoProvider: React.FC = ({ children }) => {
   const [produtos, setProdutos] = useState([]);
   const [validades, setValidades] = useState([]);
   const [midias, setMidias] = useState([]);
+  const [assinaturas, setAssinaturas] = useState([]);
   const [label, setLabel] = useState("");
   const [statusPodeComprar, setStatusPodeComprar] = useState(false);
   const [currShowed, setCurrShowed] = useState(1);
@@ -107,10 +114,24 @@ const ProdutoProvider: React.FC = ({ children }) => {
         (midia) => midia.id === produtoSelecionado.midia.id
       );
 
-      const links = midia?.splus.find((splus) => splus.is_splus === hasSPlus);
-      const linkToRedirect = links[produtoSelecionado.tipoAtendimento.slug];
+      if (produtoSelecionado.validade.id) {
+        const assinatura = assinaturas?.find(
+          (tmpAssinatura) =>
+            tmpAssinatura.id === produtoSelecionado.assinatura?.id
+        );
 
-      window.open(linkToRedirect, "_blank");
+        if (assinatura) {
+          const linkToRedirect =
+            assinatura[produtoSelecionado.tipoAtendimento.slug];
+
+          window.open(linkToRedirect, "_blank");
+        }
+      } else {
+        const links = midia?.splus.find((splus) => splus.is_splus === hasSPlus);
+        const linkToRedirect = links[produtoSelecionado.tipoAtendimento.slug];
+
+        window.open(linkToRedirect, "_blank");
+      }
     } catch (err) {
       addToast("error", "Produto sem Link para compra");
 
@@ -126,11 +147,23 @@ const ProdutoProvider: React.FC = ({ children }) => {
     );
 
     if (midia) {
-      const links = midia?.splus.find((splus) => splus.is_splus === hasSPlus);
+      if (produtoSelecionado.validade.id) {
+        const assinatura = assinaturas?.find(
+          (tmpAssinatura) =>
+            tmpAssinatura.id === produtoSelecionado.assinatura?.id
+        );
 
-      if (links) {
-        const newPreco = Number(links.preco);
-        setPreco(newPreco);
+        if (assinatura) {
+          const newPreco = Number(assinatura.preco);
+          setPreco(newPreco);
+        }
+      } else {
+        const links = midia?.splus.find((splus) => splus.is_splus === hasSPlus);
+
+        if (links) {
+          const newPreco = Number(links.preco);
+          setPreco(newPreco);
+        }
       }
     }
   };
@@ -142,6 +175,8 @@ const ProdutoProvider: React.FC = ({ children }) => {
       setValidades,
       midias,
       setMidias,
+      assinaturas,
+      setAssinaturas,
       produtoSelecionado,
       setProdutoSelecionado,
       produtos,
@@ -161,6 +196,8 @@ const ProdutoProvider: React.FC = ({ children }) => {
       setValidades,
       midias,
       setMidias,
+      assinaturas,
+      setAssinaturas,
       produtoSelecionado,
       setProdutoSelecionado,
       produtos,
