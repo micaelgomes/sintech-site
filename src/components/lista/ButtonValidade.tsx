@@ -123,6 +123,7 @@ const ButtonValidade: React.FC = () => {
                 {validades?.length > 0 ? (
                   validades.map((validade) => (
                     <Radio
+                      key={validade.id}
                       value={`${validade.id}@${validade.rotulo}`}
                       borderColor="secondary"
                       _checked={{

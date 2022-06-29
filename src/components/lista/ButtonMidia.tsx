@@ -133,6 +133,7 @@ const ButtonMidia: React.FC = () => {
                 {midias?.length > 0 ? (
                   midias.map((midia) => (
                     <Radio
+                      key={midia.id}
                       value={`${midia.id}@${midia.rotulo}`}
                       borderColor="secondary"
                       _checked={{

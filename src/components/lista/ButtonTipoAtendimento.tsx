@@ -16,18 +16,22 @@ import { useProduto } from "./context/produto";
 
 const ButtonTipoAtendimento: React.FC = () => {
   const [opened, setOpened] = useState(false);
+  const [selected, setSelected] = useState(null);
   const { produtos, setProdutoSelecionado, produtoSelecionado } = useProduto();
 
   const tiposAtendimento = [
     {
+      id: produtoSelecionado.variacaoProduto?.id,
       slug: "link_presencial",
       nome: "Presencial",
     },
     {
+      id: produtoSelecionado.variacaoProduto?.id,
       slug: "link_videoconferencia",
       nome: "Videoconferência",
     },
     {
+      id: produtoSelecionado.variacaoProduto?.id,
       slug: "link_renovacao_online",
       nome: "Renovação Online",
     },
@@ -38,13 +42,16 @@ const ButtonTipoAtendimento: React.FC = () => {
   };
 
   const selectAtendimento = (value: string) => {
-    const [slug, nome] = value.split("@");
+    const [id, slug] = value.split("@");
 
+    console.log(value);
+
+    setSelected(value);
     setProdutoSelecionado({
       ...produtoSelecionado,
       tipoAtendimento: {
+        id: Number(id),
         slug,
-        nome,
       },
     });
   };
@@ -102,13 +109,13 @@ const ButtonTipoAtendimento: React.FC = () => {
       >
         <Box px="2" mt="2" maxHeight={230} overflow="auto">
           <Stack>
-            <RadioGroup onChange={selectAtendimento}>
+            <RadioGroup value={selected} onChange={selectAtendimento}>
               <Stack>
                 {produtos?.length > 0 ? (
                   tiposAtendimento.map((tipo) => (
                     <Radio
                       key={tipo.slug}
-                      value={`${tipo.slug}@${tipo.nome}`}
+                      value={`${tipo.id}@${tipo.slug}`}
                       borderColor="secondary"
                       _checked={{
                         backgroundColor: "primary",

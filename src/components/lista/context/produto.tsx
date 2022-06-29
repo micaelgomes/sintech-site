@@ -21,8 +21,8 @@ interface ProdutoInfoMontado {
     nome: string;
   };
   tipoAtendimento: {
+    id: number;
     slug: string;
-    nome: string;
   };
   validade: {
     id: number;
@@ -80,9 +80,13 @@ const ProdutoProvider: React.FC = ({ children }) => {
   const { addToast } = useToast();
 
   const getInfosProduto = async (subcategoria: SubcategoriaType) => {
+    const radioElms = document.getElementById("radio-atendimento");
+    console.log(radioElms);
+
     setProdutos([]);
     setValidades([]);
     setMidias([]);
+    setAssinaturas([]);
     setProdutoSelecionado({} as ProdutoInfoMontado);
 
     const infos = await getProdutosPorID(subcategoria.id);
@@ -93,14 +97,22 @@ const ProdutoProvider: React.FC = ({ children }) => {
 
   // Tem que fazer o inverso pra desabiltar quando mudar o produto
   useEffect(() => {
-    const tudoPreenchido =
-      produtoSelecionado.variacaoProduto &&
-      produtoSelecionado.tipoAtendimento &&
-      produtoSelecionado.validade &&
-      produtoSelecionado.midia;
+    let requisitosPreenchidos =
+      typeof produtoSelecionado.variacaoProduto?.nome !== "undefined" &&
+      typeof produtoSelecionado.tipoAtendimento?.slug !== "undefined" &&
+      typeof produtoSelecionado.validade?.rotulo !== "undefined" &&
+      typeof produtoSelecionado.midia?.rotulo !== "undefined";
 
-    if (tudoPreenchido) {
+    if (label === "BIRD") {
+      requisitosPreenchidos =
+        requisitosPreenchidos &&
+        typeof produtoSelecionado.assinatura?.rotulo !== "undefined";
+    }
+
+    if (requisitosPreenchidos) {
       setStatusPodeComprar(true);
+    } else {
+      setStatusPodeComprar(false);
     }
 
     getPrecoProduto();
@@ -108,33 +120,34 @@ const ProdutoProvider: React.FC = ({ children }) => {
 
   const getLinkParaComprar = () => {
     const hasSPlus = produtoSelecionado.splus || false;
+    let linkToRedirect;
 
     try {
       const midia = midias.find(
         (midia) => midia.id === produtoSelecionado.midia.id
       );
 
-      if (produtoSelecionado.validade.id) {
+      if (midia.assinaturas.length > 0) {
         const assinatura = assinaturas?.find(
           (tmpAssinatura) =>
             tmpAssinatura.id === produtoSelecionado.assinatura?.id
         );
 
         if (assinatura) {
-          const linkToRedirect =
-            assinatura[produtoSelecionado.tipoAtendimento.slug];
-
-          window.open(linkToRedirect, "_blank");
+          linkToRedirect = assinatura[produtoSelecionado.tipoAtendimento.slug];
         }
       } else {
         const links = midia?.splus.find((splus) => splus.is_splus === hasSPlus);
-        const linkToRedirect = links[produtoSelecionado.tipoAtendimento.slug];
+        linkToRedirect = links[produtoSelecionado.tipoAtendimento.slug];
+      }
 
+      if (linkToRedirect) {
         window.open(linkToRedirect, "_blank");
+      } else {
+        addToast("error", "Produto sem Link para compra");
       }
     } catch (err) {
-      addToast("error", "Produto sem Link para compra");
-
+      addToast("error", "Ocorreu um problema ao processar o pedido");
       throw new Error("Não foi possível recuperar o link");
     }
   };
@@ -147,7 +160,7 @@ const ProdutoProvider: React.FC = ({ children }) => {
     );
 
     if (midia) {
-      if (produtoSelecionado.validade.id) {
+      if (midia.assinaturas.length > 0) {
         const assinatura = assinaturas?.find(
           (tmpAssinatura) =>
             tmpAssinatura.id === produtoSelecionado.assinatura?.id
@@ -165,6 +178,8 @@ const ProdutoProvider: React.FC = ({ children }) => {
           setPreco(newPreco);
         }
       }
+    } else {
+      setPreco(0);
     }
   };
 

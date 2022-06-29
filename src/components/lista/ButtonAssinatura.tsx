@@ -144,7 +144,7 @@ const ButtonMidia: React.FC = () => {
                   ))
                 ) : (
                   <Text mb="4" fontWeight="medium">
-                    Escolha uma Assinatura para o certificado
+                    Escolha uma Mídia para o certificado
                   </Text>
                 )}
               </Stack>
