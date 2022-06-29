@@ -120,7 +120,7 @@ const ProdutoProvider: React.FC = ({ children }) => {
 
   const getLinkParaComprar = () => {
     const hasSPlus = produtoSelecionado.splus || false;
-    let linkToRedirect;
+    let linkToRedirect: string;
 
     try {
       const midia = midias.find(
