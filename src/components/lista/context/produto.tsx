@@ -80,9 +80,6 @@ const ProdutoProvider: React.FC = ({ children }) => {
   const { addToast } = useToast();
 
   const getInfosProduto = async (subcategoria: SubcategoriaType) => {
-    const radioElms = document.getElementById("radio-atendimento");
-    console.log(radioElms);
-
     setProdutos([]);
     setValidades([]);
     setMidias([]);
