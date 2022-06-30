@@ -88,7 +88,7 @@ const Footer = () => {
                   Nossa sede
                 </Title>
                 <Subtitle fontSize="md">
-                  Av. Colares Moreira, 3197-3441, Monumental Shopping - Sobre
+                  Av. Colares Moreira, 3197-3444, Monumental Shopping - Sobre
                   Loja 105A Jardim Renascenca, São Luís - MA
                 </Subtitle>
               </Box>

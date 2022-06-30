@@ -66,20 +66,15 @@ const Navbar: React.FC = () => {
             </Text>
 
             <HStack spacing={6}>
-              <Box cursor="pointer" ml="4">
-                <Link href="/">
-                  <AiOutlineSearch size={32} />
-                </Link>
-              </Box>
-              <Box cursor="pointer">
-                <Link href="/">
+              <Box cursor="pointer" ml={4}>
+                <a href="https://loja.sintechsolucoes.com.br/login" target="_blank">
                   <AiOutlineUser size={32} />
-                </Link>
+                </a>
               </Box>
               <Box cursor="pointer">
-                <Link href="/checkout">
+                <a href="https://loja.sintechsolucoes.com.br/carrinho" target="_blank">
                   <AiOutlineShoppingCart size={32} />
-                </Link>
+                </a>
               </Box>
             </HStack>
           </Wrap>
