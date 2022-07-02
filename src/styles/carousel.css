@@ -1,0 +1,45 @@
+.InfiniteCarouselDots {
+    bottom: -50px !important;
+}
+
+@media (min-width: 1520px){
+    .InfiniteCarouselDots {
+        bottom: -180px !important;
+        right: -800px;
+        left: unset !important;
+    }
+
+    .InfiniteCarouselDot {
+        width: 100px !important;
+    }
+    
+    .InfiniteCarouselDotIcon {
+        width: 100% !important;
+        border-radius: 5px !important;
+        background-color: #194F69 !important;
+        opacity: 0.5;
+    }
+    
+    .InfiniteCarouselDotActiveIcon {
+        opacity: 1;
+    }
+}
+
+@media (min-width: 1620px){
+    .InfiniteCarouselDots {
+        right: -1000px;
+    }
+}
+
+@media (min-width: 1720px){
+    .InfiniteCarouselDots {
+        right: -1200px;
+    }
+}
+
+@media (min-width: 1920px){
+    .InfiniteCarouselDots {
+        right: -1250px;
+    }
+}
+

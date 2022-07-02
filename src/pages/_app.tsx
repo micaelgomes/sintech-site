@@ -6,6 +6,7 @@ import Head from "next/head";
 import AppProvider from "../context";
 
 import "typeface-open-sans";
+import "../styles/carousel.css";
 
 function App({ Component, pageProps }: AppProps) {
   return (

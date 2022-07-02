@@ -1,10 +1,16 @@
-import { Box, Heading, HStack, Text } from "@chakra-ui/react";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
+import dynamic from "next/dynamic";
+import { Box, Heading, Text } from "@chakra-ui/react";
+import { items } from "./items";
 
 const CarouselFeat: React.FC = () => {
+  const InfiniteCarousel = dynamic<any>(() => import("react-leaf-carousel"), {
+    ssr: false,
+  });
+
   return (
-    <Box position="relative" zIndex={0} mb={["96", "96", "20", "20", "20"]}>
+    <Box position="relative" zIndex={0} mb={["28rem", "96", "20", "20", "20"]}>
       <Box
         position="absolute"
         backgroundColor={[
@@ -23,20 +29,29 @@ const CarouselFeat: React.FC = () => {
         textAlign={["left", "left", "right", "right", "right"]}
         zIndex={5}
       >
-        <Heading
-          color="secondary"
-          fontSize={["4xl", "5xl", "7xl", "7xl", "7xl"]}
-          textAlign={["left", "left", "right", "right", "right"]}
-          pl="4"
-          lineHeight={0.95}
+        <InfiniteCarousel
+          arrows={false}
+          dots
+          slidesToScroll={1}
+          slidesToShow={1}
         >
-          Video Chamada
-        </Heading>
-        <Text fontSize="2xl" fontWeight="thin" mt="6" pl="4">
-          Pensando nisso, a Sintech oferece serviços para trazer comodidade,
-          agilidade, segurança e garantia nas atividades de seus clientes pelo
-          meio digital.
-        </Text>
+          {items.map((item, i) => (
+            <div key={i}>
+              <Heading
+                color="secondary"
+                fontSize={["4xl", "5xl", "7xl", "7xl", "7xl"]}
+                textAlign={["left", "left", "right", "right", "right"]}
+                pl="4"
+                lineHeight={0.95}
+              >
+                {item.title}
+              </Heading>
+              <Text fontSize="2xl" fontWeight="thin" mt="6" pl="4">
+                {item.content}
+              </Text>
+            </div>
+          ))}
+        </InfiniteCarousel>
       </Box>
 
       <Box
@@ -44,12 +59,12 @@ const CarouselFeat: React.FC = () => {
         position="absolute"
         borderTopLeftRadius="3xl"
         borderBottomLeftRadius="3xl"
-        top="calc(40% + 550px)"
+        top="calc(40% + 540px)"
         right={0}
         py="12"
         px="24"
         width={600}
-        zIndex={5}
+        zIndex={1}
         textAlign="right"
         _before={{
           content: '""',
@@ -63,22 +78,7 @@ const CarouselFeat: React.FC = () => {
           zIndex: -1,
           borderLeftRadius: "1.5rem",
         }}
-      >
-        <HStack>
-          {Array(3)
-            .fill(0)
-            .map((_, i) => (
-              <Box
-                key={i}
-                backgroundColor="secondary"
-                width={100}
-                height={2}
-                borderRadius="lg"
-                cursor="pointer"
-              />
-            ))}
-        </HStack>
-      </Box>
+      />
 
       <Image
         src="/woman.png"
