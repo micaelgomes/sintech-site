@@ -3,6 +3,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import { items } from "./items";
+import Button from "../../globals/Button";
 
 const CarouselFeat: React.FC = () => {
   const InfiniteCarousel = dynamic<any>(() => import("react-leaf-carousel"), {
@@ -49,6 +50,9 @@ const CarouselFeat: React.FC = () => {
               <Text fontSize="2xl" fontWeight="thin" mt="6" pl="4">
                 {item.content}
               </Text>
+              <Button variant="primary" mt={4}>
+                <a href={item.link} target={"_blank"}> {item.label}</a>
+              </Button>
             </div>
           ))}
         </InfiniteCarousel>
