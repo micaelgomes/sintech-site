@@ -76,12 +76,10 @@ const ButtonSPlus: React.FC<ButtonSPlusProps> = ({ description }) => {
               maxWidth={400}
             >
               <Text color="secondary" fontSize="xl" fontWeight="bold">
-                O que é o Token?
+                O que é o S.Plus?
               </Text>
               <Text color="secondary" my="4">
-                Nunc id justo eget lacus pulvinar iaculis sit amet a felis.
-                Vivamus vitae bibendum nibh, ac tristique urna. Quisque ac est
-                vitae arcu interdum dapibus id nec justo.
+              Agora, se perder o seu certificado, tiver o computador formatado ou esquecer a senha, não se preocupe! Com o S.plus emitimos um novo Certificado Digital sem precisar adquirir um novo.
               </Text>
             </Stack>
           </Popup>

@@ -51,7 +51,9 @@ const Faq: React.FC = () => {
                 {question.question}
               </Text>
               <Button variant="secondary" mt="auto">
-                Ver perguntas frequentes
+                <a href={question.link} target={"_blank"}>
+                  Ver perguntas frequentes
+                </a>
               </Button>
             </Stack>
           ))}
