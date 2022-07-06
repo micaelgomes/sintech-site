@@ -1,30 +1,42 @@
-import { Box, FormHelperText, Input, InputProps } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormErrorMessage,
+  Input,
+  InputProps,
+} from "@chakra-ui/react";
 import React from "react";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 type InputPartnerProps = {
   id: string;
-  textSupport?: string;
+  errors?: any;
+  register: UseFormRegister<FieldValues>;
 } & InputProps;
 
 const InputPartner: React.FC<InputPartnerProps> = ({
   id,
-  textSupport,
+  errors,
+  name,
+  register,
   ...props
 }) => {
   return (
-    <Box my="2" flex={1}>
+    <FormControl my="2" flex={1} isInvalid={errors?.[name]}>
       <Input
         id={id}
-        type="email"
+        name={name}
         backgroundColor="white"
         size="lg"
         _placeholder={{ fontWeight: 700, color: "gray.400" }}
         {...props}
+        {...register(name, {
+          required: "Campo Obrigatório",
+        })}
       />
-      {textSupport && (
-        <FormHelperText>We'll never share your email.</FormHelperText>
+      {errors?.[name] && (
+        <FormErrorMessage>{errors?.[name].message}</FormErrorMessage>
       )}
-    </Box>
+    </FormControl>
   );
 };
 

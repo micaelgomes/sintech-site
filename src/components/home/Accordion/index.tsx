@@ -9,16 +9,58 @@ import {
   Text,
   Textarea,
   Button as ButtonChakra,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../../globals/Button";
 import AccordionItem from "./AccordionItem";
 import InputPartner from "./inputPartner";
 import { questions } from "./questions";
 import { FiChevronUp, FiSend } from "react-icons/fi";
+import { useForm } from "react-hook-form";
+import api from "../../../service/api";
+import { useToast } from "../../../context/toast";
+
+interface FormData {
+  nome: string;
+  sobrenome: string;
+  telefone: string;
+  email: string;
+  mensagem: string;
+}
 
 const Accordion: React.FC = () => {
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors, isSubmitting, isSubmitSuccessful },
+  } = useForm();
+
+  const { addToast } = useToast();
+
+  async function onSubmit(values: FormData) {
+    await api
+      .post("/form-parceiro", values)
+      .then(() => {
+        addToast("success", "Mensagem Enviada!");
+      })
+      .catch(() => {
+        addToast("error", "Problemas no envio do mensagem.");
+      });
+  }
+
+  useEffect(() => {
+    reset({
+      email: "",
+      mensagem: "",
+      nome: "",
+      sobrenome: "",
+      telefone: "",
+    });
+  }, [isSubmitSuccessful]);
+
   return (
     <>
       <Box
@@ -181,32 +223,63 @@ const Accordion: React.FC = () => {
               Seja um parceiro Sintech, Entre em contato conosco.
             </Heading>
 
-            <FormControl>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <HStack spacing="4">
-                <InputPartner id="name" name="name" placeholder="Nome:" />
                 <InputPartner
-                  id="surname"
-                  name="surname"
+                  id="nome"
+                  name="nome"
+                  placeholder="Nome:"
+                  errors={errors}
+                  register={register}
+                />
+                <InputPartner
+                  id="sobrenome"
+                  name="sobrenome"
                   placeholder="Sobrenome:"
+                  errors={errors}
+                  register={register}
                 />
               </HStack>
               <HStack spacing="4">
-                <InputPartner id="email" name="email" placeholder="E-mail:" />
-                <InputPartner id="phone" name="phone" placeholder="Telefone:" />
+                <InputPartner
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="E-mail:"
+                  errors={errors}
+                  register={register}
+                />
+                <InputPartner
+                  id="telefone"
+                  name="telefone"
+                  placeholder="Telefone:"
+                  errors={errors}
+                  register={register}
+                />
               </HStack>
 
               <Box my="2">
-                <Textarea
-                  placeholder="Nos deixe uma mensagem: "
-                  backgroundColor="white"
-                  size="lg"
-                  height={120}
-                  _placeholder={{ fontWeight: 700, color: "gray.400" }}
-                />
+                <FormControl isInvalid={!!errors.mensagem}>
+                  <Textarea
+                    id="mensagem"
+                    placeholder="Nos deixe uma mensagem: "
+                    backgroundColor="white"
+                    size="lg"
+                    height={120}
+                    _placeholder={{ fontWeight: 700, color: "gray.400" }}
+                    {...register("mensagem", {
+                      required: "Campo obrigatório",
+                    })}
+                  />
+                  <FormErrorMessage>
+                    {errors?.mensagem && errors?.mensagem.message}
+                  </FormErrorMessage>
+                </FormControl>
               </Box>
 
               <Box pt="1">
                 <Button
+                  type="submit"
                   variant="primary"
                   backgroundColor="primary"
                   color="white"
@@ -214,13 +287,14 @@ const Accordion: React.FC = () => {
                   minWidth={200}
                   mt="2"
                   ml="auto"
+                  isLoading={isSubmitting}
                   _active={{}}
                 >
                   <Text mx="2">Enviar</Text>
                   <FiSend color="#FFF" size={30} />
                 </Button>
               </Box>
-            </FormControl>
+            </form>
           </Box>
         </Flex>
       </Flex>
