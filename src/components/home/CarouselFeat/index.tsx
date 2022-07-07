@@ -51,7 +51,9 @@ const CarouselFeat: React.FC = () => {
                 {item.content}
               </Text>
               <Button variant="primary" mt={4}>
-                <a href={item.link} target={"_blank"}> {item.label}</a>
+                <a href={item.link} target={"_blank"}>
+                  {item.label}
+                </a>
               </Button>
             </div>
           ))}
@@ -59,7 +61,7 @@ const CarouselFeat: React.FC = () => {
       </Box>
 
       <Box
-        display={["none", "none", "block", "block", "block"]}
+        id="container-dots"
         position="absolute"
         borderTopLeftRadius="3xl"
         borderBottomLeftRadius="3xl"

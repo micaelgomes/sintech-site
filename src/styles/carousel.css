@@ -2,9 +2,13 @@
     bottom: -50px !important;
 }
 
+#container-dots {
+    display: none !important; 
+}
+
 @media (min-width: 1520px){
     .InfiniteCarouselDots {
-        bottom: -180px !important;
+        bottom: -140px !important;
         right: -800px;
         left: unset !important;
     }
@@ -23,6 +27,11 @@
     .InfiniteCarouselDotActiveIcon {
         opacity: 1;
     }
+
+    #container-dots {
+        display: block !important; 
+    }
+    
 }
 
 @media (min-width: 1620px){
