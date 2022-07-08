@@ -31,6 +31,7 @@ interface ProdutoInfoMontado {
   midia: {
     id: number;
     rotulo: string;
+    link_imagem_midia: string;
   };
   assinatura?: {
     id: number;

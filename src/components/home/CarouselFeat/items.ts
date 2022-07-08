@@ -3,13 +3,13 @@ const items = [
     title: "Agendamento online",
     content: "Renove ou solicite o seu Certificado Digital em qualquer lugar! Fácil, prático e com a mesma segurança.",
     label: "Agende agora",
-    link: "#",
+    link: "https://sintechsolucoes.com/agendamento",
   },
   {
     title: "Vídeo chamada",
     content: "A Sintech oferece serviços para trazer comodidade, agilidade, segurança e garantia nas atividades de seus clientes pelo meio digital.",
     label: "Saiba mais",
-    link: "#",
+    link: "https://sintechsolucoes.com/agendamento",
   },
   {
     title: "Fale conosco",

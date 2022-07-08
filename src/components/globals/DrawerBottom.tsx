@@ -28,7 +28,7 @@ const DrawerBottom = () => {
   const [isLargerThan40em] = useMediaQuery("(min-width: 712px)");
   const { isOpen, toggleDrawerBottom } = useDrawerBottom();
 
-  const { label, preco, statusPodeComprar, getLinkParaComprar } = useProduto();
+  const { label, preco, midias, statusPodeComprar, getLinkParaComprar, produtoSelecionado } = useProduto();
 
   return (
     <DrawerModern
@@ -59,8 +59,8 @@ const DrawerBottom = () => {
             <Stack width={600} display={["none", "flex"]}>
               <Box flex={1}>
                 <Image
-                  src="/token.png"
-                  alt="Logo da Sintech"
+                  src={produtoSelecionado.midia?.link_imagem_midia ? produtoSelecionado.midia?.link_imagem_midia : "/token.png"}
+                  alt="Mídia"
                   width={300}
                   height={250}
                 />

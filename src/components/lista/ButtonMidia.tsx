@@ -18,6 +18,8 @@ const ButtonMidia: React.FC = () => {
   const [opened, setOpened] = useState(false);
   const [selected, setSelected] = useState("");
 
+  
+
   const {
     setProdutoSelecionado,
     produtoSelecionado,
@@ -26,6 +28,7 @@ const ButtonMidia: React.FC = () => {
     setMidias,
     resetCompra,
   } = useProduto();
+
 
   useEffect(() => {
     if (produtoSelecionado.validade) {
@@ -37,7 +40,7 @@ const ButtonMidia: React.FC = () => {
 
       if (validade?.midias?.length === 1) {
         const uniqueMidia = validade?.midias[0];
-        const presetSelected = `${uniqueMidia.id}@${uniqueMidia.rotulo}`;
+        const presetSelected = `${uniqueMidia.id}@${uniqueMidia.rotulo}@${uniqueMidia.link_imagem_midia}`;
 
         setSelected(presetSelected);
       }
@@ -56,13 +59,14 @@ const ButtonMidia: React.FC = () => {
 
   useEffect(() => {
     if (selected) {
-      const [id, rotulo] = selected.split("@");
+      const [id, rotulo, midia] = selected.split("@");
 
       setProdutoSelecionado({
         ...produtoSelecionado,
         midia: {
           id: Number(id),
           rotulo: rotulo,
+          link_imagem_midia: midia
         },
       });
     }
@@ -134,7 +138,7 @@ const ButtonMidia: React.FC = () => {
                   midias.map((midia) => (
                     <Radio
                       key={midia.id}
-                      value={`${midia.id}@${midia.rotulo}`}
+                      value={`${midia.id}@${midia.rotulo}@${midia.link_imagem_midia}`}
                       borderColor="secondary"
                       _checked={{
                         backgroundColor: "primary",

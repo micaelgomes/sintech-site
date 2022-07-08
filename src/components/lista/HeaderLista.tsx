@@ -59,6 +59,7 @@ const HeaderLista: React.FC = () => {
     statusPodeComprar,
     getLinkParaComprar,
     setCurrShowed,
+    produtoSelecionado
   } = useProduto();
 
   const buscaSubcategoriaPorID = async (id: number) => {
@@ -246,8 +247,8 @@ const HeaderLista: React.FC = () => {
                     <Stack width={600}>
                       <Box flex={1}>
                         <Image
-                          src="/token.png"
-                          alt="Logo da Sintech"
+                          src={produtoSelecionado.midia?.link_imagem_midia ? produtoSelecionado.midia?.link_imagem_midia : "/token.png"}
+                          alt="Mídia"
                           width={300}
                           height={250}
                         />
