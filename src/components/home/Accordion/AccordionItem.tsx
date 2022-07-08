@@ -25,12 +25,12 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ question, answer }) => {
     >
       <Flex
         justifyContent="space-between"
-        alignItems="center"
-        height={[50, "auto"]}
+        alignItems={["flex-start", "center"]}
+        height="auto"
       >
         <Text
           color={open ? "#E1E8F0" : "secondary"}
-          fontSize={["lg", "2xl"]}
+          fontSize={["md", "lg", "2xl"]}
           fontWeight="semibold"
         >
           {question}
