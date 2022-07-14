@@ -7,6 +7,7 @@ import AppProvider from "../context";
 
 import "typeface-open-sans";
 import "../styles/carousel.css";
+import Script from "next/script";
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -33,6 +34,7 @@ sas que atuam diretamente com a atividade de certificação"
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <AppProvider>
+        <Script src="https://tag.goadopt.io/injector.js%3Fwebsite_code=83251943-8ca0-4eab-8dbb-3618f34def94"></Script>
         <Component {...pageProps} />
       </AppProvider>
     </ChakraProvider>
