@@ -6,6 +6,7 @@ export type ProdutoType = {
   nome: string;
   descricao: string;
   image: string;
+  info_produto: string;
   validades: any;
 };
 

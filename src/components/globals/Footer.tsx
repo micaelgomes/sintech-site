@@ -10,6 +10,9 @@ import {
   FaYoutube,
   FaArrowUp,
 } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { SubcategoriaType, getListaSubcategoriaPF, getListaSubcategoriaPJ } from "../../service/useCases/getListaProdutos";
+import Link from "next/link";
 
 const Footer = () => {
   const buttonToTop = () => {
@@ -20,6 +23,19 @@ const Footer = () => {
       });
     }
   };
+
+  const [subcategorias, setSubcategorias] = useState<SubcategoriaType[]>([]);
+
+  useEffect(() => {
+    const getProdutosPorCategorias = async () => {
+      const tmpSubcategoriaPF = await getListaSubcategoriaPF();
+      const tmpSubcategoriaPJ = await getListaSubcategoriaPJ();
+
+      setSubcategorias([...tmpSubcategoriaPF, ...tmpSubcategoriaPJ]);
+    };
+
+    getProdutosPorCategorias();
+  }, []);
 
   return (
     <Flex width="100%" zIndex={5} bgGradient="linear(to-b, #E6EEF1, #A4D6ED)">
@@ -88,7 +104,7 @@ const Footer = () => {
                   Nossa sede
                 </Title>
                 <Subtitle fontSize="md">
-                  Av. Colares Moreira, 3197-3444, Monumental Shopping - Sobre
+                  Av. Colares Moreira, 444, Monumental Shopping - Sobre
                   Loja 105A Jardim Renascenca, São Luís - MA
                 </Subtitle>
               </Box>
@@ -97,7 +113,9 @@ const Footer = () => {
                 <Title variant="h3" fontSize="xl" mb="2">
                   Telefone
                 </Title>
-                <Subtitle fontSize="md">+55 98 3227-4147</Subtitle>
+                <Subtitle fontSize="md">
+                  <a href="tel:+559832274147" target={"_blank"}>+55 98 3227-4147</a>
+                </Subtitle>
               </Box>
 
               <Box>
@@ -105,7 +123,7 @@ const Footer = () => {
                   E-mail
                 </Title>
                 <Subtitle fontSize="md">
-                  contato@sintechsolucoes.com.br
+                  <a href="mailto:contato@sintechsolucoes.com.br" target={'_blank'}>contato@sintechsolucoes.com.br</a>
                 </Subtitle>
               </Box>
             </Flex>
@@ -122,13 +140,13 @@ const Footer = () => {
                   Sobre nós
                 </Title>
                 <Subtitle fontSize="md" mb="1">
-                  Agente seu atendimento
+                  <a href="https://sintechsolucoes.com/atendimento" target="_blank" rel="atendimento">Agente seu atendimento</a>
                 </Subtitle>
                 <Subtitle fontSize="md" mb="1">
-                  Seja nosso parceiro
+                  <a href="https://sintechsolucoes.com/sejaumparceiro" target="_blank" rel="seja nosso parceiro">Seja nosso parceiro</a>
                 </Subtitle>
                 <Subtitle fontSize="md" mb="1">
-                  Trabalhe conosco
+                  <a href="https://sintechsolucoes.com/faleconosco" target="_blank" rel="trabalhe conosco">Trabalhe conosco</a>
                 </Subtitle>
               </Box>
 
@@ -137,10 +155,10 @@ const Footer = () => {
                   Central do Cliente
                 </Title>
                 <Subtitle fontSize="md" mb="1">
-                  Fale conosco
+                  <a href="https://sintechsolucoes.com/faleconosco" target="_blank" rel="fale conosco">Fale conosco</a>
                 </Subtitle>
                 <Subtitle fontSize="md" mb="1">
-                  Perguntas frequentes
+                  <a href="https://sintechsolucoes.com/faqjuridico" target="_blank" rel="faq juridico">Perguntas frequentes</a>
                 </Subtitle>
 
                 <HStack mt="8">
@@ -167,32 +185,21 @@ const Footer = () => {
 
               <Flex flex={1} justifyContent="space-between" gap="30px">
                 <Stack>
-                  <Subtitle fontSize="md" fontWeight="semibold">
-                    e-CPF
-                  </Subtitle>
-                  <Subtitle fontSize="md" fontWeight="semibold">
-                    e-CNPJ
-                  </Subtitle>
-                  <Subtitle fontSize="md" fontWeight="semibold">
-                    OAB
-                  </Subtitle>
-                  <Subtitle fontSize="md" fontWeight="semibold">
-                    CRM
-                  </Subtitle>
-                </Stack>
-                <Stack>
-                  <Subtitle fontSize="md" fontWeight="semibold">
-                    Bird ID
-                  </Subtitle>
-                  <Subtitle fontSize="md" fontWeight="semibold">
-                    Nota Fiscal
-                  </Subtitle>
-                  <Subtitle fontSize="md" fontWeight="semibold">
-                    SSL
-                  </Subtitle>
-                  <Subtitle fontSize="md" fontWeight="semibold">
-                    Teste Online
-                  </Subtitle>
+                  {subcategorias.map((service, i) => (
+                    <Link
+                      key={i}
+                      href={`/produto/${service.id}?rotulo=${service.rotulo}`}
+                    >
+                      <Subtitle fontSize="md" fontWeight="semibold" _hover={{
+                        transform: "scale(1.03)",
+                        cursor: "pointer",
+                        transition: "all 0.2s ease-in-out",
+                      }}>
+                        {service.rotulo}
+                      </Subtitle>
+                    </Link>
+                  )
+                  )};
                 </Stack>
               </Flex>
 
@@ -216,8 +223,8 @@ const Footer = () => {
             </Flex>
           </Flex>
         </Stack>
-      </Flex>
-    </Flex>
+      </Flex >
+    </Flex >
   );
 };
 

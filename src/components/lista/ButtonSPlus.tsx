@@ -10,6 +10,7 @@ type ButtonSPlusProps = {
 
 const ButtonSPlus: React.FC<ButtonSPlusProps> = ({ description }) => {
   const [checked, setChecked] = useState(false);
+  const [info, setInfo] = useState("");
 
   const { setProdutoSelecionado, produtoSelecionado } = useProduto();
 
@@ -26,6 +27,10 @@ const ButtonSPlus: React.FC<ButtonSPlusProps> = ({ description }) => {
 
   useEffect(() => {
     selectSPlus();
+
+    const info = (produtoSelecionado.splus) ? produtoSelecionado.midia?.splus.filter((s) => s.is_splus === true)[0].info_plus : produtoSelecionado.midia?.splus.filter((s) => s.is_splus === false)[0].info_plus
+    setInfo(info)
+
   }, [checked]);
 
   return (
@@ -79,7 +84,7 @@ const ButtonSPlus: React.FC<ButtonSPlusProps> = ({ description }) => {
                 O que é o S.Plus?
               </Text>
               <Text color="secondary" my="4">
-              Agora, se perder o seu certificado, tiver o computador formatado ou esquecer a senha, não se preocupe! Com o S.plus emitimos um novo Certificado Digital sem precisar adquirir um novo.
+                {info}
               </Text>
             </Stack>
           </Popup>

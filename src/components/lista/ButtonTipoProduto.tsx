@@ -13,6 +13,8 @@ import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 import { motion } from "framer-motion";
 import { useProduto } from "./context/produto";
+import Popup from "reactjs-popup";
+import { FiHelpCircle } from "react-icons/fi";
 
 const ButtonTipoProduto: React.FC = () => {
   const [opened, setOpened] = useState(false);
@@ -97,14 +99,53 @@ const ButtonTipoProduto: React.FC = () => {
             <RadioGroup onChange={selectProduto}>
               <Stack>
                 {produtos?.map((product) => (
-                  <Radio
-                    key={product.id}
-                    value={`${product.id}@${product.nome}`}
-                    borderColor="secondary"
-                    _checked={{
-                      backgroundColor: "primary",
-                    }}
-                  >{`Versão ${product.nome}`}</Radio>
+
+                  <HStack>
+                    <Radio
+                      key={product.id}
+                      value={`${product.id}@${product.nome}`}
+                      borderColor="secondary"
+                      _checked={{
+                        backgroundColor: "primary",
+                      }}
+                    >{`Versão ${product.nome}`}</Radio>
+
+                    <Popup
+                      trigger={() => (
+                        <Button
+                          background="none"
+                          _hover={{ background: "none" }}
+                          _active={{ background: "none" }}
+                          p="0"
+                          mr="-2"
+                        >
+                          <FiHelpCircle color="#194F69" size={22} />
+                        </Button>
+                      )}
+                      on={["hover", "focus"]}
+                      position="top center"
+                      closeOnDocumentClick
+                      offsetY={-3}
+                      offsetX={10}
+                      arrowStyle={{
+                        color: "#E1E8F0",
+                      }}
+                    >
+                      <Stack
+                        background="#E1E8F0"
+                        px="6"
+                        py="4"
+                        borderRadius="2xl"
+                        shadow="2xl"
+                        maxWidth={400}
+                      >
+                        <Text color="secondary" my="4">
+                          {product.info_produto}
+                        </Text>
+                      </Stack>
+                    </Popup>
+                  </HStack>
+
                 ))}
               </Stack>
             </RadioGroup>

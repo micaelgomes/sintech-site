@@ -31,6 +31,7 @@ sas que atuam diretamente com a atividade de certificação"
           name="keywords"
           content="Segurança Digital, Certificado, Gestão Empresarial"
         />
+        <meta name="adopt-website-id" content="83251943-8ca0-4eab-8dbb-3618f34def94" />
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <AppProvider>

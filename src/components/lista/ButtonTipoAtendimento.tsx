@@ -13,6 +13,8 @@ import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 import { motion } from "framer-motion";
 import { useProduto } from "./context/produto";
+import { FiHelpCircle } from "react-icons/fi";
+import Popup from "reactjs-popup";
 
 const ButtonTipoAtendimento: React.FC = () => {
   const [opened, setOpened] = useState(false);
@@ -24,16 +26,19 @@ const ButtonTipoAtendimento: React.FC = () => {
       id: produtoSelecionado.variacaoProduto?.id,
       slug: "link_presencial",
       nome: "Presencial",
+      info: produtoSelecionado.midia?.splus[0].info_presencial
     },
     {
       id: produtoSelecionado.variacaoProduto?.id,
       slug: "link_videoconferencia",
       nome: "Videoconferência",
+      info: produtoSelecionado.midia?.splus[0].info_videoconferencia
     },
     {
       id: produtoSelecionado.variacaoProduto?.id,
       slug: "link_renovacao_online",
       nome: "Renovação Online",
+      info: produtoSelecionado.midia?.splus[0].info_renovacao_online
     },
   ];
 
@@ -113,16 +118,53 @@ const ButtonTipoAtendimento: React.FC = () => {
               <Stack>
                 {produtos?.length > 0 ? (
                   tiposAtendimento.map((tipo) => (
-                    <Radio
-                      key={tipo.slug}
-                      value={`${tipo.id}@${tipo.slug}`}
-                      borderColor="secondary"
-                      _checked={{
-                        backgroundColor: "primary",
-                      }}
-                    >
-                      {tipo.nome}
-                    </Radio>
+                    <HStack>
+                      <Radio
+                        key={tipo.slug}
+                        value={`${tipo.id}@${tipo.slug}`}
+                        borderColor="secondary"
+                        _checked={{
+                          backgroundColor: "primary",
+                        }}
+                      >
+                        {tipo.nome}
+                      </Radio>
+                      <Popup
+                        trigger={() => (
+                          <Button
+                            background="none"
+                            _hover={{ background: "none" }}
+                            _active={{ background: "none" }}
+                            p="0"
+                            mr="-2"
+                          >
+                            <FiHelpCircle color="#194F69" size={22} />
+                          </Button>
+                        )}
+                        on={["hover", "focus"]}
+                        position="top center"
+                        closeOnDocumentClick
+                        offsetY={-3}
+                        offsetX={10}
+                        arrowStyle={{
+                          color: "#E1E8F0",
+                        }}
+                      >
+                        <Stack
+                          background="#E1E8F0"
+                          px="6"
+                          py="4"
+                          borderRadius="2xl"
+                          shadow="2xl"
+                          maxWidth={400}
+                        >
+                          <Text color="secondary" my="4">
+                            {tipo.info}
+                          </Text>
+                        </Stack>
+                      </Popup>
+                    </HStack>
+
                   ))
                 ) : (
                   <Text mb="4" fontWeight="medium">

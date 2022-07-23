@@ -15,7 +15,7 @@ import {
   ProdutoType,
 } from "../../../service/useCases/getProdutosPorID";
 
-interface ProdutoInfoMontado {
+export interface ProdutoInfoMontado {
   variacaoProduto: {
     id: number;
     nome: string;
@@ -32,12 +32,21 @@ interface ProdutoInfoMontado {
     id: number;
     rotulo: string;
     link_imagem_midia: string;
+    info_midia: string;
+    splus: {
+      is_splus: boolean;
+      info_presencial: string;
+      info_videoconferencia: string;
+      info_renovacao_online: string;
+      info_plus: string;
+    }[]
   };
   assinatura?: {
     id: number;
     rotulo: string;
   };
   splus?: boolean;
+  info_splus?: string;
 }
 
 interface ProdutoData {
@@ -114,6 +123,7 @@ const ProdutoProvider: React.FC = ({ children }) => {
     }
 
     getPrecoProduto();
+    console.log(produtoSelecionado)
   }, [produtoSelecionado]);
 
   const getLinkParaComprar = () => {

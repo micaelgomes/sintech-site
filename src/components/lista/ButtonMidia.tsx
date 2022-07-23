@@ -12,13 +12,13 @@ import React, { memo, useEffect, useRef, useState } from "react";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 import { motion } from "framer-motion";
-import { useProduto } from "./context/produto";
+import { ProdutoInfoMontado, useProduto } from "./context/produto";
+import Popup from "reactjs-popup";
+import { FiHelpCircle } from "react-icons/fi";
 
 const ButtonMidia: React.FC = () => {
   const [opened, setOpened] = useState(false);
-  const [selected, setSelected] = useState("");
-
-  
+  const [selected, setSelected] = useState<ProdutoInfoMontado["midia"]>({} as ProdutoInfoMontado["midia"]);
 
   const {
     setProdutoSelecionado,
@@ -40,12 +40,11 @@ const ButtonMidia: React.FC = () => {
 
       if (validade?.midias?.length === 1) {
         const uniqueMidia = validade?.midias[0];
-        const presetSelected = `${uniqueMidia.id}@${uniqueMidia.rotulo}@${uniqueMidia.link_imagem_midia}`;
-
-        setSelected(presetSelected);
+        setSelected(uniqueMidia);
       }
 
       setMidias(validade?.midias || []);
+
     }
   }, [produtoSelecionado]);
 
@@ -54,20 +53,16 @@ const ButtonMidia: React.FC = () => {
   };
 
   const selectMidia = (value: string) => {
-    setSelected(value);
+    console.log(value)
+    const midia = midias.filter((m) => m.id === Number(value))
+    setSelected(midia);
   };
 
   useEffect(() => {
     if (selected) {
-      const [id, rotulo, midia] = selected.split("@");
-
       setProdutoSelecionado({
         ...produtoSelecionado,
-        midia: {
-          id: Number(id),
-          rotulo: rotulo,
-          link_imagem_midia: midia
-        },
+        midia: selected,
       });
     }
   }, [selected]);
@@ -132,20 +127,56 @@ const ButtonMidia: React.FC = () => {
       >
         <Box px="2" mt="2" maxHeight={230} overflow="auto">
           <Stack>
-            <RadioGroup onChange={selectMidia} value={selected}>
+            <RadioGroup onChange={selectMidia} value={selected.id}>
               <Stack>
                 {midias?.length > 0 ? (
                   midias.map((midia) => (
-                    <Radio
-                      key={midia.id}
-                      value={`${midia.id}@${midia.rotulo}@${midia.link_imagem_midia}`}
-                      borderColor="secondary"
-                      _checked={{
-                        backgroundColor: "primary",
-                      }}
-                    >
-                      {midia.rotulo}
-                    </Radio>
+                    <HStack key={midia.id}>
+                      <Radio
+                        key={midia.id}
+                        value={midia.id}
+                        borderColor="secondary"
+                        _checked={{
+                          backgroundColor: "primary",
+                        }}
+                      >
+                        {midia.rotulo}
+                      </Radio>
+                      <Popup
+                        trigger={() => (
+                          <Button
+                            background="none"
+                            _hover={{ background: "none" }}
+                            _active={{ background: "none" }}
+                            p="0"
+                            mr="-2"
+                          >
+                            <FiHelpCircle color="#194F69" size={22} />
+                          </Button>
+                        )}
+                        on={["hover", "focus"]}
+                        position="top center"
+                        closeOnDocumentClick
+                        offsetY={-3}
+                        offsetX={10}
+                        arrowStyle={{
+                          color: "#E1E8F0",
+                        }}
+                      >
+                        <Stack
+                          background="#E1E8F0"
+                          px="6"
+                          py="4"
+                          borderRadius="2xl"
+                          shadow="2xl"
+                          maxWidth={400}
+                        >
+                          <Text color="secondary" my="4">
+                            {midia.info_midia}
+                          </Text>
+                        </Stack>
+                      </Popup>
+                    </HStack>
                   ))
                 ) : (
                   <Text mb="4" fontWeight="medium">
