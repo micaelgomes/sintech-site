@@ -123,7 +123,6 @@ const ProdutoProvider: React.FC = ({ children }) => {
     }
 
     getPrecoProduto();
-    console.log(produtoSelecionado)
   }, [produtoSelecionado]);
 
   const getLinkParaComprar = () => {

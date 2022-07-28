@@ -28,7 +28,8 @@ const ButtonSPlus: React.FC<ButtonSPlusProps> = ({ description }) => {
   useEffect(() => {
     selectSPlus();
 
-    const info = (produtoSelecionado.splus) ? produtoSelecionado.midia?.splus.filter((s) => s.is_splus === true)[0].info_plus : produtoSelecionado.midia?.splus.filter((s) => s.is_splus === false)[0].info_plus
+    console.log('splus', produtoSelecionado.splus)
+    const info = (produtoSelecionado.splus || produtoSelecionado.splus === undefined) ? produtoSelecionado.midia?.splus.filter((s) => s.is_splus === true)[0].info_plus : produtoSelecionado.midia?.splus.filter((s) => s.is_splus === false)[0].info_plus
     setInfo(info)
 
   }, [checked]);

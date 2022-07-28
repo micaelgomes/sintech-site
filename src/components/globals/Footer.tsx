@@ -1,4 +1,4 @@
-import { Box, Flex, FormControl, HStack, Input, Stack } from "@chakra-ui/react";
+import { Box, Flex, FormControl, HStack, Input, Stack, Image } from "@chakra-ui/react";
 import Button from "./Button";
 import { Button as ButtonChakra } from "@chakra-ui/react";
 import Subtitle from "./Subtitle";
@@ -36,6 +36,7 @@ const Footer = () => {
 
     getProdutosPorCategorias();
   }, []);
+
 
   return (
     <Flex width="100%" zIndex={5} bgGradient="linear(to-b, #E6EEF1, #A4D6ED)">
@@ -158,7 +159,7 @@ const Footer = () => {
                   <a href="https://sintechsolucoes.com/faleconosco" target="_blank" rel="fale conosco">Fale conosco</a>
                 </Subtitle>
                 <Subtitle fontSize="md" mb="1">
-                  <a href="https://sintechsolucoes.com/faqjuridico" target="_blank" rel="faq juridico">Perguntas frequentes</a>
+                  <a href="https://sintechsolucoes.com/faq/" target="_blank" rel="faq juridico">Perguntas frequentes</a>
                 </Subtitle>
 
                 <HStack mt="8">

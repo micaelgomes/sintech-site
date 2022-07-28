@@ -55,7 +55,7 @@ const ButtonMidia: React.FC = () => {
   const selectMidia = (value: string) => {
     console.log(value)
     const midia = midias.filter((m) => m.id === Number(value))
-    setSelected(midia);
+    setSelected(midia[0]);
   };
 
   useEffect(() => {
