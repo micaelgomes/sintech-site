@@ -19,26 +19,27 @@ import Popup from "reactjs-popup";
 const ButtonTipoAtendimento: React.FC = () => {
   const [opened, setOpened] = useState(false);
   const [selected, setSelected] = useState(null);
-  const { produtos, setProdutoSelecionado, produtoSelecionado } = useProduto();
+  const { produtos, midias, setProdutoSelecionado, produtoSelecionado } =
+    useProduto();
 
   const tiposAtendimento = [
     {
       id: produtoSelecionado.variacaoProduto?.id,
       slug: "link_presencial",
       nome: "Presencial",
-      info: produtoSelecionado.midia?.splus[0].info_presencial
+      info: produtoSelecionado.midia?.splus[0]?.info_presencial,
     },
     {
       id: produtoSelecionado.variacaoProduto?.id,
       slug: "link_videoconferencia",
       nome: "Videoconferência",
-      info: produtoSelecionado.midia?.splus[0].info_videoconferencia
+      info: produtoSelecionado.midia?.splus[0]?.info_videoconferencia,
     },
     {
       id: produtoSelecionado.variacaoProduto?.id,
       slug: "link_renovacao_online",
       nome: "Renovação Online",
-      info: produtoSelecionado.midia?.splus[0].info_renovacao_online
+      info: produtoSelecionado.midia?.splus[0]?.info_renovacao_online,
     },
   ];
 
@@ -116,7 +117,7 @@ const ButtonTipoAtendimento: React.FC = () => {
           <Stack>
             <RadioGroup value={selected} onChange={selectAtendimento}>
               <Stack>
-                {produtos?.length > 0 ? (
+                {midias?.length > 0 ? (
                   tiposAtendimento.map((tipo) => (
                     <HStack>
                       <Radio
@@ -164,7 +165,6 @@ const ButtonTipoAtendimento: React.FC = () => {
                         </Stack>
                       </Popup>
                     </HStack>
-
                   ))
                 ) : (
                   <Text mb="4" fontWeight="medium">
@@ -174,20 +174,22 @@ const ButtonTipoAtendimento: React.FC = () => {
               </Stack>
             </RadioGroup>
 
-            <Flex>
-              <Button
-                backgroundColor="primary"
-                color="white"
-                borderRadius="xl"
-                mt="2"
-                ml="auto"
-                onClick={toggleOpen}
-                _hover={{}}
-                _active={{}}
-              >
-                Selecionar
-              </Button>
-            </Flex>
+            {midias?.length > 0 && (
+              <Flex>
+                <Button
+                  backgroundColor="primary"
+                  color="white"
+                  borderRadius="xl"
+                  mt="2"
+                  ml="auto"
+                  onClick={toggleOpen}
+                  _hover={{}}
+                  _active={{}}
+                >
+                  Selecionar
+                </Button>
+              </Flex>
+            )}
           </Stack>
         </Box>
       </motion.div>

@@ -59,7 +59,7 @@ const HeaderLista: React.FC = () => {
     statusPodeComprar,
     getLinkParaComprar,
     setCurrShowed,
-    produtoSelecionado
+    produtoSelecionado,
   } = useProduto();
 
   const buscaSubcategoriaPorID = async (id: number) => {
@@ -247,7 +247,11 @@ const HeaderLista: React.FC = () => {
                     <Stack width={600}>
                       <Box flex={1}>
                         <Image
-                          src={produtoSelecionado.midia?.link_imagem_midia ? produtoSelecionado.midia?.link_imagem_midia : "/token.png"}
+                          src={
+                            produtoSelecionado.midia?.link_imagem_midia
+                              ? produtoSelecionado.midia?.link_imagem_midia
+                              : "/token.png"
+                          }
                           alt="Mídia"
                           width={300}
                           height={250}
@@ -294,9 +298,9 @@ const HeaderLista: React.FC = () => {
                         pr="2"
                       >
                         <ButtonTipoProduto />
-                        <ButtonTipoAtendimento />
                         <ButtonValidade />
                         <ButtonMidia />
+                        <ButtonTipoAtendimento />
                         {!dontShowSPlus.includes(label) && (
                           <ButtonSPlus description="" />
                         )}
