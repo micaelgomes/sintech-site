@@ -164,16 +164,19 @@ const Footer = () => {
 
                 <HStack mt="8">
                   <Box backgroundColor="secondary" p="2" borderRadius="md">
-                    <FaTwitter color="#38B3D2" size={24} />
+                    <a href="https://www.instagram.com/sintechcertificadodigital/" target={"_blank"}>
+                      <FaInstagram color="#38B3D2" size={24} />
+                    </a>
                   </Box>
                   <Box backgroundColor="secondary" p="2" borderRadius="md">
-                    <FaInstagram color="#38B3D2" size={24} />
+                    <a href="https://www.facebook.com/certificadodigitalma" target={"_blank"}>
+                      <FaFacebookF color="#38B3D2" size={24} />
+                    </a>
                   </Box>
                   <Box backgroundColor="secondary" p="2" borderRadius="md">
-                    <FaFacebookF color="#38B3D2" size={24} />
-                  </Box>
-                  <Box backgroundColor="secondary" p="2" borderRadius="md">
-                    <FaYoutube color="#38B3D2" size={24} />
+                    <a href="https://www.youtube.com/channel/UCU2RTfl5jBRD8DgqyGHzJYw" target={"_blank"}>
+                      <FaYoutube color="#38B3D2" size={24} />
+                    </a>
                   </Box>
                 </HStack>
               </Box>
