@@ -27,12 +27,19 @@ const ButtonSPlus: React.FC<ButtonSPlusProps> = ({ description }) => {
 
   useEffect(() => {
     selectSPlus();
-
-    console.log('splus', produtoSelecionado.splus)
-    const info = (produtoSelecionado.splus || produtoSelecionado.splus === undefined) ? produtoSelecionado.midia?.splus.filter((s) => s.is_splus === true)[0].info_plus : produtoSelecionado.midia?.splus.filter((s) => s.is_splus === false)[0].info_plus
-    setInfo(info)
-
   }, [checked]);
+
+  useEffect(() => {
+    console.log("splus", produtoSelecionado.splus);
+
+    const info =
+      produtoSelecionado.splus || produtoSelecionado.splus === undefined
+        ? produtoSelecionado.midia?.splus.filter((s) => s.is_splus === true)[0]
+            ?.info_plus
+        : produtoSelecionado.midia?.splus.filter((s) => s.is_splus === false)[0]
+            ?.info_plus;
+    setInfo(info);
+  }, [produtoSelecionado]);
 
   return (
     <Stack
@@ -85,7 +92,9 @@ const ButtonSPlus: React.FC<ButtonSPlusProps> = ({ description }) => {
                 O que é o S.Plus?
               </Text>
               <Text color="secondary" my="4">
-                {info}
+                {info
+                  ? info
+                  : "Escolha uma Mídia para entender como o S.Plus funciona"}
               </Text>
             </Stack>
           </Popup>

@@ -130,40 +130,43 @@ const ButtonTipoAtendimento: React.FC = () => {
                       >
                         {tipo.nome}
                       </Radio>
-                      <Popup
-                        trigger={() => (
-                          <Button
-                            background="none"
-                            _hover={{ background: "none" }}
-                            _active={{ background: "none" }}
-                            p="0"
-                            mr="-2"
-                          >
-                            <FiHelpCircle color="#194F69" size={22} />
-                          </Button>
-                        )}
-                        on={["hover", "focus"]}
-                        position="top center"
-                        closeOnDocumentClick
-                        offsetY={-3}
-                        offsetX={10}
-                        arrowStyle={{
-                          color: "#E1E8F0",
-                        }}
-                      >
-                        <Stack
-                          background="#E1E8F0"
-                          px="6"
-                          py="4"
-                          borderRadius="2xl"
-                          shadow="2xl"
-                          maxWidth={400}
+                      {tipo.info && (
+                        <Popup
+                          trigger={() => (
+                            <Button
+                              background="none"
+                              _hover={{ background: "none" }}
+                              _active={{ background: "none" }}
+                              p="0"
+                              mr="-2"
+                              height={"auto"}
+                            >
+                              <FiHelpCircle color="#194F69" size={22} />
+                            </Button>
+                          )}
+                          on={["hover", "focus"]}
+                          position="top center"
+                          closeOnDocumentClick
+                          offsetY={-3}
+                          offsetX={10}
+                          arrowStyle={{
+                            color: "#E1E8F0",
+                          }}
                         >
-                          <Text color="secondary" my="4">
-                            {tipo.info}
-                          </Text>
-                        </Stack>
-                      </Popup>
+                          <Stack
+                            background="#E1E8F0"
+                            px="6"
+                            py="4"
+                            borderRadius="2xl"
+                            shadow="2xl"
+                            maxWidth={400}
+                          >
+                            <Text color="secondary" my="4">
+                              {tipo.info}
+                            </Text>
+                          </Stack>
+                        </Popup>
+                      )}
                     </HStack>
                   ))
                 ) : (
