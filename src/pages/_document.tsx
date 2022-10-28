@@ -7,6 +7,7 @@ export default class Document extends NextDocument {
       <Html>
         <Head />
         <body>
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P8JBQNX" height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe></noscript>
           <ColorModeScript />
           <Main />
           <NextScript />

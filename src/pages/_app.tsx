@@ -36,6 +36,7 @@ sas que atuam diretamente com a atividade de certificação"
       </Head>
       <AppProvider>
         <Script src="//tag.goadopt.io/injector.js?website_code=83251943-8ca0-4eab-8dbb-3618f34def94" className="adopt-injector"></Script>
+        <Script src="./assets/scripts/google-tag.js"></Script>
         <Component {...pageProps} />
       </AppProvider>
     </ChakraProvider>
