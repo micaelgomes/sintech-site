@@ -53,16 +53,16 @@ const Navbar: React.FC = () => {
               <Link href="/produto">Produtos</Link>
             </Text>
             <Text fontWeight="semibold" pl="6" fontSize="lg">
-              <a href="https://sintechsolucoes.com/blog" target={"_blank"}>Blog</a>
+              <a href="https://sintechsolucoes.net/blog" target={"_blank"}>Blog</a>
             </Text>
             <Text fontWeight="semibold" pl="6" fontSize="lg">
-              <a href="https://sintechsolucoes.com/atendimento" target={"_blank"}>Atendimento</a>
+              <a href="https://sintechsolucoes.net/atendimento" target={"_blank"}>Atendimento</a>
             </Text>
             <Text fontWeight="semibold" pl="6" fontSize="lg">
-              <a href="https://sintechsolucoes.com/sejaumparceiro" target={"_blank"}>Seja um parceiro</a>
+              <a href="https://sintechsolucoes.net/sejaumparceiro" target={"_blank"}>Seja um parceiro</a>
             </Text>
             <Text fontWeight="semibold" pl="6" fontSize="lg">
-              <a href="https://sintechsolucoes.com/faleconosco" target={"_blank"}>Fale conosco</a>
+              <a href="https://sintechsolucoes.net/faleconosco" target={"_blank"}>Fale conosco</a>
             </Text>
 
             <HStack spacing={6}>

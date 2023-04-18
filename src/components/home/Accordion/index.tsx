@@ -161,7 +161,7 @@ const Accordion: React.FC = () => {
             atendimento.
           </Text>
           <Button variant="primary" mt="8" zIndex={10}>
-            <a href="https://sintechsolucoes.com/faleconosco" target={"_blank"}>
+            <a href="https://sintechsolucoes.net/faleconosco" target={"_blank"}>
               Ver todos os contatos
             </a>
           </Button>

@@ -141,13 +141,13 @@ const Footer = () => {
                   Sobre nós
                 </Title>
                 <Subtitle fontSize="md" mb="1">
-                  <a href="https://sintechsolucoes.com/atendimento" target="_blank" rel="atendimento">Agente seu atendimento</a>
+                  <a href="https://sintechsolucoes.net/atendimento" target="_blank" rel="atendimento">Agente seu atendimento</a>
                 </Subtitle>
                 <Subtitle fontSize="md" mb="1">
-                  <a href="https://sintechsolucoes.com/sejaumparceiro" target="_blank" rel="seja nosso parceiro">Seja nosso parceiro</a>
+                  <a href="https://sintechsolucoes.net/sejaumparceiro" target="_blank" rel="seja nosso parceiro">Seja nosso parceiro</a>
                 </Subtitle>
                 <Subtitle fontSize="md" mb="1">
-                  <a href="https://sintechsolucoes.com/faleconosco" target="_blank" rel="trabalhe conosco">Trabalhe conosco</a>
+                  <a href="https://sintechsolucoes.net/faleconosco" target="_blank" rel="trabalhe conosco">Trabalhe conosco</a>
                 </Subtitle>
               </Box>
 
@@ -156,10 +156,10 @@ const Footer = () => {
                   Central do Cliente
                 </Title>
                 <Subtitle fontSize="md" mb="1">
-                  <a href="https://sintechsolucoes.com/faleconosco" target="_blank" rel="fale conosco">Fale conosco</a>
+                  <a href="https://sintechsolucoes.net/faleconosco" target="_blank" rel="fale conosco">Fale conosco</a>
                 </Subtitle>
                 <Subtitle fontSize="md" mb="1">
-                  <a href="https://sintechsolucoes.com/faq/" target="_blank" rel="faq juridico">Perguntas frequentes</a>
+                  <a href="https://sintechsolucoes.net/faq/" target="_blank" rel="faq juridico">Perguntas frequentes</a>
                 </Subtitle>
 
                 <HStack mt="8">
